@@ -3,7 +3,7 @@
 <h1 align="center">Диаграмма прецедентов программы “MigrationSystem”</h1>
 <br><br><br>
 
-![] (https://github.com/tenxdevelop/MigrationProject/blob/main/useCaseDiagram.jpg)
+![](https://github.com/tenxdevelop/MigrationProject/blob/main/useCaseDiagram.jpg)
 
 
 Мигрант – иностранный гражданин, что хочет встать на учёт
