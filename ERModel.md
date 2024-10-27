@@ -11,6 +11,7 @@
 <h2>
 Сущности
 </h2>
+<head>
 <meta http-equiv=Content-Type content="text/html; charset=utf-8">
 <meta name=Generator content="Microsoft Word 15 (filtered)">
 <style>
@@ -89,12 +90,6 @@ ul
 <body lang=EN-US style='word-wrap:break-word'>
 
 <div class=WordSection1>
-
-<p class=MsoNormal align=center style='text-align:center'><span lang=RU>Описание
-диаграммы</span></p>
-
-<p class=MsoNormal align=center style='text-align:center'><span lang=RU>Сущности
-и их атрибуты</span></p>
 
 <p class=MsoNormal><span lang=RU>Пользователь – сущность которая описывает
 пользователя.</span></p>
