@@ -65,12 +65,12 @@ lang=RU style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-left:71.25pt;text-indent:
 -.25in'><span lang=RU style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span lang=RU>Член программы – входит ли мигрант в
+</span></span><span lang=RU>Член программы переселения – входит ли мигрант в
 государственную программу переселения</span></p>
 
 <p class=MsoListParagraphCxSpLast style='margin-left:71.25pt;text-indent:-.25in'><span
 lang=RU style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span lang=RU>Миграционный учёт – Состоит ли член вашей семьи или
+</span></span><span lang=RU>Состоит в миграционном учете – Состоит ли член вашей семьи или
 вы на миграционном учёте ранее.</span></p>
 
 <p class=MsoNormal><span lang=RU>Документ – Сущность, описывающая документы,
