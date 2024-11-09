@@ -111,6 +111,10 @@ lang=RU style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>
 
 <p class=MsoListParagraphCxSpMiddle style='margin-left:71.25pt;text-indent:
 -.25in'><span lang=RU style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=RU>Номер заявки - уникальный индентификатор заявления, по которому можно определить конкретное заявление.</span></p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:71.25pt;text-indent:
+-.25in'><span lang=RU style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span><span lang=RU>Прежний адрес – адрес, на котором мигрант был
 закреплен раньше, если таковой имелся.</span></p>
 
