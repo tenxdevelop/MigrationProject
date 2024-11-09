@@ -180,6 +180,15 @@ lang=RU style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>
 lang=EN-GB style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span><span lang=RU>Название – название способа уведомления.</span></p>
 
+<p class=MsoNormal><span lang=RU>Тип документа – Сущность, которая
+описывает, тип документа, характеризующая документ.</span></p>
+
+<p class=MsoNormal><span lang=RU>                Атрибуты</span>:</p>
+
+<p class=MsoListParagraph style='margin-left:71.25pt;text-indent:-.25in'><span
+lang=EN-GB style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=RU>Название – название типа документа.</span></p>
+
 </div>
 
 </body>
@@ -207,3 +216,5 @@ lang=EN-GB style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman
 Так же, пользователь может создать много уведомлений, но каждое уведомление создано лишь 1 пользователем.
 <br><br>
 Способ уведомления -> Уведомление: 1 к М, 1 способом можно отправить много уведомлений, но каждое уведомление может быть отправлено лишь 1 способом.
+<br><br>
+Тип документа -> Документ: 1 к М, 1 тип документа имеет множество документов, но каждый документ может иметь только 1 тип документа.
