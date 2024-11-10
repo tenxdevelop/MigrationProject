@@ -5,6 +5,6 @@
 
 
 Описание ChangeSystemSD:<br><br>
-<span>&nbsp;Предусловие:  тест</span><br>
-<span>&nbsp;Ссылка:  тест</span><br>
-<span>&nbsp;Постусловвие:  тест</span><br>
+<span>&nbsp;&nbsp;Предусловие:  тест</span><br>
+<span>&nbsp;&nbsp;Ссылка:  тест</span><br>
+<span>&nbsp;&nbsp;Постусловвие:  тест</span><br>
