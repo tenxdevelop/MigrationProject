@@ -4,7 +4,7 @@
 ![](https://github.com/tenxdevelop/MigrationProject/blob/main/SequenceDiagramSource/ChangeSystemSD.png)
 
 
-Описание ChangeSystemSD:
-<span>Предусловие:  тест</span>&nbsp;<br>
-<span>Ссылка:  тест</span>&nbsp;<br>
-<span>Постусловвие:  тест</span>&nbsp;<br>
+Описание ChangeSystemSD:<br><br>
+<span>&nbsp;Предусловие:  тест</span><br>
+<span>&nbsp;Ссылка:  тест</span><br>
+<span>&nbsp;Постусловвие:  тест</span><br>
