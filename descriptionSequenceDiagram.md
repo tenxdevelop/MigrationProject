@@ -76,7 +76,7 @@
 * если пользователь не был удален, вывелось сообщение об ошибке.
 
 <br><br><br>
-![](https://github.com/tenxdevelop/MigrationProject/blob/main/SequenceDiagramSource/GetMigrationInfoSD.png)
+![](https://github.com/tenxdevelop/MigrationProject/blob/main/SequenceDiagramSource/GetMigrantInfoSD.png)
 
 Описание Диаграммы последовательности "Получить информацию по мигранту":<br><br>&emsp;&emsp;
 <span>Операция: GetMigrantInfo(name, surname, patronymic, birthday, migrationCardNumber, passport)</span><br>&emsp;&emsp;
@@ -120,7 +120,7 @@
 * если новых заявлений не было, то вывелось сообщение об их отсутствии.
 
 <br><br><br>
-![](https://github.com/tenxdevelop/MigrationProject/blob/main/SequenceDiagramSource/GetRoleSD.png)
+![](https://github.com/tenxdevelop/MigrationProject/blob/main/SequenceDiagramSource/GiveRoleSD.png)
 
 Описание Диаграммы последовательности "Выдать роль":<br><br>&emsp;&emsp;
 <span>Операция: GetAllUsers</span><br>&emsp;&emsp;
@@ -183,7 +183,7 @@
 * если при регистрации почта была не действительна, то вывелось сообщение об ошибке.
 
 <br><br><br>
-![](https://github.com/tenxdevelop/MigrationProject/blob/main/SequenceDiagramSource/ResovleStatementSD.png)
+![](https://github.com/tenxdevelop/MigrationProject/blob/main/SequenceDiagramSource/ResolveStatementSD.png)
 
 Описание Диаграммы последовательности "Вынести решение по заявке":<br><br>&emsp;&emsp;
 <span>Операция: GetAllDocuments(statement)</span><br>&emsp;&emsp;
