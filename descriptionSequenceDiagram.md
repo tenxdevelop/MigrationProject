@@ -33,7 +33,7 @@
 ![](https://github.com/tenxdevelop/MigrationProject/blob/main/SequenceDiagramSource/CreateUserSD.png)
 
 Описание Диаграммы последовательности "Создать пользователя":<br><br>&emsp;&emsp;
-<span>Операция: CreateUserStatement(Name, surname, patronymic, email, password)</span><br>&emsp;&emsp;
+<span>Операция: CreateUserStatement(name, surname, patronymic, email, password)</span><br>&emsp;&emsp;
 <span>Предусловие:  администратор инициирует создание другого пользователя</span><br>&emsp;&emsp;
 <span>Ссылка:  прецедент “Создать пользователя”</span><br>&emsp;&emsp;
 <span>Постусловие:</span>
@@ -47,7 +47,7 @@
 ![](https://github.com/tenxdevelop/MigrationProject/blob/main/SequenceDiagramSource/DataControleSD.png)
 
 Описание Диаграммы последовательности "Управление данными":<br><br>&emsp;&emsp;
-<span>Операция: ChangeData(EnteringDate, country, resettlementProgramMember, consistsOfMigrationRegistration, HighlyQualified)</span><br>&emsp;&emsp;
+<span>Операция: ChangeData(enteringDate, country, resettlementProgramMember, consistsOfMigrationRegistration, highlyQualified)</span><br>&emsp;&emsp;
 <span>Предусловие:  авторизированный мигрант инициирует изменение данных</span><br>&emsp;&emsp;
 <span>Ссылка:  прецедент “Управление данными”</span><br>&emsp;&emsp;
 <span>Постусловие:</span>
@@ -99,7 +99,7 @@
 * получен список всех заявлений данного владельца жилплощади.
 
 &emsp;&emsp;
-<span>Операция: IsMyStatementReady(IdStatement)</span><br>&emsp;&emsp;
+<span>Операция: IsMyStatementReady(idStatement)</span><br>&emsp;&emsp;
 <span>Предусловие: владелец жилплощади выбрал нужное заявление </span><br>&emsp;&emsp;
 <span>Ссылка:  прецедент “Получить отрывное уведомление о прибытии”</span><br>&emsp;&emsp;
 <span>Постусловие:</span>
