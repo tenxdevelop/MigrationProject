@@ -6,6 +6,8 @@
 
 ![](https://github.com/tenxdevelop/MigrationProject/blob/main/ClassDiagramSource/CD3.png)
 
+ссылка на StarUml диаграмму - https://github.com/babidjon666/universityProject/blob/main/ClassDiagram.mdj
+
 <h1>Описание</h1>
 <ul>
     <li>Models - сущности</li>
