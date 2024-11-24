@@ -9,14 +9,15 @@
 ссылка на StarUml диаграмму - https://github.com/babidjon666/universityProject/blob/main/ClassDiagram.mdj
 
 <h1>Описание</h1>
+<h2>Используется шаблон CQRS<h2>
 <ul>
-    <li>Models - сущности</li>
-    <li>Controllers - произодит маршрутизацию по запросам пользователя</li>
-    <li>Query - Описывает сигнатуру и тип запроса</li>
-    <li>QueryHandlers - исполнители запросов к данным</li>
-    <li>Command - описывает тип и сигнатуру команды</li>
-    <li>CommandHandler - исполнители команд</li>
-    <li>Repository - хранилище данных</li>
+    <li>Models - сущности (Domain уровень)</li>
+    <li>Controllers - произодит маршрутизацию по запросам пользователя(Presentation уровень)</li>
+    <li>Query - Описывает сигнатуру и тип запроса(Application уровень)</li>
+    <li>QueryHandlers - исполнители запросов к данным(Application уровень)</li>
+    <li>Command - описывает тип и сигнатуру команды(Application уровень)</li>
+    <li>CommandHandler - исполнители команд(Application уровень)</li>
+    <li>Repository - слой доступа к данным (Domain и Persistance уровень)</li>
 </ul>
 <hr />
 <h2>Models</h2>
@@ -47,7 +48,7 @@
     <li>IRegulationRepository - интерфейс репозитория с данными регламентов услуг</li>
     <li>IMigrantRepository - репозиторий с данными мигрантов</li>
     <li>ICommandProcessor - позволяет на основе ICommand определяет какой именно commandHandler вызвать</li>
-    <li>IStatementRepository - </li>
+    <li>IStatementRepository - иинтерфейс описывающий логику обработки и получения данных из бд </li>
 </ul>
 <hr />
 <h2>Controllers</h2>
