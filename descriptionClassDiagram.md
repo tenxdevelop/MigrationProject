@@ -116,18 +116,18 @@
 <hr />
 <h2>CommandHandlers</h2>
 <ul>
-    <li>RegisterUserCommandHandler - класс, который описывает реализацию комманды регистрация пользователя</li>
-    <li>LoginUserCommandHandler - класс, который описывает реализацию комманды авторизация пользователя</li>
-    <li>UpdateRegulationTermCommandHandler - класс, который описывает реализацию комманды обновить сроки в регламенте услуг</li>
-    <li>CreateUserStatementCommandHandler - класс, который описывает реализацию комманды создать нового пользователя в системе</li>
-    <li>UpdateDataMigrantCommandHandler - класс, который описывает реализацию комманды обновить данные мигранта в системе</li>
-    <li>DeleteUserCommandHandler - класс, который описывает реализацию комманды уадалить пользователя</li>
-    <li>CreateNotificationCommandHandler - класс, который описывает реализацию комманды создать уведомление</li>
-    <li>SetStatusStatementCommandHandler - класс, который описывает реализацию комманды установить статус заявлению</li>
-    <li>CreateDocumntCommandHandler - класс, который описывает реализацию комманды создать новый документ</li>
-    <li>SetNofiticationTypeCommandHandler - класс, который описывает реализацию комманды установить тип уведомлению</li>
-    <li>SendNotificationHandler - класс, который описывает реализацию комманды отправить уведомление</li>
-    <li>CreateStatementCommandHandler - класс, который описывает реализацию комманды создать заявление</li>
+    <li>RegisterUserCommandHandler - класс, который описывает реализацию команды регистрация пользователя</li>
+    <li>LoginUserCommandHandler - класс, который описывает реализацию команды авторизация пользователя</li>
+    <li>UpdateRegulationTermCommandHandler - класс, который описывает реализацию команды обновить сроки в регламенте услуг</li>
+    <li>CreateUserStatementCommandHandler - класс, который описывает реализацию команды создать нового пользователя в системе</li>
+    <li>UpdateDataMigrantCommandHandler - класс, который описывает реализацию команды обновить данные мигранта в системе</li>
+    <li>DeleteUserCommandHandler - класс, который описывает реализацию команды уадалить пользователя</li>
+    <li>CreateNotificationCommandHandler - класс, который описывает реализацию команды создать уведомление</li>
+    <li>SetStatusStatementCommandHandler - класс, который описывает реализацию команды установить статус заявлению</li>
+    <li>CreateDocumntCommandHandler - класс, который описывает реализацию команды создать новый документ</li>
+    <li>SetNofiticationTypeCommandHandler - класс, который описывает реализацию команды установить тип уведомлению</li>
+    <li>SendNotificationHandler - класс, который описывает реализацию команды отправить уведомление</li>
+    <li>CreateStatementCommandHandler - класс, который описывает реализацию команды создать заявление</li>
 </ul>
 <hr />
 <h2>Enums</h2>
