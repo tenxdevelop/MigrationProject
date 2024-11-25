@@ -44,8 +44,8 @@
     <li>IQueryHandler - интерфейс от которого наследуются все исполнители запросов</li>
     <li>IQueryProcessor - позволяет на основе IQuery определяет какой именно queryHandler вызвать</li>
     <li>IUserRepository - репозиторй с данными пользователей</li>
-    <li>IPasswordHasher - реализуюет интерфейс dependencyInvertion</li>
-    <li>ITokenProvider - реализуюет интерфейс dependencyInvertion</li>
+    <li>IPasswordHasher - интерфейс который абстрагируется от конкретного PasswordHasher</li>
+    <li>ITokenProvider - интерфейс который абстрагируется от конкретного TokenProvider</li>
     <li>IRegulationRepository - интерфейс репозитория с данными регламентов услуг</li>
     <li>IMigrantRepository - репозиторий с данными мигрантов</li>
     <li>IStatementRepository - иинтерфейс описывающий логику обработки и получения данных из бд </li>
