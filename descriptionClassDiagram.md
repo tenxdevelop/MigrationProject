@@ -39,6 +39,7 @@
     <li>IRoleRepository - интерфейс репозитория с данными ролей </li>
     <li>ICommand - интерфейс от которого наследуются все остальные комманды</li>
     <li>ICommandHandler - интефейс от которого наследуются все исполнители комманд</li>
+    <li>ICommandProcessor - позволяет на основе ICommand определяет какой именно commandHandler вызвать</li>
     <li>IQuery - интерфейс от которого наследуются все остальные запросы(queries)</li>
     <li>IQueryHandler - интерфейс от которого наследуются все исполнители запросов</li>
     <li>IQueryProcessor - позволяет на основе IQuery определяет какой именно queryHandler вызвать</li>
@@ -47,7 +48,6 @@
     <li>ITokenProvider - реализуюет интерфейс dependencyInvertion</li>
     <li>IRegulationRepository - интерфейс репозитория с данными регламентов услуг</li>
     <li>IMigrantRepository - репозиторий с данными мигрантов</li>
-    <li>ICommandProcessor - позволяет на основе ICommand определяет какой именно commandHandler вызвать</li>
     <li>IStatementRepository - иинтерфейс описывающий логику обработки и получения данных из бд </li>
 </ul>
 <hr />
@@ -83,20 +83,18 @@
 <hr />
 <h2>QueryHandler</h2>
 <ul>
-    <li>QueryProcessorHandler</li>
-    <li>GetRegulationListQueryHandler</li>
-    <li>GetRegulationListQueryHandler</li>
-    <li>GetRegulationQueryHandler</li>
-    <li>GetUserListQueryHandler</li>
-    <li>GetMigrantQueryHandler</li>
-    <li>GetStatementQueryHandler</li>
-    <li>GetStatusStatusQueryHandler</li>
-    <li>GetNotificationQueryHandler</li>
-    <li>GetNewStatementQueryHandler</li>
-    <li>GetRolesListQueryHandler</li>
-    <li>GetDocumentListQueryHandler</li>
-    <li>GetNotififcationTypeListQueryHandler</li>
-    <li>GetUserQueryHandler</li>
+    <li>GetRegulationListQueryHandler - класс который реализует запрос на получение списка всех возможных регламентов услуг</li>
+    <li>GetRegulationQueryHandler - класс который реализует запрос на получение конкретного регламента услуг</li>
+    <li>GetUserListQueryHandler - клсаа который реализует запрос на получение списка пользователей в системе</li>
+    <li>GetMigrantQueryHandler - класс который реализует запрос на получение конкретного пользователя мигранта</li>
+    <li>GetStatementQueryHandler - класс который реализует запрос на получение конкретного заявления</li>
+    <li>GetStatusStatusQueryHandler - класс который реализует запрос на получение статуса у заявления</li>
+    <li>GetNotificationQueryHandler - класс который реализует запрос на получение конкретного уведомления</li>
+    <li>GetNewStatementQueryHandler - класс который реализует запрос на получение любого не рассмотренного заявления для специалиста мвд</li>
+    <li>GetRolesListQueryHandler - класс который реализует запрос на получение списка всех ролей в системе</li>
+    <li>GetDocumentListQueryHandler - класс который реализует запрос на получение всех документов пользователя</li>
+    <li>GetNotififcationTypeListQueryHandler - класс который реализует запрос на получение всех типов уведомления в системе</li>
+    <li>GetUserQueryHandler - класс который реализует запрос на получение конкретного пользователя</li>
 </ul>
 <h3>Реализуют описанные выше запросы с возвратом нужных данных</h3>
 <hr />
@@ -119,19 +117,18 @@
 <hr />
 <h2>CommandHandlers</h2>
 <ul>
-    <li>CommandProcessorHandler</li>
-    <li>RegisterUserCommandHandler</li>
-    <li>LoginUserCommandHandler</li>
-    <li>UpdateRegulationTermCommandHandler</li>
-    <li>CreateUserStatementCommandHandler</li>
-    <li>UpdateDataMigrantCommandHandler</li>
-    <li>DeleteUserCommandHandler</li>
-    <li>CreateNotificationCommandHandler</li>
-    <li>SetStatusStatementCommandHandler</li>
-    <li>CreateDocumntCommandHandler</li>
-    <li>SetNofiticationTypeCommandHandler</li>
-    <li>SendNotificationHandler</li>
-    <li>CreateStatementCommandHandler</li>
+    <li>RegisterUserCommandHandler - класс, который описывает реализацию комманды регистрация пользователя</li>
+    <li>LoginUserCommandHandler - класс, который описывает реализацию комманды авторизация пользователя</li>
+    <li>UpdateRegulationTermCommandHandler - класс, который описывает реализацию комманды обновить сроки в регламенте услуг</li>
+    <li>CreateUserStatementCommandHandler - класс, который описывает реализацию комманды создать нового пользователя в системе</li>
+    <li>UpdateDataMigrantCommandHandler - класс, который описывает реализацию комманды обновить данные мигранта в системе</li>
+    <li>DeleteUserCommandHandler - класс, который описывает реализацию комманды уадалить пользователя</li>
+    <li>CreateNotificationCommandHandler - класс, который описывает реализацию комманды создать уведомление</li>
+    <li>SetStatusStatementCommandHandler - класс, который описывает реализацию комманды установить статус заявлению</li>
+    <li>CreateDocumntCommandHandler - класс, который описывает реализацию комманды создать новый документ</li>
+    <li>SetNofiticationTypeCommandHandler - класс, который описывает реализацию комманды установить тип уведомлению</li>
+    <li>SendNotificationHandler - класс, который описывает реализацию комманды отправить уведомление</li>
+    <li>CreateStatementCommandHandler - класс, который описывает реализацию комманды создать заявление</li>
 </ul>
 <h3>Исполняют все выше описанные команды</h3>
 <hr />

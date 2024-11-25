@@ -16632,7 +16632,8 @@
 								},
 								"reference": {
 									"$ref": "AAAAAAGTXL+9JzxtbMM="
-								}
+								},
+								"navigable": "navigable"
 							},
 							"stereotype": "get;",
 							"visibility": "protected"
