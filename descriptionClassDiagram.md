@@ -9,9 +9,13 @@
 <ul>
     <li>Models - сущности (Domain уровень)</li>
     <li>Controllers - произодит маршрутизацию по запросам пользователя(Presentation уровень)</li>
+    <!--
     <li>Query - Описывает сигнатуру и тип запроса(Application уровень)</li>
+    -->
     <li>QueryHandlers - исполнители запросов к данным(Application уровень)</li>
+    <!--
     <li>Command - описывает тип и сигнатуру команды(Application уровень)</li>
+    -->
     <li>CommandHandler - исполнители команд(Application уровень)</li>
     <li>Repository - слой доступа к данным (Domain и Persistance уровень)</li>
 </ul>
@@ -33,11 +37,15 @@
 <ul>
     <li>INotificationRepository - интерфейс репозиторий с данными отрывных уведомлений</li>
     <li>IRoleRepository - интерфейс репозитория с данными ролей </li>
+    <!---
     <li>ICommand - интерфейс от которого наследуются все остальные комманды</li>
     <li>ICommandHandler - интефейс от которого наследуются все исполнители комманд</li>
+    -->
     <li>ICommandProcessor - позволяет на основе ICommand определяет какой именно commandHandler вызвать</li>
+    <!---
     <li>IQuery - интерфейс от которого наследуются все остальные запросы(queries)</li>
     <li>IQueryHandler - интерфейс от которого наследуются все исполнители запросов</li>
+    -->
     <li>IQueryProcessor - позволяет на основе IQuery определяет какой именно queryHandler вызвать</li>
     <li>IUserRepository - репозиторй с данными пользователей</li>
     <li>IPasswordHasher - интерфейс который абстрагируется от конкретного PasswordHasher</li>
@@ -60,6 +68,7 @@
     <li>DocumentController - производит маршрутизацию для запросов и комманд связанных с документами</li>
 </ul>
 <hr />
+<!---
 <h2>Query</h2>
 <ul>
     <li>QueryProcessor - основной класс для реализации других query(запросов)</li>
@@ -76,6 +85,7 @@
     <li>GetNotififcationTypeListQuery - запрос на получение всех типов получения отрывного уведомления</li>
     <li>GetUserQuery - запрос на получение определённого user-a</li>
 </ul>
+-->
 <hr />
 <h2>QueryHandler</h2>
 <ul>
@@ -93,6 +103,7 @@
     <li>GetUserQueryHandler - класс который реализует запрос на получение конкретного пользователя</li>
 </ul>
 <hr />
+<!---
 <h2>Commands</h2>
 <ul>
     <li>CommandProcessor - Основной класс для реализации комманд</li>
@@ -109,6 +120,7 @@
     <li>SendNotification - команда на отправку отрывного уведомления</li>
     <li>CreateStatementCommand - команда на создание заявления</li>
 </ul>
+-->
 <hr />
 <h2>CommandHandlers</h2>
 <ul>
