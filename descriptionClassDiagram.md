@@ -1,10 +1,6 @@
 
-![](https://github.com/tenxdevelop/MigrationProject/blob/main/ClassDiagramSource/CD1.png)
+![](https://github.com/tenxdevelop/MigrationProject/blob/main/ClassDiagram.png)
 
-
-![](https://github.com/tenxdevelop/MigrationProject/blob/main/ClassDiagramSource/CD2.png)
-
-![](https://github.com/tenxdevelop/MigrationProject/blob/main/ClassDiagramSource/CD3.png)
 
 ссылка на StarUml диаграмму - https://github.com/tenxdevelop/MigrationProject/blob/main/ClassDiagram.mdj
 
