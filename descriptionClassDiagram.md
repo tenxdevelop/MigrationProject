@@ -121,6 +121,10 @@
     <li>CreateStatementCommand - команда на создание заявления</li>
 </ul>
 -->
+
+
+
+
 <hr />
 <h2>CommandHandlers</h2>
 <ul>
@@ -144,3 +148,192 @@
     <li>StatusType - возможные статусы заявки</li>
     <li>NotificationType - типы получения отрывного уведомления</li>
 </ul>
+
+<h2><b>Domain level Description</b></h2>
+<hr />
+<h4>NotificationModel</h4>
+<ul>
+    <li>StatementGrid - уникальный номер заявления</li>
+    <li>Name - Имя - заявителя</li>
+    <li>Surname - Фамилия - заявителя</li>
+    <li>Patronymic - Отчество - заявителя</li>
+    <li>Status - Текущий статус</li>
+    <li>NotificationType - тип получения отырвного уведомления</li>
+</ul>
+<hr />
+<h4>INotificationRepository</h4>
+<ul>
+    <li>GetNotification - Получение уведомления по его уникальному номеру</li>
+    <li>Add - добавление уведомления в репозиторий</li>
+    <li>Update - обновить данные заявление</li>
+</ul>
+<hr />
+<h4>UserModel</h4>
+<ul>
+    <li>Id - уникальный номер юзера</li>
+    <li>Name - имя юзера</li>
+    <li>Surname - фамилия юзера</li>
+    <li>Patronymic - отчество юзера</li>
+    <li>PasswordHash - хэш для пароля юзера</li>
+    <li>Role - роль юзера</li>
+</ul>
+<hr />
+<h4>RoleModel</h4>
+<ul>
+    <li>Name - наименовае роли</li>
+    <li>AccessLevel - уровень доступа, показывает какие возможности будут доступны пользователю</li>
+</ul>
+<hr />
+<h4>IRoleRepository</h4>
+<ul>
+    <li>GetAllRoles - получение всех возможных ролей</li>
+</ul>
+<hr />
+<h4>IUserRepository</h4>
+<ul>
+    <li>Add - добавление юзера в репозиторий</li>
+    <li>GetUserByEmail - получение пользователя с помощью его почты</li>
+    <li>GetUserByPhone - получение пользователя с помощью его телефона</li>
+    <li>GetAllUsers - получение списка всех пользователей</li>
+    <li>DeleteUser - удаление пользователя из репозитория</li>
+    <li>UpdateUser - обновить данные пользователя</li>
+    <li>GetUserBySNP - получение юзера с помощью его ФИО</li>
+</ul>
+<hr />
+<h4>MigrantModel</h4>
+<ul>
+    <li>EnteringDate - дата попадания в Россию</li>
+    <li>HighlyQualified - является ли мигрант высококвалифированным</li>
+    <li>ResettelmentProgrammMember - явялется ли членом программы переселения</li>
+    <li>ConsistOfMigrationRegistration - состоит ли на мигранционном учёте</li>
+    <li>Country - изначальная страна проживания</li>
+</ul>
+<hr />
+<h4>IMigrantRepository</h4>
+<ul>
+    <li>GetCountryByMigrantId - получение страны мигранты по его уникальному Id </li>
+    <li>UpdateMigrant - обновить данные мигранта</li>
+    <li>GetMigrantBySNP - получение мигранта по ФИО</li>
+</ul>
+<hr />
+<h4>StatementModel</h4>
+<ul>
+    <li>AccountingAdress - адрес текущей регистрации</li>
+    <li>PreviousAddress - предыдущий адрес пребывания</li>
+    <li>Id - уникальный номер</li>
+    <li>Documents - список документов в заявлении</li>
+    <li>MigrantDocuments - список документов мигранта</li>
+    <li>Status - текущий статус заявления</li>
+    <li>RegulationModel - регламент заявления</li>
+    <li>PlaceOwner - владелец жилплощади</li>
+</ul>
+<hr />
+<h4>DocumentModel</h4>
+<ul>
+    <li>Name - наименование документа</li>
+    <li>Content - содержание документа</li>
+    <li>CreationDate - дата создания</li>
+    <li>DocumentType - тип документа</li>
+</ul>
+<hr />
+<h4>RegulationModel</h4>
+<ul>
+    <li>Team - период указанный в регламенте</li>
+    <li>Rules - правила установленные в регламенте</li>
+    <li>Name - название регламента</li>
+</ul>
+<hr />
+<h4>IStatementRepository</h4>
+<ul>
+    <li>GetAllStatementByPlaceOwner - получить все заявление поданным определенным владельцем жилплощади</li>
+    <li>GetStatementStatus - получить статус заявления</li>
+    <li>GetAllStatements - получить все заявления</li>
+    <li>UpdateStatement - обновить данные заявления</li>
+    <li>Add - добавить заявление в репозиторий</li>
+</ul>
+<hr />
+<h4>IRegulationRepository</h4>
+<ul>
+    <li>GetAllRegulations - получить все регламенты</li>
+    <li>UpdateRegulation - обновить данные регламента</li>
+    <li>GetRegulationWithCountry - получить регламент согласно стране</li>
+</ul>
+<hr />
+<h4>IDocumentRepository</h4>
+<ul>
+    <li>Add - добавить документ в репозиторий</li>
+    <li>GetAllDocumentsByStatement - получить все документы согласно заявлению</li>
+</ul>
+<hr />
+<h4>DocumentTypeModel</h4>
+<ul>
+    <li>Name - наименование типа документа</li>
+</ul>
+
+<h2><b>Application</b></h2>
+<hr />
+<h4>ITokenProvider</h4>
+<ul>
+    <li>GenerateToken - выполняет генерацию токена для пользователя </li>
+</ul>
+<hr />
+<h4>IPasswordHasher</h4>
+<ul>
+    <li>GenerateHash - хеширует пароль</li>
+    <li>Verify - проводит проверку пароля</li>
+</ul>
+<hr />
+
+<h2><b>Presentation</b></h2>
+<hr />
+<h4>UserController</h4>
+<ul>
+    <li>Register - вызывает процесс регистрации пользователя</li>
+    <li>Login - вызывает процесс авторизации пользователя</li>
+    <li>CreateUserStatement - вызывает процесс создания заявления пользователя </li>
+    <li>GetAllUsers - вызывает процесс получения всех пользователей</li>
+    <li>Delete - вызывает процесс удаления пользователя</li>
+    <li>SetRole - вызывает процесс установки роли пользователю</li>
+    <li>GetUser - вызывает процесс получения определёного пользователя</li>
+</ul>
+<hr />
+<h4>RegulationController</h4>
+<ul>
+    <li>GetRegulationToChange - вызывает процесс по получению определенного регламенту, который нужно изменить</li>
+    <li>UpdateRegulationTerm - вызывает процесс изменения периода постановки на учёт в определенном регламенте</li>
+</ul>
+<hr />
+<h4>RoleController</h4>
+<ul>
+    <li>GetAllRoles - вызывает процесс получения всех ролей</li>
+</ul>
+<hr />
+<h4>StatementController</h4>
+<ul>
+    <li>GetAllUserStatements - вызывает процесс получения всех заявлений пользователя</li>
+    <li>IsStatementReady - вызывает процесс получения статуса заявления</li>
+    <li>SetStatusStatement - вызывает процесс установки статуса заявления</li>
+    <li>GetNewStatement - вызывает процесс получение нового заявления</li>
+    <li>CreateStatement - вызывает процесс создания заявления</li>
+</ul>
+<hr />
+<h4>MigrantController</h4>
+<ul>
+    <li>ChangeData - вызывает процесс измнения данных мигранта</li>
+    <li>GetMigrant - вызывает процесс получения определенного мигранта</li>
+</ul>
+<hr />
+<h4>NotificationController</h4>
+<ul>
+    <li>GetNotification - вызывает процесс получения определенного уведомления</li>
+    <li>CreateNotification - вызывает процесс создания уведомления</li>
+    <li>GetAllTypes - вызывает процесс получения всех типов получения уведомления</li>
+    <li>SetNotification - вызывает процесс установки определенного способо получения уведомления</li>
+</ul>
+<hr />
+<h4>DocumentController</h4>
+<ul>
+    <li>CreateDocument - вызывает процесс создания документа </li>
+    <li>GetAllDocuments - вызывает процесс по получению всх документов</li>
+</ul>
+
