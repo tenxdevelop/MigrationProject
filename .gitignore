@@ -1,3 +1,4 @@
 #ignore windows doc file
 *.docx
+*.vsidx
 Артефакты/
