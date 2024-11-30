@@ -286,13 +286,13 @@
 
 <h2><b>Presentation</b></h2>
 <hr />
-<h4>UserController</h4>
+<h4>BaseController</h4>
 <ul>
     <li>CommandProcessor - скрывает детали маршрутизации и обеспечивает единый интерфейс для отправки команд</li>
     <li>QueryProcessor - скрывает детали маршрутизации и обеспечивает единый интерфейс для отправки запросов</li>
 </ul>
 <hr />
-<h4>BaseController</h4>
+<h4>UserController</h4>
 <ul>
     <li>Register - вызывает процесс регистрации пользователя</li>
     <li>Login - вызывает процесс авторизации пользователя</li>
