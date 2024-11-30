@@ -9,23 +9,6 @@ namespace MigrantProjectMVC.Models
     {
         public Dictionary<Type, object> _handlers = new();
 
-        public CommandProcessor(IEnumerable<object> handlers)
-        {
-            // Инициализируем словарь всеми зарегистрированными обработчиками
-            foreach (var handler in handlers)
-            {
-                var handlerType = handler.GetType();
-                var interfaceType = handlerType.GetInterfaces()
-                    .FirstOrDefault(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(ICommandHandler<,>));
-
-                if (interfaceType != null)
-                {
-                    var commandType = interfaceType.GetGenericArguments()[0];
-                    _handlers[commandType] = handler;
-                }
-            }
-        }
-
         public CommandProcessor() { }
 
         public async Task<TResponse> Process<TResponse>(ICommand<TResponse> command)
