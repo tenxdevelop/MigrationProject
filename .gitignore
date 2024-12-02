@@ -1,4 +1,16 @@
 #ignore windows doc file
 *.docx
 *.vsidx
+.vs/
+bin/
+obj/
+*.user
+*.suo
+*.log
+*.tlog
+*.tmp
+*.temp
+.idea/
+*.sln.iml
+
 Артефакты/

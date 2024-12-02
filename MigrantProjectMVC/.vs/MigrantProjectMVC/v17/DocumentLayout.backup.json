@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\leman\\source\\repos\\tenxdevelop\\MigrationProject\\MigrantProjectMVC\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{CEC24E62-3690-486B-B54D-69650E354AA6}|MigrantProjectMVC\\MigrantProjectMVC.csproj|c:\\users\\leman\\source\\repos\\tenxdevelop\\migrationproject\\migrantprojectmvc\\migrantprojectmvc\\views\\user\\deleteuser.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{CEC24E62-3690-486B-B54D-69650E354AA6}|MigrantProjectMVC\\MigrantProjectMVC.csproj|solutionrelative:migrantprojectmvc\\views\\user\\deleteuser.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{CEC24E62-3690-486B-B54D-69650E354AA6}|MigrantProjectMVC\\MigrantProjectMVC.csproj|c:\\users\\leman\\source\\repos\\tenxdevelop\\migrationproject\\migrantprojectmvc\\migrantprojectmvc\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{CEC24E62-3690-486B-B54D-69650E354AA6}|MigrantProjectMVC\\MigrantProjectMVC.csproj|solutionrelative:migrantprojectmvc\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CEC24E62-3690-486B-B54D-69650E354AA6}|MigrantProjectMVC\\MigrantProjectMVC.csproj|c:\\users\\leman\\source\\repos\\tenxdevelop\\migrationproject\\migrantprojectmvc\\migrantprojectmvc\\views\\user\\deleteuser.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{CEC24E62-3690-486B-B54D-69650E354AA6}|MigrantProjectMVC\\MigrantProjectMVC.csproj|solutionrelative:migrantprojectmvc\\views\\user\\deleteuser.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{CEC24E62-3690-486B-B54D-69650E354AA6}|MigrantProjectMVC\\MigrantProjectMVC.csproj|c:\\users\\leman\\source\\repos\\tenxdevelop\\migrationproject\\migrantprojectmvc\\migrantprojectmvc\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -86,7 +86,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 11,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
@@ -110,13 +110,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "UserController.cs",
               "DocumentMoniker": "C:\\Users\\leman\\source\\repos\\tenxdevelop\\MigrationProject\\MigrantProjectMVC\\MigrantProjectMVC\\Controllers\\UserController.cs",
               "RelativeDocumentMoniker": "MigrantProjectMVC\\Controllers\\UserController.cs",
               "ToolTip": "C:\\Users\\leman\\source\\repos\\tenxdevelop\\MigrationProject\\MigrantProjectMVC\\MigrantProjectMVC\\Controllers\\UserController.cs",
               "RelativeToolTip": "MigrantProjectMVC\\Controllers\\UserController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-30T18:36:53.512Z",
               "EditorCaption": ""
@@ -188,7 +188,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "DeleteUser.cshtml",
               "DocumentMoniker": "C:\\Users\\leman\\source\\repos\\tenxdevelop\\MigrationProject\\MigrantProjectMVC\\MigrantProjectMVC\\Views\\User\\DeleteUser.cshtml",
               "RelativeDocumentMoniker": "MigrantProjectMVC\\Views\\User\\DeleteUser.cshtml",
