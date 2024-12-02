@@ -6,15 +6,8 @@ using MigrantProjectMVC.Models;
 
 namespace MigrantProjectMVC.Controllers
 {
-    public class UserController : Controller
+    public class UserController : BaseController
     {
-        private readonly ICommandProcessor _commandProcessor;
-
-        public UserController(ICommandProcessor commandProcessor)
-        {
-            _commandProcessor = commandProcessor;
-        }
-
         public IActionResult Index()
         {
             return View();
@@ -24,14 +17,14 @@ namespace MigrantProjectMVC.Controllers
         {
             // Создаём команду на основе входящих параметров
             var command = new CreateUserStatementCommand(name, surname, patronymic, email, password);
-            var result = await _commandProcessor.Process<bool>(command);
+            var result = await commandProcessor.Process(command);
             return View("DeleteUser");
         }
 
         public async Task<IActionResult> DeleteUser(int Id)
         {
             var command = new DeleteUserCommand(Id);
-            var result = await _commandProcessor.Process<bool>(command);
+            var result = await commandProcessor.Process(command);
             return View("UserDeleted");
 
         }

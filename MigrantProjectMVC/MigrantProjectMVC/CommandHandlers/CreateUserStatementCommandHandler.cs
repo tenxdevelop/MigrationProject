@@ -12,7 +12,7 @@ namespace MigrantProjectMVC.CommandHandlers
             _userRepository = userRepository;
         }
 
-        public async Task<bool> Handler(CreateUserStatementCommand requist)
+        public async Task<bool> Handle(CreateUserStatementCommand requist)
         {
             var user = new UserModel()
             {
@@ -23,6 +23,7 @@ namespace MigrantProjectMVC.CommandHandlers
                 Password = requist.Password,
             };
             await _userRepository.Add(user);
+            Console.WriteLine("Completed");
             return true;
         }
     }

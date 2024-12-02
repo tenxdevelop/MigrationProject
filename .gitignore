@@ -2,8 +2,8 @@
 *.docx
 *.vsidx
 .vs/
-bin/
-obj/
+**/bin/
+**/obj/
 *.user
 *.suo
 *.log

@@ -1,6 +1,7 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@{
+    int number = 10;
+}
+
 <form method="post" action="User/AddUser">
     <p>Name</p>
     <input name="name" type="text" />
@@ -14,5 +15,7 @@
     <input name="password" type="text" />
     <button type="submit">AddUser</button>
 </form>
-@{
-}
+
+
+
+<p>My number = @number</p>

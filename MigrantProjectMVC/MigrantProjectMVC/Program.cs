@@ -10,18 +10,15 @@ builder.Services.AddControllersWithViews();
 
 
 //Dependencies
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<ICommandHandler<CreateUserStatementCommand, bool>, CreateUserStatementCommandHandler>();
-builder.Services.AddScoped<ICommandHandler<DeleteUserCommand, bool>, DeleteUserCommandHandler>();
+builder.Services.AddSingleton<IUserRepository, UserRepository>();
+
 
 // Регаем в CommandProcessor все исполнители комманд
-builder.Services.AddScoped<ICommandProcessor>(sp =>
+builder.Services.AddSingleton<ICommandProcessor>(sp =>
 {
-    var createUserStatementCommandHandler = sp.GetService<ICommandHandler<CreateUserStatementCommand, bool>>();
-    var deleteUserCommandHandler = sp.GetService<ICommandHandler<DeleteUserCommand, bool>>();
     var commandProcessor = new CommandProcessor();
-    commandProcessor.RegisterCommandHadnler(createUserStatementCommandHandler);
-    commandProcessor.RegisterCommandHadnler(deleteUserCommandHandler);
+    commandProcessor.RegisterCommandHadnler(new CreateUserStatementCommandHandler(sp.GetService<IUserRepository>()));
+    commandProcessor.RegisterCommandHadnler(new DeleteUserCommandHandler(sp.GetService<IUserRepository>()));
     return commandProcessor;
 });
 

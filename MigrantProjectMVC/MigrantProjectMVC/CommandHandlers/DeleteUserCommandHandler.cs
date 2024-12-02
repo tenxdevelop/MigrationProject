@@ -10,7 +10,7 @@ namespace MigrantProjectMVC.CommandHandlers
         {
             _repository = userRepository;
         }
-        public async Task<bool> Handler(DeleteUserCommand requist)
+        public async Task<bool> Handle(DeleteUserCommand requist)
         {
             await _repository.Remove(requist.Id);
             return true;

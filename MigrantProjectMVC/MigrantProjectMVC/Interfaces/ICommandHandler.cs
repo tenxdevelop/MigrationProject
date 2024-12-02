@@ -2,6 +2,6 @@
 {
     public interface ICommandHandler<TRequist, TResponse> where TRequist : ICommand<TResponse>
     {
-        public Task<TResponse> Handler(TRequist requist);
+        public Task<TResponse> Handle(TRequist requist);
     }
 }
