@@ -11,7 +11,7 @@ builder.Services.AddControllersWithViews();
 
 //Dependencies
 builder.Services.AddSingleton<IUserRepository, UserRepository>();
-
+builder.Services.AddSingleton<IRegulationRepository, RegulationRepository>();
 
 // Регаем в CommandProcessor все исполнители комманд
 builder.Services.AddSingleton<ICommandProcessor>(sp =>
@@ -19,6 +19,7 @@ builder.Services.AddSingleton<ICommandProcessor>(sp =>
     var commandProcessor = new CommandProcessor();
     commandProcessor.RegisterCommandHadnler(new CreateUserStatementCommandHandler(sp.GetService<IUserRepository>()));
     commandProcessor.RegisterCommandHadnler(new DeleteUserCommandHandler(sp.GetService<IUserRepository>()));
+    //commandProcessor.RegisterCommandHadnler(new )
     return commandProcessor;
 });
 

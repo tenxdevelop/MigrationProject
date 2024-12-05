@@ -6,4 +6,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="QueryHandlers\" />
+    <Folder Include="Views\Layouts\" />
+  </ItemGroup>
+
 </Project>
