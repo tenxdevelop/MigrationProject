@@ -5,7 +5,6 @@ namespace MigrantProjectMVC.Repositories
 {
     public class RegulationRepository : IRegulationRepository
     {
-        //у нас в репозитории этом коль не путаю элементво 5 будет, на кой ляд асинхронность
         public List<RegulationModel> regulationModels;
 
         public RegulationRepository() { }

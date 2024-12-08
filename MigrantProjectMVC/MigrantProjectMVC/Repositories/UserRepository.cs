@@ -8,7 +8,7 @@ namespace MigrantProjectMVC.Repositories
     {
         public List<UserModel> Users { get; set; }
         UserModel User { get; set; }
-        string _filePath = "users.json";
+        string _filePath = "jsons/users.json";
         IPasswordHasher _passwordHasher { get; set; }
 
         public UserRepository(IPasswordHasher passwordHasher)
@@ -25,6 +25,7 @@ namespace MigrantProjectMVC.Repositories
                     Users = new List<UserModel>();   
                 }
             }
+            #region mb need if return .on txt files
             //if (!File.Exists(_filePath))
             //{
             //    return;
@@ -50,6 +51,7 @@ namespace MigrantProjectMVC.Repositories
             //        });
             //    }
             //}
+            #endregion
         }
         public Task<bool> Add(UserModel user)
         { 
@@ -61,7 +63,7 @@ namespace MigrantProjectMVC.Repositories
             File.WriteAllText(_filePath, data);
             return Task.FromResult(true);
         }
-        public Task<bool> DeleteUser(int id)
+        public Task<bool> DeleteUser(Guid id)
         {
             var user = Users.FirstOrDefault(x => x.Id == id);
             if (user != null)
@@ -97,7 +99,10 @@ namespace MigrantProjectMVC.Repositories
 
         public Task<UserModel> GetUserBySNP(string surname, string name, string patronymic)
         {
-            throw new NotImplementedException();
+            var user = Users.FirstOrDefault(x => x.Name == name &&
+                                           x.Surname == surname &&
+                                           x.Patronymic == patronymic);
+            return Task.FromResult(user);
         }
     }
 }

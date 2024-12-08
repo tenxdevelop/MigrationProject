@@ -19,18 +19,15 @@ namespace MigrantProjectMVC.CommandHandlers
 
         public async Task<bool> Handle(RegisterUserCommand requist)
         {
-
-            await _userRepository.Add(new UserModel()
+            var user = new UserModel()
             {
-                Id = requist.Id,
-                Name = requist.Name,
-                Surname = requist.Surname,
-                Patronymic = requist.Patronymic,
+                Id = Guid.NewGuid(),
                 Email = requist.Email,
                 Phone = requist.Phone,
                 Password = requist.Password,
-                Role = requist.Role
-            });
+                Role = RoleModel.GetDefaultRole()
+            };
+            await _userRepository.Add(user);
 
             return true;
             

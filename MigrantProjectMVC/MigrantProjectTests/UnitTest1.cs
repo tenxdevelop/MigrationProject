@@ -28,14 +28,14 @@ namespace MigrantProjectTests
             var repository = new UserRepository(_serviceProvider.GetService<IPasswordHasher>());
             var user = new UserModel()
             {
-                Id = 1,
+                Id = Guid.NewGuid(),
                 Name = "string3",
                 Surname = "string3",
                 Patronymic = "string3",
                 Email = "string3",
                 Phone = "string3",
                 Password = "string3",
-                Role = "Admin"
+                Role = new RoleModel() { Name = "Admin"}
             };
             repository.Add(user);
 

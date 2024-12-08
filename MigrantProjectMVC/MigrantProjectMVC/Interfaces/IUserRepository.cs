@@ -5,7 +5,7 @@ namespace MigrantProjectMVC.Interfaces
     public interface IUserRepository
     {
         public Task<bool> Add(UserModel user);
-        public Task<bool> DeleteUser(int id);
+        public Task<bool> DeleteUser(Guid id);
 
         public Task<UserModel> GetUserByEmail(string email);
         public Task<UserModel> GetUserByPhone(string phone);

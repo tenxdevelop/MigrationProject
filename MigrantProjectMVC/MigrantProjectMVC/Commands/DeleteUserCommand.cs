@@ -5,8 +5,8 @@ namespace MigrantProjectMVC.Commands
 {
     public class DeleteUserCommand : ICommand<bool>
     {
-        public int Id { get; set; }
-        public DeleteUserCommand(int Id)
+        public Guid Id { get; set; }
+        public DeleteUserCommand(Guid Id)
         {
             this.Id = Id;
         }

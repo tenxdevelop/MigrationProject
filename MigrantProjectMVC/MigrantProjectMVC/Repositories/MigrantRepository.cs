@@ -8,7 +8,12 @@ namespace MigrantProjectMVC.Repositories
         public List<MigrantModel> migrants;
         public Task<string> GetCountryByMigrantId(string email) // вопрос тот же
         {
-            throw new NotImplementedException();
+            var migrant = migrants.FirstOrDefault(x => x.Email == email);
+            if (migrant == null)
+            {
+                throw new NullReferenceException();
+            }
+            return Task.FromResult(migrant.Country);
         }
 
         public Task<MigrantModel?> GetMigrantBySNP(string name, string surname, string patronymic)

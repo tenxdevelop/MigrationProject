@@ -3,8 +3,7 @@ using MigrantProjectMVC.Models;
 
 namespace MigrantProjectMVC.Queries
 {
-    public class GetRegulationListQuery : IQuery<List<RegulationModel>>
+    public class GetUserListQuery : IQuery<List<UserModel>>
     {
-        
     }
 }

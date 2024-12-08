@@ -6,6 +6,8 @@ using MigrantProjectMVC.CommandHandlers;
 using MigrantProjectMVC.Commands;
 using MigrantProjectMVC.Interfaces;
 using MigrantProjectMVC.Models;
+using MigrantProjectMVC.Queries;
+using MigrantProjectMVC.QueryHandlers;
 using MigrantProjectMVC.Repositories;
 using System.Text;
 
@@ -28,8 +30,15 @@ builder.Services.AddSingleton<ICommandProcessor>(sp =>
     commandProcessor.RegisterCommandHadnler(new DeleteUserCommandHandler(sp.GetService<IUserRepository>()));
     commandProcessor.RegisterCommandHadnler(new LoginUserCommandHandler(sp.GetService<IUserRepository>(), sp.GetService<IPasswordHasher>(), sp.GetService<ITokenProvider>(), sp.GetService<IHttpContextAccessor>()));
     commandProcessor.RegisterCommandHadnler(new RegisterUserCommandHandler(sp.GetService<IUserRepository>(), sp.GetService<IPasswordHasher>()));
-
+    commandProcessor.RegisterCommandHadnler(new SetRoleCommandHandler(sp.GetService<IUserRepository>()));
     return commandProcessor;
+});
+builder.Services.AddSingleton<IQueryProcessor>(sp =>
+{
+    var queryProcessor = new QueryProcessor();
+    queryProcessor.RegisterQueryHandler(new GetUserListQueryHandler(sp.GetService<IUserRepository>()));
+    queryProcessor.RegisterQueryHandler(new GetUserQueryHandler(sp.GetService<IUserRepository>()));
+    return queryProcessor;
 });
 
 builder.Services.AddEndpointsApiExplorer();
