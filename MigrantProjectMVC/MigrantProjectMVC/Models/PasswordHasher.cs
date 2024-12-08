@@ -1,4 +1,6 @@
 ﻿using MigrantProjectMVC.Interfaces;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace MigrantProjectMVC.Models
 {
@@ -6,12 +8,18 @@ namespace MigrantProjectMVC.Models
     {
         public string GenerateHash(string password)
         {
-            throw new NotImplementedException();
+            using (var sha256 = SHA256.Create())
+            {
+                var bytes = Encoding.UTF8.GetBytes(password);
+                var hash = sha256.ComputeHash(bytes);
+                return Convert.ToBase64String(hash);
+            }
         }
 
         public bool Verify(string password, string passwordHash)
         {
-            throw new NotImplementedException();
+            var hash = GenerateHash(password);
+            return hash == passwordHash;
         }
     }
 }

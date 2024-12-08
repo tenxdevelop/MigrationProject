@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using MigrantProjectMVC.Commands;
 using MigrantProjectMVC.Interfaces;
-
+using MigrantProjectMVC.Models;
+using System.Web;
 namespace MigrantProjectMVC.CommandHandlers
 {
     public class LoginUserCommandHandler : ICommandHandler<LoginUserCommand, string>
@@ -9,15 +10,24 @@ namespace MigrantProjectMVC.CommandHandlers
         private ITokenProvider _tokenProvider;
         private IPasswordHasher _passwordHasher;
         private IUserRepository _userRepository;
-        public LoginUserCommandHandler(IUserRepository userRepository, IPasswordHasher passwordHasker, ITokenProvider tokenProvider)
+        private  IHttpContextAccessor _httpContextAccessor;
+
+        public LoginUserCommandHandler(IUserRepository userRepository, IPasswordHasher passwordHasker, ITokenProvider tokenProvider, IHttpContextAccessor httpContextAccessor)
         {
             _userRepository = userRepository;
             _passwordHasher = passwordHasker;
             _tokenProvider = tokenProvider;
+            _httpContextAccessor = httpContextAccessor;
         }
-        public Task<string> Handle(LoginUserCommand requist)
+        public async Task<string> Handle(LoginUserCommand requist)
         {
-            throw new NotImplementedException();
+            UserModel user = requist.Email == null ? await _userRepository.GetUserByPhone(requist.Phone) : await _userRepository.GetUserByEmail(requist.Email);
+
+            if (user == null) return null;
+   
+            var token = _tokenProvider.GenerateToken(user);
+            
+            return token; 
         }
     }
 }

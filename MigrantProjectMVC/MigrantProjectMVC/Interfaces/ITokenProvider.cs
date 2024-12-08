@@ -1,7 +1,9 @@
-﻿namespace MigrantProjectMVC.Interfaces
+﻿using MigrantProjectMVC.Models;
+
+namespace MigrantProjectMVC.Interfaces
 {
     public interface ITokenProvider
     {
-        public string GenerateToken(string token);
+        public string GenerateToken(UserModel user);
     }
 }

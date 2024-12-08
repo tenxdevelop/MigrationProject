@@ -21,7 +21,7 @@ namespace MigrantProjectMVC.Commands
                 return handler.Invoke(handlerObj, new object[] {command}) as Task<TResponse>;
             }
 
-            return null;
+            throw new ArgumentNullException("Handler hadn't been registered ");
         }
 
         public void RegisterCommandHadnler<TCommand, TResponse>(ICommandHandler<TCommand, TResponse> handler) where TCommand : ICommand<TResponse>

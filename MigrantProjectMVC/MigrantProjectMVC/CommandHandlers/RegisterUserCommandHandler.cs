@@ -1,5 +1,9 @@
 ﻿using MigrantProjectMVC.Commands;
 using MigrantProjectMVC.Interfaces;
+using MigrantProjectMVC.Models;
+using System.Data;
+using System.Numerics;
+using System.Xml.Linq;
 
 namespace MigrantProjectMVC.CommandHandlers
 {
@@ -13,9 +17,24 @@ namespace MigrantProjectMVC.CommandHandlers
             _passwordHasher = passwordHasker;
         }
 
-        public Task<bool> Handle(RegisterUserCommand requist)
+        public async Task<bool> Handle(RegisterUserCommand requist)
         {
-            throw new NotImplementedException();
+
+            await _userRepository.Add(new UserModel()
+            {
+                Id = requist.Id,
+                Name = requist.Name,
+                Surname = requist.Surname,
+                Patronymic = requist.Patronymic,
+                Email = requist.Email,
+                Phone = requist.Phone,
+                Password = requist.Password,
+                Role = requist.Role
+            });
+
+            return true;
+            
+
         }
     }
 }
