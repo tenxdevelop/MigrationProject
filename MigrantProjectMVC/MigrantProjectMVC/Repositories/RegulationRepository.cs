@@ -1,30 +1,128 @@
 ﻿using MigrantProjectMVC.Interfaces;
 using MigrantProjectMVC.Models;
+using System.Text.Json;
 
 namespace MigrantProjectMVC.Repositories
 {
     public class RegulationRepository : IRegulationRepository
     {
-        public List<RegulationModel> regulationModels;
-
-        public RegulationRepository() { }
+        public List<RegulationModel> Regulations;
+        string jsonPath = "jsons/regulations.json";
+        public RegulationRepository() 
+        {
+            using (var fs = new FileStream(jsonPath, FileMode.Open))
+            {
+                try
+                {
+                    Regulations = JsonSerializer.Deserialize<List<RegulationModel>>(fs);
+                }
+                catch (Exception ex)
+                {
+                    Regulations = new List<RegulationModel>() 
+                    {
+                        new RegulationModel()
+                        {
+                            Name = "Документ, подтверждающий постановку на миграционный учет по месту пребывания",
+                            Rules ="Нужно сделать:Вам необходимо обратиться к лицу, у которого проживаете, " +
+                                    "для того чтобы собственник помещения направил уведомление" +
+                                    " в УМВД через портал государственных услуг о постановке на миграционный" +
+                                    " учет иностранного гражданина по месту пребывания",
+                            Term = 90,
+                            Country  = "Белоруссь",
+                        },
+                         new RegulationModel()
+                        {
+                            Name = "Документ, подтверждающий постановку на миграционный учет по месту пребывания",
+                            Rules ="Нужно сделать:Вам необходимо обратиться к лицу, у которого проживаете, " +
+                                    "для того чтобы собственник помещения направил уведомление" +
+                                    " в УМВД через портал государственных услуг о постановке на миграционный" +
+                                    " учет иностранного гражданина по месту пребывания",
+                            Term = 90,
+                            Country = "Украина"
+                        },
+                        new RegulationModel()
+                        {
+                            Name = "Документ, подтверждающий постановку на миграционный учет по месту пребывания",
+                            Rules ="Нужно сделать:Вам необходимо обратиться к лицу, у которого проживаете, " +
+                                    "для того чтобы собственник помещения направил уведомление" +
+                                    " в УМВД через портал государственных услуг о постановке на миграционный" +
+                                    " учет иностранного гражданина по месту пребывания",
+                            Term = 30,
+                           Country = "Армения"
+                        },
+                        new RegulationModel()
+                        {
+                            Name = "Документ, подтверждающий постановку на миграционный учет по месту пребывания",
+                            Rules ="Нужно сделать:Вам необходимо обратиться к лицу, у которого проживаете, " +
+                                    "для того чтобы собственник помещения направил уведомление" +
+                                    " в УМВД через портал государственных услуг о постановке на миграционный" +
+                                    " учет иностранного гражданина по месту пребывания",
+                            Term = 30,
+                            Country = "Казахстан"
+                        },
+                        new RegulationModel()
+                        {
+                            Name = "Документ, подтверждающий постановку на миграционный учет по месту пребывания",
+                            Rules ="Нужно сделать:Вам необходимо обратиться к лицу, у которого проживаете, " +
+                                    "для того чтобы собственник помещения направил уведомление" +
+                                    " в УМВД через портал государственных услуг о постановке на миграционный" +
+                                    " учет иностранного гражданина по месту пребывания",
+                            Term = 30,
+                            Country = "Киргизия"
+                        },
+                        new RegulationModel()
+                        {
+                            Name = "Документ, подтверждающий постановку на миграционный учет по месту пребывания",
+                            Rules ="Нужно сделать:Вам необходимо обратиться к лицу, у которого проживаете, " +
+                                    "для того чтобы собственник помещения направил уведомление" +
+                                    " в УМВД через портал государственных услуг о постановке на миграционный" +
+                                    " учет иностранного гражданина по месту пребывания",
+                            Term = 15,
+                            Country = "Таджикистан",
+                        },
+                        new RegulationModel()
+                        {
+                            Name = "Документ, подтверждающий постановку на миграционный учет по месту пребывания",
+                            Rules ="Нужно сделать:Вам необходимо обратиться к лицу, у которого проживаете, " +
+                                    "для того чтобы собственник помещения направил уведомление" +
+                                    " в УМВД через портал государственных услуг о постановке на миграционный" +
+                                    " учет иностранного гражданина по месту пребывания",
+                            Term = 7,
+                            Country = "Узбекистан"
+                        },
+                        new RegulationModel()
+                        {
+                            Name = "Документ, подтверждающий постановку на миграционный учет по месту пребывания",
+                            Rules ="Нужно сделать:Вам необходимо обратиться к лицу, у которого проживаете, " +
+                                    "для того чтобы собственник помещения направил уведомление" +
+                                    " в УМВД через портал государственных услуг о постановке на миграционный" +
+                                    " учет иностранного гражданина по месту пребывания",
+                            Term = 30,
+                            Country = "гос. программа переселиня соотечественников"
+                        }
+                    };
+                }
+            }
+            var data = JsonSerializer.Serialize(regulationModels);
+            File.WriteAllText(jsonPath, data);
+        }
 
         public Task<IList<RegulationModel>> GetAllRegulations()
         {
-            return Task.FromResult<IList<RegulationModel>>(regulationModels);
+            return Task.FromResult<IList<RegulationModel>>(Regulations);
         }
 
         public Task<RegulationModel?> GetRegulationWithCountry(string country)
         {
-            return Task.FromResult(regulationModels.FirstOrDefault(x => x.Country == country));
+            return Task.FromResult(Regulations.FirstOrDefault(x => x.Country == country));
         }
 
-        public Task UpdateRegulation(RegulationModel regulation)
+        public Task UpdateRegulation(RegulationModel regulation) // переписать или этот метод или все остальные по его подобию
         {
-            var index = regulationModels.FindIndex(x => x.Country == regulation.Country);
+            var index = Regulations.FindIndex(x => x.Country == regulation.Country);
             if (index != -1)
             {
-                regulationModels[index] = regulation;
+                Regulations[index] = regulation;
             }
             return Task.CompletedTask;
         }

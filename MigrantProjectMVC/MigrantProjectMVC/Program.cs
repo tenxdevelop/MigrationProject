@@ -20,6 +20,7 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddSingleton<ITokenProvider, JwtTokenProvider>();
 builder.Services.AddSingleton<IPasswordHasher, PasswordHasher>();
 builder.Services.AddSingleton<IUserRepository, UserRepository>();
+builder.Services.AddSingleton<IMigrantRepository, MigrantRepository>();
 builder.Services.AddSingleton<IRegulationRepository, RegulationRepository>();
 
 // Регаем в CommandProcessor все исполнители комманд
@@ -38,6 +39,8 @@ builder.Services.AddSingleton<IQueryProcessor>(sp =>
     var queryProcessor = new QueryProcessor();
     queryProcessor.RegisterQueryHandler(new GetUserListQueryHandler(sp.GetService<IUserRepository>()));
     queryProcessor.RegisterQueryHandler(new GetUserQueryHandler(sp.GetService<IUserRepository>()));
+    queryProcessor.RegisterQueryHandler(new GetRegulationListQueryHandler(sp.GetService<IRegulationRepository>()));
+    queryProcessor.RegisterQueryHandler(new GetRegulationQueryHandler(sp.GetService<IMigrantRepository>(), sp.GetService<IRegulationRepository>()));
     return queryProcessor;
 });
 
@@ -113,7 +116,7 @@ app.Use(async (context, next) =>
     {
         context.Request.Headers.Add("Authorization", $"Bearer {token}");
     }
-    next();
+    await next();
 }); // проверка токена пользователя
 app.UseHttpsRedirection();
 app.UseStaticFiles();

@@ -6,7 +6,7 @@ namespace MigrantProjectMVC.Repositories
     public class MigrantRepository : IMigrantRepository
     {
         public List<MigrantModel> migrants;
-        public Task<string> GetCountryByMigrantId(string email) // вопрос тот же
+        public Task<string> GetCountryByMigrantId(string email)
         {
             var migrant = migrants.FirstOrDefault(x => x.Email == email);
             if (migrant == null)
@@ -28,7 +28,14 @@ namespace MigrantProjectMVC.Repositories
 
         public Task<bool> UpdateMigrant(MigrantModel migrant)
         {
-            throw new NotImplementedException();
+            var foundedMigrant = migrants.FirstOrDefault(x => x.Id == migrant.Id);
+            if (foundedMigrant == null) return Task.FromResult(false);
+            foundedMigrant.EnteringDate = migrant.EnteringDate;
+            foundedMigrant.HighlyQualified = migrant.HighlyQualified;
+            foundedMigrant.ResettelmentProgramMember = migrant.ResettelmentProgramMember;
+            foundedMigrant.ConsistOfMigrationRegistration = migrant.ConsistOfMigrationRegistration;
+            foundedMigrant.Country = migrant.Country;
+            return Task.FromResult(true);
         }
     }
 }

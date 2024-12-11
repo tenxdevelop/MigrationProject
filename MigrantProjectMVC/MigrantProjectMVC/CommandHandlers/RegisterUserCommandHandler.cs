@@ -22,6 +22,9 @@ namespace MigrantProjectMVC.CommandHandlers
             var user = new UserModel()
             {
                 Id = Guid.NewGuid(),
+                Name = requist.Name,
+                Surname = requist.Surname,
+                Patronymic  = requist.Patronymic,
                 Email = requist.Email,
                 Phone = requist.Phone,
                 Password = requist.Password,

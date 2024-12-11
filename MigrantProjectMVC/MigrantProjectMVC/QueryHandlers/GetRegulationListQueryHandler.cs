@@ -15,7 +15,7 @@ namespace MigrantProjectMVC.QueryHandlers
         public async Task<List<RegulationModel>> Handle(GetRegulationListQuery query)
         {
             var regulations = await _regulationRespository.GetAllRegulations();
-            return new List<RegulationModel>(regulations);
+            return regulations as List<RegulationModel>;
         }
     }
 }

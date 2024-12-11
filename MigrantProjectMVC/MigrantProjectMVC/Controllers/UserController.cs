@@ -15,9 +15,9 @@ namespace MigrantProjectMVC.Controllers
     {
         IUserRepository _userRepository;
         ITokenProvider _tokenProvider;
-        UserModel _user { get; set; }
 
-        public UserController( IUserRepository userRepository, ITokenProvider tokenProvider, ICommandProcessor commandProcessor)
+
+        public UserController( IUserRepository userRepository, ITokenProvider tokenProvider)
         {
             _userRepository = userRepository;
             _tokenProvider = tokenProvider;
@@ -45,7 +45,7 @@ namespace MigrantProjectMVC.Controllers
 
         //completed
         [HttpPost("register")]
-        public IActionResult Register(string email, string phone, string password)
+        public IActionResult Register(string name, string surname, string patronymci, string email, string phone, string password)
         {
             var command = new RegisterUserCommand()
             {
@@ -70,7 +70,7 @@ namespace MigrantProjectMVC.Controllers
 
         //completed
         [Authorize(Roles = "Admin")]
-        [HttpPost("GetAllUsers")]
+        [HttpGet("GetAllUsers")]
         public IActionResult GetAllUsers()
         {
             var query = new GetUserListQuery();
@@ -104,7 +104,7 @@ namespace MigrantProjectMVC.Controllers
 
         //completed
         [Authorize(Roles = "Admin")]
-        [HttpPost("GetUser")]
+        [HttpGet("GetUser")]
         public IActionResult GetUser(string name, string surname, string patronymic)
         {
             var query = new GetUserQuery(name, surname, patronymic);
