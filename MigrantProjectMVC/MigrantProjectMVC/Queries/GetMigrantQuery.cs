@@ -3,7 +3,7 @@ using MigrantProjectMVC.Models;
 
 namespace MigrantProjectMVC.Queries
 {
-    public class GetMigrantQuery :IQuery<MigrantModel>
+    public class GetMigrantQuery : IQuery<MigrantModel>
     {
         public string Name { get; set; }
         public string Surname { get; set; }

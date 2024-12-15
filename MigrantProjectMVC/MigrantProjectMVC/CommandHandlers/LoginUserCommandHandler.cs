@@ -12,10 +12,11 @@ namespace MigrantProjectMVC.CommandHandlers
         private IUserRepository _userRepository;
         private  IHttpContextAccessor _httpContextAccessor;
 
-        public LoginUserCommandHandler(IUserRepository userRepository, IPasswordHasher passwordHasker, ITokenProvider tokenProvider, IHttpContextAccessor httpContextAccessor)
+        public LoginUserCommandHandler(IUserRepository userRepository, IPasswordHasher passwordHasher,
+            ITokenProvider tokenProvider, IHttpContextAccessor httpContextAccessor)
         {
             _userRepository = userRepository;
-            _passwordHasher = passwordHasker;
+            _passwordHasher = passwordHasher;
             _tokenProvider = tokenProvider;
             _httpContextAccessor = httpContextAccessor;
         }
@@ -24,6 +25,8 @@ namespace MigrantProjectMVC.CommandHandlers
             UserModel user = requist.Email == null ? await _userRepository.GetUserByPhone(requist.Phone) : await _userRepository.GetUserByEmail(requist.Email);
 
             if (user == null) return null;
+
+            if (!_passwordHasher.Verify(requist.Password, user.PasswordHash)) return null;
    
             var token = _tokenProvider.GenerateToken(user);
             

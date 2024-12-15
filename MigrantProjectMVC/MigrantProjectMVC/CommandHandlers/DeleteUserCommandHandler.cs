@@ -13,6 +13,7 @@ namespace MigrantProjectMVC.CommandHandlers
         public async Task<bool> Handle(DeleteUserCommand requist)
         {
             await _repository.DeleteUser(requist.Id);
+            await _repository.SaveContext();
             return true;
         }
     }

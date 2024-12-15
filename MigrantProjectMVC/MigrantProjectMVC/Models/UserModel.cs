@@ -8,7 +8,7 @@
         public string Patronymic { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
-        public string Password { get; set; }
+        public string PasswordHash { get; set; }
         public RoleModel  Role { get; set; } // сменить тип string на RoleModel после тестов
     }
 }

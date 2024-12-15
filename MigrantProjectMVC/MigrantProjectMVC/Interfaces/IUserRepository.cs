@@ -13,5 +13,7 @@ namespace MigrantProjectMVC.Interfaces
         public Task UpdateUserData(UserModel user);
         public Task<UserModel> GetUserBySNP(string surname, string name, string patronymic);
 
+        public Task SaveContext();
+
     }
 }

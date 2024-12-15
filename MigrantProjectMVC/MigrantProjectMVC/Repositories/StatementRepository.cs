@@ -1,12 +1,33 @@
 ﻿using MigrantProjectMVC.Enums;
 using MigrantProjectMVC.Interfaces;
 using MigrantProjectMVC.Models;
+using System.Text.Json;
 
 namespace MigrantProjectMVC.Repositories
 {
     public class StatementRepository : IStatementRepository
     {
         public List<StatementModel> Statements;
+        private string _filePath = "jsons/statements.json";
+        public StatementRepository()
+        {
+            using (var fs = new FileStream(_filePath, FileMode.Open))
+            {
+                try
+                {
+                    Statements = JsonSerializer.Deserialize<List<StatementModel>>(fs);
+                }
+                catch (Exception e)
+                {
+                    Statements = new List<StatementModel>()
+                    {
+
+                    };
+                }
+            }
+        }
+
+
 
         public Task<IList<StatementModel>> GetAllStatementsByPlaceOwner(Guid userId)
         {

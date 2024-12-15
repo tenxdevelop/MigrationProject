@@ -21,10 +21,11 @@ namespace MigrantProjectMVC.CommandHandlers
                 Surname = requist.Surname,
                 Patronymic = requist.Patronymic,
                 Email = requist.Email,
-                Password = requist.Password,
+                PasswordHash = requist.Password,
                 Role = RoleModel.GetDefaultRole()
             };
             await _userRepository.Add(user);
+            await _userRepository.SaveContext();
             return true;
         }
     }

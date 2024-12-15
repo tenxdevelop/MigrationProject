@@ -13,26 +13,16 @@ namespace MigrantProjectMVC.Controllers
     [ApiController]
     public class UserController : BaseController
     {
-        IUserRepository _userRepository;
-        ITokenProvider _tokenProvider;
-
-
-        public UserController( IUserRepository userRepository, ITokenProvider tokenProvider)
-        {
-            _userRepository = userRepository;
-            _tokenProvider = tokenProvider;
-        }
-
 
         //completed
         [HttpPost("login")]
-        public IActionResult Login(string email, string phone, string password)
+        public IActionResult Login(string? email, string? phone, string password)
         {
             var command = new LoginUserCommand()
             {
                 Email = email,
-                Password = phone,
-                Phone = password,
+                Phone = phone,
+                Password = password,
             };
             var token = commandProcessor.Process(command).Result;
             if (token == null) 

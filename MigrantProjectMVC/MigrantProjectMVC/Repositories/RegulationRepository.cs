@@ -7,10 +7,10 @@ namespace MigrantProjectMVC.Repositories
     public class RegulationRepository : IRegulationRepository
     {
         public List<RegulationModel> Regulations;
-        string jsonPath = "jsons/regulations.json";
+        string _filePath = "jsons/regulations.json";
         public RegulationRepository() 
         {
-            using (var fs = new FileStream(jsonPath, FileMode.Open))
+            using (var fs = new FileStream(_filePath, FileMode.Open))
             {
                 try
                 {
@@ -103,8 +103,8 @@ namespace MigrantProjectMVC.Repositories
                     };
                 }
             }
-            var data = JsonSerializer.Serialize(regulationModels);
-            File.WriteAllText(jsonPath, data);
+            var data = JsonSerializer.Serialize(Regulations);
+            File.WriteAllText(_filePath, data);
         }
 
         public Task<IList<RegulationModel>> GetAllRegulations()

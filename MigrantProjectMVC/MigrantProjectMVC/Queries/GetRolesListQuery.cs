@@ -1,6 +1,10 @@
-﻿namespace MigrantProjectMVC.Queries
+﻿using MigrantProjectMVC.Interfaces;
+using MigrantProjectMVC.Models;
+
+namespace MigrantProjectMVC.Queries
 {
-    public class GetRolesListQuery
+    public class GetRolesListQuery : IQuery<IList<RoleModel>>
     {
+
     }
 }

@@ -27,7 +27,7 @@ namespace MigrantProjectMVC.CommandHandlers
                 Patronymic  = requist.Patronymic,
                 Email = requist.Email,
                 Phone = requist.Phone,
-                Password = requist.Password,
+                PasswordHash = requist.Password,
                 Role = RoleModel.GetDefaultRole()
             };
             await _userRepository.Add(user);

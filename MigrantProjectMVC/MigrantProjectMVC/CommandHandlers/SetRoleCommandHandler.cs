@@ -11,15 +11,17 @@ namespace MigrantProjectMVC.CommandHandlers
         {
             _userRepository = userRepository;
         }
-        public Task<bool> Handle(SetRoleCommand requist)
+
+        public async Task<bool> Handle(SetRoleCommand requist)
         {
             var user = _userRepository.GetAllUsers().Result.FirstOrDefault(x => x.Id == requist.Id);
             if (user == null) 
             {
-                return Task.FromResult(false);
+                return false;
             }
             user.Role = requist.Role;
-            return Task.FromResult(true);
+            await _userRepository.SaveContext();
+            return true;
         }
     }
 }

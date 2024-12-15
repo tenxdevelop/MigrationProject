@@ -4,9 +4,9 @@ using MigrantProjectMVC.Queries;
 
 namespace MigrantProjectMVC.QueryHandlers
 {
-    public class GetNewStatementQueryHandler : IQueryHandler<GetNewStatementQuery, StatementModel>
+    public class GetStatementListQueryHandler : IQueryHandler<GetStatementListQuery, List<StatementModel>>
     {
-        public Task<StatementModel> Handle(GetNewStatementQuery query)
+        public Task<List<StatementModel>> Handle(GetStatementListQuery query)
         {
             throw new NotImplementedException();
         }

@@ -55,12 +55,11 @@ namespace MigrantProjectMVC.Repositories
         }
         public Task<bool> Add(UserModel user)
         { 
-            user.Password = _passwordHasher.GenerateHash(user.Password);
+            user.PasswordHash = _passwordHasher.GenerateHash(user.PasswordHash);
             Users.Add(user);
             //var lines = Users.Select(x => $"{user.Id};{user.Name};{user.Surname};{user.Patronymic};{user.Email};{user.Phone};{user.Password};{user.Role}").ToArray();
             //File.WriteAllLines(_filePath, lines);
-            var data = JsonSerializer.Serialize(Users);
-            File.WriteAllText(_filePath, data);
+
             return Task.FromResult(true);
         }
         public Task<bool> DeleteUser(Guid id)
@@ -94,7 +93,7 @@ namespace MigrantProjectMVC.Repositories
 
         public Task UpdateUserData(UserModel user)
         {
-            throw new NotImplementedException(); 
+            throw new NotImplementedException();
         }
 
         public Task<UserModel> GetUserBySNP(string surname, string name, string patronymic)
@@ -103,6 +102,13 @@ namespace MigrantProjectMVC.Repositories
                                            x.Surname == surname &&
                                            x.Patronymic == patronymic);
             return Task.FromResult(user);
+        }
+
+        public Task SaveContext()
+        {
+            var jsonData = JsonSerializer.Serialize(Users);
+            File.WriteAllText(_filePath, jsonData);
+            return Task.CompletedTask;
         }
     }
 }
