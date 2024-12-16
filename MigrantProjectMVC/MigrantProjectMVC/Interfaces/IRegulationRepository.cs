@@ -7,6 +7,7 @@ namespace MigrantProjectMVC.Interfaces
         public Task<IList<RegulationModel>> GetAllRegulations();
         public Task UpdateRegulation(RegulationModel regulation);
         public Task<RegulationModel?> GetRegulationWithCountry(string country);
+        public Task SaveContext();
 
     }
 }

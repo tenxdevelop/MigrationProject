@@ -10,15 +10,16 @@ namespace MigrantProjectMVC.Repositories
         string _filePath = "jsons/regulations.json";
         public RegulationRepository() 
         {
-            using (var fs = new FileStream(_filePath, FileMode.Open))
+
+            var fs = new FileStream(_filePath, FileMode.Open);
+            try
             {
-                try
-                {
-                    Regulations = JsonSerializer.Deserialize<List<RegulationModel>>(fs);
-                }
-                catch (Exception ex)
-                {
-                    Regulations = new List<RegulationModel>() 
+                Regulations = JsonSerializer.Deserialize<List<RegulationModel>>(fs);
+                fs.Dispose();
+            }
+            catch (Exception ex)
+            {
+                Regulations = new List<RegulationModel>()
                     {
                         new RegulationModel()
                         {
@@ -28,7 +29,7 @@ namespace MigrantProjectMVC.Repositories
                                     " в УМВД через портал государственных услуг о постановке на миграционный" +
                                     " учет иностранного гражданина по месту пребывания",
                             Term = 90,
-                            Country  = "Белоруссь",
+                            Country  = "Для граждан Белоруссии, Украины, высококвалифицированных специалистов и членов их семей (не зависимо от страны исхода)",
                         },
                          new RegulationModel()
                         {
@@ -37,38 +38,8 @@ namespace MigrantProjectMVC.Repositories
                                     "для того чтобы собственник помещения направил уведомление" +
                                     " в УМВД через портал государственных услуг о постановке на миграционный" +
                                     " учет иностранного гражданина по месту пребывания",
-                            Term = 90,
-                            Country = "Украина"
-                        },
-                        new RegulationModel()
-                        {
-                            Name = "Документ, подтверждающий постановку на миграционный учет по месту пребывания",
-                            Rules ="Нужно сделать:Вам необходимо обратиться к лицу, у которого проживаете, " +
-                                    "для того чтобы собственник помещения направил уведомление" +
-                                    " в УМВД через портал государственных услуг о постановке на миграционный" +
-                                    " учет иностранного гражданина по месту пребывания",
                             Term = 30,
-                           Country = "Армения"
-                        },
-                        new RegulationModel()
-                        {
-                            Name = "Документ, подтверждающий постановку на миграционный учет по месту пребывания",
-                            Rules ="Нужно сделать:Вам необходимо обратиться к лицу, у которого проживаете, " +
-                                    "для того чтобы собственник помещения направил уведомление" +
-                                    " в УМВД через портал государственных услуг о постановке на миграционный" +
-                                    " учет иностранного гражданина по месту пребывания",
-                            Term = 30,
-                            Country = "Казахстан"
-                        },
-                        new RegulationModel()
-                        {
-                            Name = "Документ, подтверждающий постановку на миграционный учет по месту пребывания",
-                            Rules ="Нужно сделать:Вам необходимо обратиться к лицу, у которого проживаете, " +
-                                    "для того чтобы собственник помещения направил уведомление" +
-                                    " в УМВД через портал государственных услуг о постановке на миграционный" +
-                                    " учет иностранного гражданина по месту пребывания",
-                            Term = 30,
-                            Country = "Киргизия"
+                            Country = "Для граждан Киргизии, Казахстана, Армении, высококвалифицированных специалистов и членов их семей (если ранее уже состояли на миграционном учете в РФ, при смене места регистрации)"
                         },
                         new RegulationModel()
                         {
@@ -78,7 +49,7 @@ namespace MigrantProjectMVC.Repositories
                                     " в УМВД через портал государственных услуг о постановке на миграционный" +
                                     " учет иностранного гражданина по месту пребывания",
                             Term = 15,
-                            Country = "Таджикистан",
+                            Country = "Для граждан Таджикистана и Узбекистана"
                         },
                         new RegulationModel()
                         {
@@ -88,7 +59,7 @@ namespace MigrantProjectMVC.Repositories
                                     " в УМВД через портал государственных услуг о постановке на миграционный" +
                                     " учет иностранного гражданина по месту пребывания",
                             Term = 7,
-                            Country = "Узбекистан"
+                           Country = "Для всех остальных иностранных граждан"
                         },
                         new RegulationModel()
                         {
@@ -98,13 +69,12 @@ namespace MigrantProjectMVC.Repositories
                                     " в УМВД через портал государственных услуг о постановке на миграционный" +
                                     " учет иностранного гражданина по месту пребывания",
                             Term = 30,
-                            Country = "гос. программа переселиня соотечественников"
+                            Country = "Для участников государственной программы переселения соотечественников"
                         }
                     };
-                }
+                fs.Dispose();
+                SaveContext();
             }
-            var data = JsonSerializer.Serialize(Regulations);
-            File.WriteAllText(_filePath, data);
         }
 
         public Task<IList<RegulationModel>> GetAllRegulations()
@@ -117,6 +87,7 @@ namespace MigrantProjectMVC.Repositories
             return Task.FromResult(Regulations.FirstOrDefault(x => x.Country == country));
         }
 
+
         public Task UpdateRegulation(RegulationModel regulation) // переписать или этот метод или все остальные по его подобию
         {
             var index = Regulations.FindIndex(x => x.Country == regulation.Country);
@@ -124,6 +95,15 @@ namespace MigrantProjectMVC.Repositories
             {
                 Regulations[index] = regulation;
             }
+            SaveContext();
+            return Task.CompletedTask;
+
+        }
+
+        public Task SaveContext()
+        {
+            var data = JsonSerializer.Serialize(Regulations);
+            File.WriteAllText(_filePath, data);
             return Task.CompletedTask;
         }
     }

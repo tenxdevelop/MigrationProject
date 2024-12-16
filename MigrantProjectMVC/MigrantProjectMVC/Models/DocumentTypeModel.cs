@@ -3,12 +3,9 @@
     public class DocumentTypeModel
     {
         public string Name { get; set; }
-        public static DocumentTypeModel Create(string name)
+        public static string GetPlaceRegistrationType()
         {
-            return new DocumentTypeModel
-            {
-                Name = name
-            };
+            return null;
         }
     }
 }

@@ -12,9 +12,10 @@ namespace MigrantProjectMVC.CommandHandlers
             _regulationRepository = regulationRepository;
         }
 
-        public Task<bool> Handle(UpdateRegulationTermCommand requist)
+        public async Task<bool> Handle(UpdateRegulationTermCommand requist)
         {
-            throw new NotImplementedException();
+            await _regulationRepository.UpdateRegulation(requist.Regulation);
+            return true;
         }
     }
 }

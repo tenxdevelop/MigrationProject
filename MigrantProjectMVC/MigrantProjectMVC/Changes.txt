@@ -2,5 +2,10 @@
 2) Добавлен метод Save Context в UserRepository и MigrantRepositry, для сохранения данных в json файлах после редактирования данных в системе
 3) Добавлен метод GetMigrantById в MigrantRepository (Может быть создадим из него query и его хэндлер, обсудим)
 4) добавлено поле  Guid id в UpdateDataMigrantCommand, т.к. в изначальном варианте передавались лишь данные, но не было возможности определить, к какому мигранту они относятся
-
+5)Изменил regulation в плане методов, updateRegulationTermCommand изменил сигнатуру, теперь туда не нужен int, мы можешь сразу отправлять измнененный регламент. (обсудим)
+6)В StatementRepository добавлен метод GetStatementById(Guid id)
+7)В documentRepository появилось поле с statementRepository, т.к. иначе метод GetAllDocumentsByStatementId не реализовать, либо просто перенести его в statementRepository
+8)И в statementrepository добавил поле documentRepostiry, пока хз, мб буду откаывать.
+9)В statement repository, при добавлении заялвения в реп, так же добавляю элементы и в documentReposiotry, вопрос в чём, будем ли проверять, есть ли уже документ в documentRep.?
+10)В statementController добавлен изменено: GetAllStatements, не принимает входных параметров и возвращает вообще все заявления, заместо него старого появился GetStatementByPlaceOwnerId, в который у нас уже входит Guid и мы получаем все его заявления
 Свои мысли можешь писать тут, буду стараться хотя бы раз в день чекать

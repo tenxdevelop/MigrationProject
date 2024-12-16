@@ -23,18 +23,21 @@ builder.Services.AddSingleton<IUserRepository, UserRepository>();
 builder.Services.AddSingleton<IMigrantRepository, MigrantRepository>();
 builder.Services.AddSingleton<IRegulationRepository, RegulationRepository>();
 builder.Services.AddSingleton<IRoleRepostory, RoleRepository>();
-
+builder.Services.AddSingleton<IDocumentRepository, DocumentRepository>();
+builder.Services.AddSingleton<IStatementRepository, StatementRepository>();
 // Регаем в CommandProcessor все исполнители комманд
 builder.Services.AddSingleton<ICommandProcessor>(sp =>
 {
-    var commandProcessor = new CommandProcessor();
-    commandProcessor.RegisterCommandHadnler(new CreateUserStatementCommandHandler(sp.GetService<IUserRepository>()));
-    commandProcessor.RegisterCommandHadnler(new DeleteUserCommandHandler(sp.GetService<IUserRepository>()));
-    commandProcessor.RegisterCommandHadnler(new LoginUserCommandHandler(sp.GetService<IUserRepository>(), sp.GetService<IPasswordHasher>(),
-        sp.GetService<ITokenProvider>(), sp.GetService<IHttpContextAccessor>()));
-    commandProcessor.RegisterCommandHadnler(new RegisterUserCommandHandler(sp.GetService<IUserRepository>(), sp.GetService<IPasswordHasher>()));
-    commandProcessor.RegisterCommandHadnler(new SetRoleCommandHandler(sp.GetService<IUserRepository>()));
-    commandProcessor.RegisterCommandHadnler(new UpdateDataMigrantCommandHandler(sp.GetService<IMigrantRepository>()));
+var commandProcessor = new CommandProcessor();
+commandProcessor.RegisterCommandHadnler(new CreateUserStatementCommandHandler(sp.GetService<IUserRepository>()));
+commandProcessor.RegisterCommandHadnler(new DeleteUserCommandHandler(sp.GetService<IUserRepository>()));
+commandProcessor.RegisterCommandHadnler(new LoginUserCommandHandler(sp.GetService<IUserRepository>(), sp.GetService<IPasswordHasher>(),
+    sp.GetService<ITokenProvider>(), sp.GetService<IHttpContextAccessor>()));
+commandProcessor.RegisterCommandHadnler(new RegisterUserCommandHandler(sp.GetService<IUserRepository>(), sp.GetService<IPasswordHasher>()));
+commandProcessor.RegisterCommandHadnler(new SetRoleCommandHandler(sp.GetService<IUserRepository>()));
+commandProcessor.RegisterCommandHadnler(new UpdateDataMigrantCommandHandler(sp.GetService<IMigrantRepository>()));
+commandProcessor.RegisterCommandHadnler(new UpdateRegulationTermCommandHandler(sp.GetService<IRegulationRepository>()));
+commandProcessor.RegisterCommandHadnler(new CreateDocumentCommandHandler(sp.GetService<IDocumentRepository>()));
     return commandProcessor;
 });
 builder.Services.AddSingleton<IQueryProcessor>(sp =>
@@ -46,6 +49,7 @@ builder.Services.AddSingleton<IQueryProcessor>(sp =>
     queryProcessor.RegisterQueryHandler(new GetRegulationQueryHandler(sp.GetService<IMigrantRepository>(), sp.GetService<IRegulationRepository>()));
     queryProcessor.RegisterQueryHandler(new GetRolesListQueryHandler(sp.GetService<IRoleRepostory>()));
     queryProcessor.RegisterQueryHandler(new GetMigrantQueryHandler(sp.GetService<IMigrantRepository>()));
+    queryProcessor.RegisterQueryHandler(new GetDocumentListQueryHandler(sp.GetService<IDocumentRepository>()));
 
     return queryProcessor;
 });

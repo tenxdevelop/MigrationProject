@@ -8,7 +8,13 @@ namespace MigrantProjectMVC.Commands
     {
         public RegulationModel Regulation { get; set; }
 
-        public int Term { get; set; }
+       // public int Term { get; set; }
+
+        public UpdateRegulationTermCommand(RegulationModel regulation) 
+        {
+            Regulation = regulation;
+            //Term = term;
+        }
 
     }
 }
