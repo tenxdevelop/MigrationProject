@@ -1,26 +1,9 @@
-using MigrantProjectMVC.CommandHandlers;
-using MigrantProjectMVC.Commands;
-using MigrantProjectMVC.Interfaces;
-using MigrantProjectMVC.Models;
-using MigrantProjectMVC.Repositories;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
-
-//Dependencies
-builder.Services.AddSingleton<IUserRepository, UserRepository>();
-
-
-// Регаем в CommandProcessor все исполнители комманд
-builder.Services.AddSingleton<ICommandProcessor>(sp =>
-{
-    var commandProcessor = new CommandProcessor();
-    commandProcessor.RegisterCommandHadnler(new CreateUserStatementCommandHandler(sp.GetService<IUserRepository>()));
-    commandProcessor.RegisterCommandHadnler(new DeleteUserCommandHandler(sp.GetService<IUserRepository>()));
-    return commandProcessor;
-});
 
 var app = builder.Build();
 
@@ -41,6 +24,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=User}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

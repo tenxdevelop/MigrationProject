@@ -15,12 +15,17 @@ namespace MigrantProjectMVC.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View("Prof");
         }
 
-        public IActionResult Privacy()
+        public IActionResult Register()
         {
-            return View();
+            return View("Register");
+        }
+
+        public IActionResult Login()
+        {
+            return View("Login");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

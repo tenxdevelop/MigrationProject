@@ -1,0 +1,51 @@
+﻿@{
+    ViewData["ShowHeader"] = false;
+    ViewData["Title"] = "Register";
+}
+
+<div class="row d-flex align-items-center justify-content-center">
+    <div class="col-md-4 card p-3">
+        <h2 class="text-center text-info">Регистрация</h2>
+        <form asp-action="Register" method="post" asp-route-returnurl="@ViewData["ReturnUrl"]">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="mb-1">
+                <label  class="control-label">Имя</label>
+                <input  class="form-control" />
+                <span  class="text-danger"></span>
+            </div>
+            <div class="mb-1">
+                <label  class="control-label">Фамилия</label>
+                <input  class="form-control" />
+                <span  class="text-danger"></span>
+            </div>
+            <div class="mb-1">
+                <label  class="control-label">Отчество</label>
+                <input  class="form-control" />
+                <span  class="text-danger"></span>
+            </div>
+            <div class="mb-1">
+                <label  class="control-label">Почта</label>
+                <input class="form-control" />
+                <span  class="text-danger"></span>
+            </div>
+            <div class="mb-1">
+                <label class="control-label">Пароль</label>
+                <input class="form-control" />
+                <span class="text-danger"></span>
+            </div>
+            <div class="mb-1">
+                <label class="control-label">повторный пароль</label>
+                <input class="form-control" />
+                <span class="text-danger"></span>
+            </div>
+            <div class="row">
+                <div class="col-8">
+                    <a asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" class="text-decoration-none float-start mt-2">Есть аккаунт?</a>
+                </div>
+                <div class="col-4">
+                    <input type="submit" value="Регистрация" class="btn btn-primary btn-sm float-end" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
