@@ -26,6 +26,15 @@ namespace MigrantProjectMVC.Controllers
             return Ok(types);
         }
 
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> CreateNotification(Guid statementId, string name, string surname, string patronymic)
+        {
+            var command = new CreateNotificationCommand();
+            var result = await commandProcessor.Process(command);
+            return Ok();
+        }
+
 
     }
 }

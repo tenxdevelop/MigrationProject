@@ -25,6 +25,7 @@ builder.Services.AddSingleton<IRegulationRepository, RegulationRepository>();
 builder.Services.AddSingleton<IRoleRepostory, RoleRepository>();
 builder.Services.AddSingleton<IDocumentRepository, DocumentRepository>();
 builder.Services.AddSingleton<IStatementRepository, StatementRepository>();
+builder.Services.AddSingleton<INotificationRepository, NotificationRepository>();
 // Регаем в CommandProcessor все исполнители комманд
 builder.Services.AddSingleton<ICommandProcessor>(sp =>
 {
@@ -39,7 +40,7 @@ commandProcessor.RegisterCommandHadnler(new UpdateDataMigrantCommandHandler(sp.G
 commandProcessor.RegisterCommandHadnler(new UpdateRegulationTermCommandHandler(sp.GetService<IRegulationRepository>()));
 commandProcessor.RegisterCommandHadnler(new CreateDocumentCommandHandler(sp.GetService<IDocumentRepository>()));
 commandProcessor.RegisterCommandHadnler(new SetStatementStatusCommandHandler(sp.GetService<IStatementRepository>()));
-
+commandProcessor.RegisterCommandHadnler(new CreateNotificationCommandHandler(sp.GetService<INotificationRepository>(), sp.GetService<IStatementRepository>(), sp.GetService<IUserRepository>() ));
 
 
     return commandProcessor;

@@ -42,6 +42,7 @@ namespace MigrantProjectMVC.Repositories
         public Task Add(NotificationModel notification)
         {
             Notifications.Add(notification);
+            SaveContext();
             return Task.CompletedTask;
         }
 
