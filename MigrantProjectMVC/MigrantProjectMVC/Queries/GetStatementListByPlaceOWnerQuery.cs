@@ -3,11 +3,11 @@ using MigrantProjectMVC.Models;
 
 namespace MigrantProjectMVC.Queries
 {
-    public class GetStatementListQuery : IQuery<List<StatementModel>>
+    public class GetStatementListByPlaceOWnerQuery : IQuery<List<StatementModel>>
     {
         public Guid UserId { get; set; }
 
-        public GetStatementListQuery(Guid userId)
+        public GetStatementListByPlaceOWnerQuery(Guid userId)
         {
             UserId = userId;
         }

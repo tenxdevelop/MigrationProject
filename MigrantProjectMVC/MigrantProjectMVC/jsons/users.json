@@ -1,1 +1,32 @@
-[{"Id":"48e483c0-8c43-47d7-9833-112358380836","Name":null,"Surname":null,"Patronymic":null,"Email":"string","Phone":"string","PasswordHash":"RzKH\u002BCmNunFjqJeQiVj3wOrnM\u002BJdLgJ5kuou3JvtL6g=","Role":{"Name":"Admin"}},{"Id":"26b188de-d553-47c1-ac7d-8af144d00253","Name":"StatementName","Surname":"StatementSurname","Patronymic":"StatementPatronymic","Email":"StatementEmail","Phone":null,"PasswordHash":"8OVI3rTXTlZ3hNnc/4XCQ1PB4OO312Gisj\u002BpiJvuD0k=","Role":{"Name":"Migrant"}}]
+[
+  {
+    "Id": "48e483c0-8c43-47d7-9833-112358380836",
+    "Name": null,
+    "Surname": null,
+    "Patronymic": null,
+    "Email": "string",
+    "Phone": "string",
+    "PasswordHash": "RzKH\u002BCmNunFjqJeQiVj3wOrnM\u002BJdLgJ5kuou3JvtL6g=",
+    "Role": { "Name": "Admin" }
+  },
+  {
+    "Id": "26b188de-d553-47c1-ac7d-8af144d00253",
+    "Name": "Migrant",
+    "Surname": "Migrant",
+    "Patronymic": "Migrant",
+    "Email": "Migrant",
+    "Phone": null,
+    "PasswordHash": "8OVI3rTXTlZ3hNnc/4XCQ1PB4OO312Gisj\u002BpiJvuD0k=",
+    "Role": { "Name": "Migrant" }
+  },
+  {
+    "Id": "26b188de-d553-47c1-ac7d-8af144d00265",
+    "Name": "PlaceOwner",
+    "Surname": "PlaceOwner",
+    "Patronymic": "PlaceOwner",
+    "Email": "PlaceOwner",
+    "Phone": null,
+    "PasswordHash": "RzKH\u002BCmNunFjqJeQiVj3wOrnM\u002BJdLgJ5kuou3JvtL6g=",
+    "Role": { "Name": "PlaceOwner" }
+  }
+]

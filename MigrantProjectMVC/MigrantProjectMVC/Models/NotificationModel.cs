@@ -9,7 +9,7 @@ namespace MigrantProjectMVC.Models
         public string Surname { get; set; }
         public string Patronymic { get; set; }
         public bool Status { get; set; }
-        public NotificationType NotificationType { get; set; }
+        public NotificationType? NotificationType { get; set; }
 
         public static NotificationModel Create(Guid StatementId, string name, string surname, string patronymic)
         {

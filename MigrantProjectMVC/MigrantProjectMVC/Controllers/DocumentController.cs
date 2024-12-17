@@ -10,9 +10,9 @@ namespace MigrantProjectMVC.Controllers
     {
         [Authorize]
         [HttpPost("CreateDocument")]
-        public async Task<IActionResult> CreateDocument(string name, string content, DateTime createionDate)
+        public async Task<IActionResult> CreateDocument(string name, string content, DateTime creationDate)
         {
-            var command = new CreateDocumentCommand(name, content, createionDate);
+            var command = new CreateDocumentCommand(name, content, creationDate);
             var result = await commandProcessor.Process(command);
             return Ok(result);
         }

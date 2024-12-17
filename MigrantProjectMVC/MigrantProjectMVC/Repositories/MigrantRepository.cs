@@ -41,7 +41,7 @@ namespace MigrantProjectMVC.Repositories
                             HighlyQualified = false,
                             ResettelmentProgramMember = false,
                             ConsistOfMigrationRegistration = false,
-                            Country = "unknown"
+                            Country = "Белоруссь"
                         }
                         );
                 }

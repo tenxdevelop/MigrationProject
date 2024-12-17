@@ -6,9 +6,17 @@ namespace MigrantProjectMVC.QueryHandlers
 {
     public class GetStatementStatusQueryHandler : IQueryHandler<GetStatementStatusQuery, StatusType>
     {
-        public Task<StatusType> Handle(GetStatementStatusQuery query)
+        private IStatementRepository _statementRepository;
+
+        public GetStatementStatusQueryHandler(IStatementRepository statementRepository)
         {
-            throw new NotImplementedException();
+            _statementRepository = statementRepository;
+        }
+
+        public async Task<StatusType> Handle(GetStatementStatusQuery query)
+        {
+            var statement = await _statementRepository.GetStatementById(query.StatementId);
+            return statement.Status;
         }
     }
 }

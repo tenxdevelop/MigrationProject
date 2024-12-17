@@ -1,4 +1,5 @@
-﻿using MigrantProjectMVC.Interfaces;
+﻿using MigrantProjectMVC.Enums;
+using MigrantProjectMVC.Interfaces;
 using MigrantProjectMVC.Models;
 using MigrantProjectMVC.Queries;
 
@@ -6,9 +7,18 @@ namespace MigrantProjectMVC.QueryHandlers
 {
     public class GetNewStatementQueryHandler : IQueryHandler<GetNewStatementQuery, StatementModel>
     {
-        public Task<StatementModel> Handle(GetNewStatementQuery query)
+        private IStatementRepository _statementRepository;
+
+        public GetNewStatementQueryHandler(IStatementRepository statementRepository)
         {
-            throw new NotImplementedException();
+            _statementRepository = statementRepository;
+        }
+
+        public async Task<StatementModel> Handle(GetNewStatementQuery query)
+        {
+            var allStatements = await _statementRepository.GetAllStatements();
+            var statment = allStatements.Where(x => x.Status == StatusType.CREATED).FirstOrDefault();
+            return statment;
         }
     }
 }

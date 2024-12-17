@@ -38,6 +38,10 @@ commandProcessor.RegisterCommandHadnler(new SetRoleCommandHandler(sp.GetService<
 commandProcessor.RegisterCommandHadnler(new UpdateDataMigrantCommandHandler(sp.GetService<IMigrantRepository>()));
 commandProcessor.RegisterCommandHadnler(new UpdateRegulationTermCommandHandler(sp.GetService<IRegulationRepository>()));
 commandProcessor.RegisterCommandHadnler(new CreateDocumentCommandHandler(sp.GetService<IDocumentRepository>()));
+commandProcessor.RegisterCommandHadnler(new SetStatementStatusCommandHandler(sp.GetService<IStatementRepository>()));
+
+
+
     return commandProcessor;
 });
 builder.Services.AddSingleton<IQueryProcessor>(sp =>
@@ -50,6 +54,11 @@ builder.Services.AddSingleton<IQueryProcessor>(sp =>
     queryProcessor.RegisterQueryHandler(new GetRolesListQueryHandler(sp.GetService<IRoleRepostory>()));
     queryProcessor.RegisterQueryHandler(new GetMigrantQueryHandler(sp.GetService<IMigrantRepository>()));
     queryProcessor.RegisterQueryHandler(new GetDocumentListQueryHandler(sp.GetService<IDocumentRepository>()));
+    queryProcessor.RegisterQueryHandler(new GetAllStatementsQueryHandler(sp.GetService<IStatementRepository>()));
+    queryProcessor.RegisterQueryHandler(new GetNewStatementQueryHandler(sp.GetService<IStatementRepository>()));
+    queryProcessor.RegisterQueryHandler(new GetStatementListByPlaceOwnerQueryHandler(sp.GetService<IStatementRepository>()));
+    queryProcessor.RegisterQueryHandler(new GetStatementStatusQueryHandler(sp.GetService<IStatementRepository>()));
+    
 
     return queryProcessor;
 });

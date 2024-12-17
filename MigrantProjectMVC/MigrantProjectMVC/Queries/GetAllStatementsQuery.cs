@@ -1,6 +1,9 @@
-﻿namespace MigrantProjectMVC.Queries
+﻿using MigrantProjectMVC.Interfaces;
+using MigrantProjectMVC.Models;
+
+namespace MigrantProjectMVC.Queries
 {
-    public class GetAllStatementsQuery
+    public class GetAllStatementsQuery : IQuery<IList<StatementModel>>
     {
     }
 }

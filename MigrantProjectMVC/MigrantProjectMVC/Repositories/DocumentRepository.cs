@@ -7,14 +7,13 @@ namespace MigrantProjectMVC.Repositories
 {
     public class DocumentRepository : IDocumentRepository
     {
-        IStatementRepository _statementRepository; // Пока под вопросом
+        private IServiceProvider _serviceProvider;
         public List<DocumentModel> Documents;
         private string _filePath = "jsons/documents.json";
 
-        public DocumentRepository(IStatementRepository statementRepository)
+        public DocumentRepository( IServiceProvider serviceProvider)
         {
-            _statementRepository = statementRepository;
-
+            _serviceProvider = serviceProvider;
             var fs = new FileStream(_filePath, FileMode.Open);
             try
             {
@@ -71,6 +70,7 @@ namespace MigrantProjectMVC.Repositories
 
         public async Task<IList<DocumentModel>> GetAllDocumentsByStatementId(Guid statementId)
         {
+            IStatementRepository _statementRepository = _serviceProvider.GetService<IStatementRepository>();
             var statement = await _statementRepository.GetStatementById(statementId);
             var migrantDocuments = statement.MigrantDocuments;
             var documents = statement.Documents;

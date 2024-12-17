@@ -10,11 +10,12 @@ namespace MigrantProjectMVC.Repositories
         public List<StatementModel> Statements;
         private string _filePath = "jsons/statements.json";
         private IDocumentRepository _documentRepository;
-        
+        private IServiceProvider _serviceProvider;
 
-        public StatementRepository(IDocumentRepository documentRepository)
+        public StatementRepository(IDocumentRepository documentRepository, IServiceProvider serviceProvider)
         {
             _documentRepository = documentRepository;
+            _serviceProvider = serviceProvider;
             var fs = new FileStream(_filePath, FileMode.Open);
             try
             {
@@ -23,6 +24,8 @@ namespace MigrantProjectMVC.Repositories
             }
             catch (Exception ex) 
             {
+                var regulationRepository = _serviceProvider.GetService<IRegulationRepository>();
+                var userRepository = _serviceProvider.GetService<IUserRepository>();
                 fs.Dispose();
                 Statements = new List<StatementModel>()
                 {
@@ -64,7 +67,10 @@ namespace MigrantProjectMVC.Repositories
                                 CreationDate = DateTime.Parse("1999-07-07"),
                                 DocumentType = new DocumentTypeModel(){Name = "VisaRF"}
                             }
-                        }
+                        },
+                        Status = StatusType.CREATED,
+                        Regulation = regulationRepository.GetRegulationWithCountry("Белоруссь").Result,
+                        PlaceOwner = userRepository.GetUserByEmail("PlaceOwner").Result 
                     }
                 };
                 SaveContext();
@@ -74,7 +80,7 @@ namespace MigrantProjectMVC.Repositories
 
 
 
-        public async Task<IList<StatementModel>> GetAllStatementsByPlaceOwner(Guid userId)
+        public async Task<IList<StatementModel>> GetAllStatementsByPlaceOwnerId(Guid userId)
         {
             return Statements.Where(x => x.PlaceOwner.Id == userId).ToList();
         }

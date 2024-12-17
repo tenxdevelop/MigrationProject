@@ -1,15 +1,37 @@
-﻿using MigrantProjectMVC.Interfaces;
+﻿using MigrantProjectMVC.Enums;
+using MigrantProjectMVC.Interfaces;
 using MigrantProjectMVC.Models;
+using System.Text.Json;
 
 namespace MigrantProjectMVC.Repositories
 {
     public class NotificationRepository : INotificationRepository
     {
         public List<NotificationModel> Notifications { get; set; }
+        string _filePath = "jsons/notifications.json";
+        private IStatementRepository _statementRepository;
 
-        public NotificationRepository()
+        public NotificationRepository(IStatementRepository statementRepository)
         {
-
+            _statementRepository = statementRepository;
+            var fs = new FileStream(_filePath, FileMode.Open);
+            try
+            {
+                Notifications = JsonSerializer.Deserialize<List<NotificationModel>>(fs);
+            }
+            catch (Exception ex) 
+            {
+                Notifications = new List<NotificationModel>()
+                {
+                    new NotificationModel()
+                    {
+                        StatementId = statementRepository.GetAllStatements().Result.Where(x => x.Status == StatusType.APPROVED).First().Id,
+                        Name = "PlaceOwner",
+                        Surname = "PlaceOwner",
+                        Patronymic = "PlaceOwner"
+                    }
+                };
+            }
         }
 
         public Task<NotificationModel> GetNotification(Guid statementId)
@@ -33,5 +55,13 @@ namespace MigrantProjectMVC.Repositories
             foundedNotification.Patronymic = notification.Patronymic;
             return Task.CompletedTask;
         }
+
+        public Task SaveContext()
+        {
+            var data = JsonSerializer.Serialize(Notifications);
+            File.WriteAllText(_filePath, data);
+            return Task.CompletedTask;
+        }
+
     }
 }

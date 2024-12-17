@@ -6,12 +6,15 @@ namespace MigrantProjectMVC.QueryHandlers
 {
     public class GetAllStatementsQueryHandler : IQueryHandler<GetAllStatementsQuery, IList<StatementModel>>
     {
-        private IStatementRepository _statementRepositoryl;
+        private IStatementRepository _statementRepository;
         public GetAllStatementsQueryHandler(IStatementRepository statementRepository) 
         {
-            _statementRepositoryl = statementRepository;
+            _statementRepository = statementRepository;
         }
 
-
+        public Task<IList<StatementModel>> Handle(GetAllStatementsQuery query)
+        {
+            return _statementRepository.GetAllStatements();
+        }
     }
 }
