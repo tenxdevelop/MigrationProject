@@ -15,7 +15,7 @@ namespace MigrantProjectMVC.Controllers
 
         public IActionResult Index()
         {
-            return View("Prof");
+            return View("ManipulationUser");
         }
 
         public IActionResult Register()

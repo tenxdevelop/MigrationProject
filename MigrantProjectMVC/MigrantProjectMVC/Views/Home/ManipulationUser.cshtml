@@ -1,0 +1,114 @@
+﻿@{
+    ViewData["Title"] = "Управление пользователями";
+    ViewData["ShowHeader"] = true;
+}
+
+<div class="container">
+    <h1>Управление пользователями</h1>
+    <!-- Секция для удаления пользователя -->
+    <div class="card">
+        <div class="card-header">
+            Удаление пользователя
+        </div>
+        <div class="card-body">
+            <form id="deleteUserForm">
+                <div class="form-group">
+                    <label for="userSelect">Выберите пользователя для удаления</label>
+                    <select class="form-control" id="userSelect">
+                        <option value="1">Пользователь 1</option>
+                        <option value="2">Пользователь 2</option>
+                        <option value="3">Пользователь 3</option>
+                        <!-- Здесь можно динамически добавлять пользователей -->
+                    </select>
+                </div>
+                <button type="button" class="btn btn-danger" style="text-align: right; margin-top: 20px">Удалить пользователя</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="alert alert-success" id="successMessage" style="display:none;">
+        Пользователь был успешно удалён!
+    </div>
+
+    <div class="alert alert-danger" id="errorMessage" style="display:none;">
+        Произошла ошибка при удалении пользователя!
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            Назначение роли пользователю
+        </div>
+        <div class="card-body">
+            <form id="assignRoleForm">
+                <div class="form-group">
+                    <label for="roleUserSelect">Выберите пользователя</label>
+                    <select class="form-control" id="roleUserSelect">
+                        <option value="1">Пользователь 1</option>
+                        <option value="2">Пользователь 2</option>
+                        <option value="3">Пользователь 3</option>
+                        <!-- Здесь можно динамически добавлять пользователей -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="roleSelect">Выберите роль</label>
+                    <select class="form-control" id="roleSelect">
+                        <option value="admin">Администратор</option>
+                        <option value="editor">Редактор</option>
+                        <option value="viewer">Наблюдатель</option>
+                    </select>
+                </div>
+                <button type="button" class="btn btn-primary" style="text-align: right; margin-top: 20px">Назначить роль</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="alert alert-success" id="roleSuccessMessage" style="display:none;">
+        Роль была успешно назначена!
+    </div>
+    <div class="alert alert-danger" id="roleErrorMessage" style="display:none;">
+        Произошла ошибка при назначении роли!
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            Создание нового пользователя
+        </div>
+        <div class="card-body">
+            <form id="createUserForm">
+                <div class="form-group">
+                    <label for="firstName">Имя</label>
+                    <input type="text" class="form-control" id="firstName" required>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Фамилия</label>
+                    <input type="text" class="form-control" id="lastName" required>
+                </div>
+                <div class="form-group">
+                    <label for="middleName">Отчество</label>
+                    <input type="text" class="form-control" id="middleName" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Почта</label>
+                    <input type="email" class="form-control" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Пароль</label>
+                    <input type="password" class="form-control" id="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Подтверждение пароля</label>
+                    <input type="password" class="form-control" id="confirmPassword" required>
+                </div>
+                <button type="button" class="btn btn-primary" style="text-align: right; margin-top: 20px">Создать пользователя</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="alert alert-success" id="successMessage" style="display:none;">
+        Операция выполнена успешно!
+    </div>
+    <div class="alert alert-danger" id="errorMessage" style="display:none;">
+        Произошла ошибка!
+    </div>
+
+</div>
