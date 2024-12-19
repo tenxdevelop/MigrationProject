@@ -1,0 +1,74 @@
+﻿@{
+    ViewData["ShowHeader"] = true;
+    ViewData["Title"] = "Профиль";
+}
+<style>
+    .form-control {
+        border: none;
+        border-radius: 0.25rem; 
+        padding: 0.5rem; 
+        transition: box-shadow 0.3s; 
+    }
+
+    .form-control:focus {
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); 
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem; 
+    }
+
+    .input-group-text {
+        background-color: #fff; 
+        border: none; 
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-md-2 sidebar">
+            <h2>Профиль:</h2>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link active" href="">Добавить документы и данные</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="">Безопасность</a>
+                </li>
+            </ul>
+        </nav>
+
+        <main class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            <h1 class="mt-4">Профиль пользователя</h1>
+            <form id="profileForm" class="mt-4">
+                <div class="form-group">
+                    <label for="firstName">Имя</label>
+                    <input type="text" class="form-control" id="firstName" name="firstName" value="Сергей" required>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Фамилия</label>
+                    <input type="text" class="form-control" id="lastName" name="lastName" value="Вичеслав" required>
+                </div>
+                <div class="form-group">
+                    <label for="patronymic">Отчество</label>
+                    <input type="text" class="form-control" id="patronymic" name="patronymic" value="Отчество" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Электронная почта</label>
+                    <input type="email" class="form-control" id="email" name="email" value="test@mail.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Телефон</label>
+                    <input type="tel" class="form-control" id="phone" name="phone" value="+7(982)944-43-45">
+                </div>
+                <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+            </form>
+
+            <div class="mt-5">
+                <h2>Удалить аккаунт</h2>
+                <p>Если вы хотите удалить свой аккаунт, пожалуйста, нажмите кнопку ниже.</p>
+                <button class="btn btn-danger">Удалить аккаунт</button>
+            </div>
+        </main>
+    </div>
+</div>

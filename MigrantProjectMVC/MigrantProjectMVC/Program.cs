@@ -11,6 +11,7 @@ using MigrantProjectMVC.QueryHandlers;
 using MigrantProjectMVC.Repositories;
 using System.Text;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();

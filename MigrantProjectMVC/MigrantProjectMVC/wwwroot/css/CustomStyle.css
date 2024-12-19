@@ -1,0 +1,47 @@
+﻿.mainHeader {
+    position: sticky;
+    z-index: 100;
+    width: 100%;
+    top: 0;
+}
+
+.breadcrumbs {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 25px 100px;
+    background-color: white;
+    border-radius: 20px;
+}
+
+.breadcrumbs h3 {
+    display: inline;
+    color: #2D66EE;
+    margin-left: 20px;
+    text-transform: uppercase;
+    size: 20px;
+}
+
+.breadcrumbs ul {
+    list-style-type: none;
+    color: #2D66EE;
+}
+
+.breadcrumbs ol li {
+    color: #2D66EE;
+}
+
+.breadcrumbs ol li a {
+    color: #2D66EE;
+}
+
+.breadcrumbs li {
+    display: inline;
+    margin-right: 20px;
+}
+
+.breadcrumbs a {
+    text-decoration: none;
+}
+
+
