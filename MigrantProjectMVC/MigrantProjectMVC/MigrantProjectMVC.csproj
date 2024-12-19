@@ -7,7 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Layouts\" />
+    <Compile Remove="Views\Layouts\**" />
+    <Content Remove="Views\Layouts\**" />
+    <EmbeddedResource Remove="Views\Layouts\**" />
+    <None Remove="Views\Layouts\**" />
   </ItemGroup>
 
   <ItemGroup>

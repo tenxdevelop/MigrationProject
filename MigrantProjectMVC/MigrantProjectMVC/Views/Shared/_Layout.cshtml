@@ -11,27 +11,28 @@
 
 </head>
 <body>
-
+    
     @if (ViewData["ShowHeader"] != null && (bool)ViewData["ShowHeader"] == true)
     {
         <header class="mainHeader">
-                <nav class="breadcrumbs">
+            <nav class="breadcrumbs">
                 <h3>Migration Project</h3>
                 <ul>
-                    <li><a href="">Просмотр уведомлений</a></li>
-                    <!-- проверка на пользователя-->
-                    <li><a href="">Просмотр регламент услуги</a></li>
+                    <li><a class="users" href="~/Regulation/Reglament">Просмотр регламент услуги</a></li>
+
+                    <li><a class="place-owner" href="">Просмотр уведомлений</a></li>
+                    <li><a class="place-owner" href="">Подать заявление</a></li>
+
+                    <li><a class="admin" href="~/Notification/Index">Просмотр уведомлений</a></li>
+                    <li><a class="admin" href="">Подать заявление</a></li>
+
                 </ul>
-                <ul> 
-                    <!-- Проввверка на вход в акк--> 
-                    <!-- если в акке-->
-                    <li><a href="">Выход</a></li>
-                    <li><a href="">Редактировать профиль</a></li>
-                    <!-- если не в акке-->
-                    <!--
-                    <li><a href="">Войти</a></li>
-                    <li><a href="">Создать аккаунт</a></li>
-                    -->
+                <ul>
+                    <li><a class="auth-only" href="~/User/Login">Выход</a></li>
+                    <li><a class="auth-only" href="~/User/Prof">Редактировать профиль</a></li>
+
+                    <li><a class="guest-only" href="~/User/Login">Войти</a></li>
+                    <li><a class="guest-only" href="~/User/Register">Создать аккаунт</a></li>
                 </ul>
             </nav>
         </header>
@@ -52,5 +53,78 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
+    <script>
+        function parseJWT(token) {
+            // Разделяем токен на части
+            const parts = token.split('.');
+            if (parts.length !== 3) {
+                throw new Error('Invalid JWT token format');
+            }
+
+            // Декодируем полезную нагрузку
+            const payload = JSON.parse(atob(parts[1]));
+
+            return payload;
+        }
+
+        function getTokenFromCookies() {
+            const name = "Auth=";
+            const decodedCookies = decodeURIComponent(document.cookie);
+            const cookieArray = decodedCookies.split(';');
+
+            for (let i = 0; i < cookieArray.length; i++) {
+                let cookie = cookieArray[i].trim();
+                if (cookie.indexOf(name) === 0) {
+                    return cookie.substring(name.length, cookie.length);
+                }
+            }
+            return null; // Токен не найден
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            function isAuthenticated() {
+                return document.cookie.split('; ').some(row => row.startsWith('Auth='));
+            }
+
+            const authElements = document.querySelectorAll('.auth-only');
+            const guestElements = document.querySelectorAll('.guest-only');
+
+            const usersElements = document.querySelectorAll('.users');
+            const placeOwnelElements = document.querySelectorAll('.place-owner');
+            const adminElements = document.querySelectorAll('.admin');
+
+            if (isAuthenticated()) {
+                guestElements.forEach(el => el.style.display = 'none');
+
+                const token = getTokenFromCookies();
+                const roleKey = 'http://schemas.microsoft.com/ws/2008/06/identity/claims/role';
+
+                var payload = parseJWT(token);
+
+                if (payload[roleKey] == 'User') {
+                    placeOwnelElements.forEach(el => el.style.display = 'none');
+                    adminElements.forEach(el => el.style.display = 'none');
+                }
+                else if (payload[roleKey] == 'Admin') {
+                    placeOwnelElements.forEach(el => el.style.display = 'none');
+                    usersElements.forEach(el => el.style.display = 'none');
+                } else if (payload[roleKey] == 'Migrant') {
+                    placeOwnelElements.forEach(el => el.style.display = 'none');
+                    adminElements.forEach(el => el.style.display = 'none');
+                } else if (payload[roleKey] == 'Place Owner') { 
+                    usersElements.forEach(el => el.style.display = 'none');
+                    adminElements.forEach(el => el.style.display = 'none');
+                }
+            } else {
+                authElements.forEach(el => el.style.display = 'none');
+
+                placeOwnelElements.forEach(el => el.style.display = 'none');
+                adminElements.forEach(el => el.style.display = 'none');
+                usersElements.forEach(el => el.style.display = 'none');
+            }            
+        });
+    </script>
 </body>
 </html>
+

@@ -6,11 +6,23 @@ using MigrantProjectMVC.Queries;
 
 namespace MigrantProjectMVC.Controllers
 {
-    [ApiController]
     public class NotificationConrtoller : BaseController
     {
+        [HttpGet]
+        public IActionResult Index()
+        {
+
+            return View("Index");
+        }
+
+        [HttpGet]
+        public IActionResult DetailsNotification()
+        {
+            return View();
+        }
+
         [Authorize]
-        [HttpGet("GetNotification")]
+        [HttpGet]
         public async Task<IActionResult> GetNotification(Guid id)
         {
             var query = new GetNotificationQuery(id);
@@ -19,7 +31,7 @@ namespace MigrantProjectMVC.Controllers
         }
 
         [Authorize]
-        [HttpGet("GetAllTypes")]
+        [HttpGet]
         public async Task<IActionResult> GetAllTypes()
         {
             var query = new GetAllNotificationTypesQuery();
@@ -35,9 +47,5 @@ namespace MigrantProjectMVC.Controllers
             var result = await commandProcessor.Process(command);
             return Ok(result);
         }
-
-
-
-
     }
 }

@@ -21,7 +21,8 @@ namespace MigrantProjectMVC.Models
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             var claims = new Claim[]
             {
-                new Claim(ClaimTypes.Role, user.Role.Name)
+                new Claim(ClaimTypes.Role, user.Role.Name),
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
             };
             var token = new JwtSecurityToken(
                 issuer: jwtSettings["Issuer"],

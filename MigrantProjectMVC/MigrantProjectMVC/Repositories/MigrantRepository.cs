@@ -51,7 +51,7 @@ namespace MigrantProjectMVC.Repositories
 
 
 
-        public Task<string> GetCountryByMigrantId(string email)
+        public Task<string> GetCountryByEmail(string email)
         {
             var migrant = migrants.FirstOrDefault(x => x.Email == email);
             if (migrant == null)

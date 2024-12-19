@@ -8,7 +8,7 @@ namespace MigrantProjectMVC.Repositories
     public class NotificationRepository : INotificationRepository
     {
         public List<NotificationModel> Notifications { get; set; }
-        string _filePath = "jsons/notifications.json";
+        string _filePath = "jsons/notification.json";
         private IStatementRepository _statementRepository;
 
         public NotificationRepository(IStatementRepository statementRepository)

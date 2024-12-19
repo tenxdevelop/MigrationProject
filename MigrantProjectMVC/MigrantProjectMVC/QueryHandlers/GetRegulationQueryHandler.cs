@@ -16,7 +16,7 @@ namespace MigrantProjectMVC.QueryHandlers
 
         public async Task<RegulationModel> Handle(GetRegulationQuery query) 
         {
-            var country = await _migrantReppository.GetCountryByMigrantId(query.Email);
+            var country = await _migrantReppository.GetCountryByEmail(query.Email);
             return await _regulationRepository.GetRegulationWithCountry(country);
         }
     }

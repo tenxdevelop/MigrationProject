@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using MigrantProjectMVC.CommandHandlers;
@@ -27,25 +25,27 @@ builder.Services.AddSingleton<IRoleRepostory, RoleRepository>();
 builder.Services.AddSingleton<IDocumentRepository, DocumentRepository>();
 builder.Services.AddSingleton<IStatementRepository, StatementRepository>();
 builder.Services.AddSingleton<INotificationRepository, NotificationRepository>();
+
 // Регаем в CommandProcessor все исполнители комманд
 builder.Services.AddSingleton<ICommandProcessor>(sp =>
 {
-var commandProcessor = new CommandProcessor();
-commandProcessor.RegisterCommandHadnler(new CreateUserStatementCommandHandler(sp.GetService<IUserRepository>()));
-commandProcessor.RegisterCommandHadnler(new DeleteUserCommandHandler(sp.GetService<IUserRepository>()));
-commandProcessor.RegisterCommandHadnler(new LoginUserCommandHandler(sp.GetService<IUserRepository>(), sp.GetService<IPasswordHasher>(),
-    sp.GetService<ITokenProvider>(), sp.GetService<IHttpContextAccessor>()));
-commandProcessor.RegisterCommandHadnler(new RegisterUserCommandHandler(sp.GetService<IUserRepository>(), sp.GetService<IPasswordHasher>()));
-commandProcessor.RegisterCommandHadnler(new SetRoleCommandHandler(sp.GetService<IUserRepository>()));
-commandProcessor.RegisterCommandHadnler(new UpdateDataMigrantCommandHandler(sp.GetService<IMigrantRepository>()));
-commandProcessor.RegisterCommandHadnler(new UpdateRegulationTermCommandHandler(sp.GetService<IRegulationRepository>()));
-commandProcessor.RegisterCommandHadnler(new CreateDocumentCommandHandler(sp.GetService<IDocumentRepository>()));
-commandProcessor.RegisterCommandHadnler(new SetStatementStatusCommandHandler(sp.GetService<IStatementRepository>()));
-commandProcessor.RegisterCommandHadnler(new CreateNotificationCommandHandler(sp.GetService<INotificationRepository>(), sp.GetService<IStatementRepository>(), sp.GetService<IUserRepository>() ));
+    var commandProcessor = new CommandProcessor();
+    commandProcessor.RegisterCommandHadnler(new CreateUserStatementCommandHandler(sp.GetService<IUserRepository>()));
+    commandProcessor.RegisterCommandHadnler(new DeleteUserCommandHandler(sp.GetService<IUserRepository>()));
+    commandProcessor.RegisterCommandHadnler(new LoginUserCommandHandler(sp.GetService<IUserRepository>(), sp.GetService<IPasswordHasher>(),
+                sp.GetService<ITokenProvider>(), sp.GetService<IHttpContextAccessor>()));
+    commandProcessor.RegisterCommandHadnler(new RegisterUserCommandHandler(sp.GetService<IUserRepository>(), sp.GetService<IPasswordHasher>()));
+    commandProcessor.RegisterCommandHadnler(new SetRoleCommandHandler(sp.GetService<IUserRepository>()));
+    commandProcessor.RegisterCommandHadnler(new UpdateDataMigrantCommandHandler(sp.GetService<IMigrantRepository>()));
+    commandProcessor.RegisterCommandHadnler(new UpdateRegulationTermCommandHandler(sp.GetService<IRegulationRepository>()));
+    commandProcessor.RegisterCommandHadnler(new CreateDocumentCommandHandler(sp.GetService<IDocumentRepository>()));
+    commandProcessor.RegisterCommandHadnler(new SetStatementStatusCommandHandler(sp.GetService<IStatementRepository>()));
+    commandProcessor.RegisterCommandHadnler(new CreateNotificationCommandHandler(sp.GetService<INotificationRepository>(), sp.GetService<IStatementRepository>(), sp.GetService<IUserRepository>() ));
 
 
     return commandProcessor;
 });
+
 builder.Services.AddSingleton<IQueryProcessor>(sp =>
 {
     var queryProcessor = new QueryProcessor();
@@ -60,12 +60,13 @@ builder.Services.AddSingleton<IQueryProcessor>(sp =>
     queryProcessor.RegisterQueryHandler(new GetNewStatementQueryHandler(sp.GetService<IStatementRepository>()));
     queryProcessor.RegisterQueryHandler(new GetStatementListByPlaceOwnerQueryHandler(sp.GetService<IStatementRepository>()));
     queryProcessor.RegisterQueryHandler(new GetStatementStatusQueryHandler(sp.GetService<IStatementRepository>()));
-    
+    queryProcessor.RegisterQueryHandler(new GetMigrantByIdQueryHandler(sp.GetService<IMigrantRepository>()));
 
     return queryProcessor;
 });
 
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Secure API", Version = "v1" });
@@ -99,6 +100,7 @@ builder.Services.AddSwaggerGen(c =>
 
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 var key = Encoding.ASCII.GetBytes(jwtSettings["Key"]);
+
 builder.Services.AddAuthentication().AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters
 {
     ValidateIssuer = true,
@@ -120,7 +122,8 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-if (app.Environment.IsDevelopment())
+
+if (!app.Environment.IsDevelopment())
 {
     app.UseSwagger(); 
     app.UseSwaggerUI(c =>
@@ -139,6 +142,7 @@ app.Use(async (context, next) =>
     }
     await next();
 }); // проверка токена пользователя
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -147,9 +151,8 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}");
 
 app.Run();

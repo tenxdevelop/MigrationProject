@@ -1,9 +1,9 @@
 [
   {
     "Id": "48e483c0-8c43-47d7-9833-112358380836",
-    "Name": null,
-    "Surname": null,
-    "Patronymic": null,
+    "Name": "admin",
+    "Surname": "admin",
+    "Patronymic": "admin",
     "Email": "string",
     "Phone": "string",
     "PasswordHash": "RzKH\u002BCmNunFjqJeQiVj3wOrnM\u002BJdLgJ5kuou3JvtL6g=",
@@ -16,7 +16,7 @@
     "Patronymic": "Migrant",
     "Email": "Migrant",
     "Phone": null,
-    "PasswordHash": "8OVI3rTXTlZ3hNnc/4XCQ1PB4OO312Gisj\u002BpiJvuD0k=",
+    "PasswordHash": "RzKH\u002BCmNunFjqJeQiVj3wOrnM\u002BJdLgJ5kuou3JvtL6g=",
     "Role": { "Name": "Migrant" }
   },
   {

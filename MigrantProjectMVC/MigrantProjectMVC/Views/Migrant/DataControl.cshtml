@@ -1,0 +1,56 @@
+﻿@{
+    ViewData["ShowHeader"] = true;
+    ViewData["Title"] = "DataControl";
+}
+
+<style>
+    .form-control {
+        border: none;
+        border-radius: 0.25rem;
+        padding: 0.5rem;
+        transition: box-shadow 0.3s;
+    }
+
+    .form-control:focus {
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .input-group-text {
+        background-color: #fff;
+        border: none;
+    }
+</style>
+
+@model MigrantModel
+
+<main class="col-md-9 ml-sm-auto col-lg-10 px-4">
+    <h1 class="mt-4">Изменение данных</h1>
+    <form id="profileForm" class="mt-4" method="post" action="ChangeData">
+        <div class="form-group">
+            <label for="enteringDate">Дата въезда в Россию</label>
+            <input type="text" class="form-control" id="enteringDate" name="enteringDate" value="@Model.EnteringDate" required>
+        </div>
+        <div class="form-group">
+            <label for="country">Гражданином какой страны вы являетесь.</label>
+            <input type="text" class="form-control" id="country" name="country" value="@Model.Country" required>
+        </div>
+        <div class="form-group">
+            @Html.CheckBox("HighlyQualified")
+            <label for="HighlyQualified">Являетесь ли вы или член вашей семьи высококвалифицированным специалистом своей области.</label>
+        </div>
+        <div class="form-group">
+            @Html.CheckBox("ResettelmentProgramMember")
+            <label for="ResettelmentProgramMember">Входите ли вы в государственную программу переселения.</label>
+        </div>
+        <div class="form-group">
+            @Html.CheckBox("ConsistOfMigrationRegistration")
+            <label for="ConsistOfMigrationRegistration">Состояли ли вы или член вашей семьи ранее на миграционном учёте.</label>
+        </div>
+        <input style="display: none" name="migrantId" value="@Model.Id">
+        <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+    </form>
+</main>

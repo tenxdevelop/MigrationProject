@@ -1,10 +1,12 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using MigrantProjectMVC.Models;
+using MigrantProjectMVC.Queries;
 
 namespace MigrantProjectMVC.Controllers
 {
-    public class HomeController : Controller
+
+    public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
 
@@ -15,17 +17,11 @@ namespace MigrantProjectMVC.Controllers
 
         public IActionResult Index()
         {
-            return View("ManipulationUser");
-        }
+            var query = new GetUserQuery("admin", "admin", "admin");
 
-        public IActionResult Register()
-        {
-            return View("Register");
-        }
+            var model = queryProcessor.Process(query).Result;
 
-        public IActionResult Login()
-        {
-            return View("Login");
+            return View(model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

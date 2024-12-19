@@ -4,18 +4,20 @@ using MigrantProjectMVC.Commands;
 using MigrantProjectMVC.Interfaces;
 using MigrantProjectMVC.Models;
 using MigrantProjectMVC.Queries;
-using System.Numerics;
-using System.Security.Cryptography.X509Certificates;
-using System.Xml.Linq;
 
 namespace MigrantProjectMVC.Controllers
 {
-    [ApiController]
     public class UserController : BaseController
     {
 
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
         //completed
-        [HttpPost("login")]
+        [HttpPost]
         public IActionResult Login(string? email, string? phone, string password)
         {
             var command = new LoginUserCommand()
@@ -24,18 +26,37 @@ namespace MigrantProjectMVC.Controllers
                 Phone = phone,
                 Password = password,
             };
+
             var token = commandProcessor.Process(command).Result;
             if (token == null) 
             {
                 return Json(new { status = "error", message = "error logining" });
             }
             Response.Cookies.Append("Auth", token);
-            return Ok(token);
+
+            return View("../Home/Index");
         }
 
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult Prof()
+        {
+            var query = new GetUserQuery("admin", "admin", "admin");
+
+            var model = queryProcessor.Process(query).Result;
+
+            return View(model);
+        }
+
+
         //completed
-        [HttpPost("register")]
-        public IActionResult Register(string name, string surname, string patronymci, string email, string phone, string password)
+        [HttpPost()]
+        public IActionResult Register(string name, string surname, string patronymic, string email, string phone, string password)
         {
             var command = new RegisterUserCommand()
             {
@@ -44,7 +65,8 @@ namespace MigrantProjectMVC.Controllers
                 Password = password
             };
             var text = commandProcessor.Process(command);
-            return Ok(text);
+
+            return View("Login");
            
         }
 
@@ -102,28 +124,6 @@ namespace MigrantProjectMVC.Controllers
             return Ok(result);
 
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         //test pages
         [Authorize]

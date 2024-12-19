@@ -137,8 +137,7 @@ namespace MigrantProjectMVC.Repositories
             var regulation = Regulations.FirstOrDefault(x => x.Country == country);
             return Task.FromResult(regulation);
         }
-
-
+        
         public Task UpdateRegulation(RegulationModel regulation) // переписать или этот метод или все остальные по его подобию
         {
             var index = Regulations.FindIndex(x => x.Country == regulation.Country);
