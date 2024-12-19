@@ -2,7 +2,7 @@
 {
     public enum NotificationType
     {
-        EMAIL,
+        EMAIl,
         PHYSICALMESSAGE
     }
 }

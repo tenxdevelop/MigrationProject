@@ -34,7 +34,7 @@ namespace MigrantProjectTests
                 Patronymic = "string3",
                 Email = "string3",
                 Phone = "string3",
-                Password = "string3",
+                PasswordHash = "string3",
                 Role = new RoleModel() { Name = "Admin"}
             };
             repository.Add(user);

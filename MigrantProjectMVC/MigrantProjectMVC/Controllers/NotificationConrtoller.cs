@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MigrantProjectMVC.Commands;
 using MigrantProjectMVC.Enums;
 using MigrantProjectMVC.Queries;
 
@@ -27,13 +28,15 @@ namespace MigrantProjectMVC.Controllers
         }
 
         [Authorize]
-        [HttpPost]
+        [HttpPost("CreateNotification")]
         public async Task<IActionResult> CreateNotification(Guid statementId, string name, string surname, string patronymic)
         {
-            var command = new CreateNotificationCommand();
+            var command = new CreateNotificationCommand(statementId, name, surname, patronymic);
             var result = await commandProcessor.Process(command);
-            return Ok();
+            return Ok(result);
         }
+
+
 
 
     }
