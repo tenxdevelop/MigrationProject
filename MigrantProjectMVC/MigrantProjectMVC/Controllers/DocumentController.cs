@@ -20,7 +20,7 @@ namespace MigrantProjectMVC.Controllers
         public async Task<IActionResult> CreateDocument(string name, string content)
         {
             var creationDate = DateTime.Now;
-            var command = new CreateDocumentCommand(name, content, creationDate);
+            var command = new CreateDocumentCommand(name, content, creationDate); // Сюда ещё нужно передавать Id user-a, что бы за ним закреплять документ
             var result = await commandProcessor.Process(command);
 
             ViewBag.DocumentTypes = new List<DocumentType>() { DocumentType.VISA, DocumentType.MIGRATIONCARD, DocumentType.PASSPORTMIGRANT, DocumentType.PASSPORTPLACEOWNER };

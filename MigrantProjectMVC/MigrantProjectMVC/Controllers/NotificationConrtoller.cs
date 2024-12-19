@@ -47,5 +47,14 @@ namespace MigrantProjectMVC.Controllers
             var result = await commandProcessor.Process(command);
             return Ok(result);
         }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> SetNotificationType(Guid statementId, NotificationType type)
+        {
+            var command = new SetNotificationTypeCommand(statementId, type);
+            var result = await commandProcessor.Process(command);
+            return Ok(result);
+        }
     }
 }
