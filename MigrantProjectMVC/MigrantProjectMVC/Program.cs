@@ -42,7 +42,7 @@ commandProcessor.RegisterCommandHadnler(new CreateDocumentCommandHandler(sp.GetS
 commandProcessor.RegisterCommandHadnler(new SetStatementStatusCommandHandler(sp.GetService<IStatementRepository>()));
 commandProcessor.RegisterCommandHadnler(new CreateNotificationCommandHandler(sp.GetService<INotificationRepository>(), sp.GetService<IStatementRepository>(), sp.GetService<IUserRepository>()));
 commandProcessor.RegisterCommandHadnler(new CreateStatementCommandHandler(sp.GetService<IStatementRepository>(), sp.GetService<IUserRepository>(), sp.GetService<IDocumentRepository>()));
-commandProcessor.RegisterCommandHadnler(new FillStatementWithMigrantDataCommandHandler(sp.GetService<IDocumentRepository>(), sp.GetService<IStatementRepository>(), sp.GetService<IMigrantRepository>()));
+commandProcessor.RegisterCommandHadnler(new FillStatementWithMigrantDataCommandHandler(sp.GetService<IDocumentRepository>(), sp.GetService<IStatementRepository>(), sp.GetService<IMigrantRepository>(), sp.GetService<IRegulationRepository>()));
 commandProcessor.RegisterCommandHadnler(new SendNotificationCommandHandler(sp.GetService<IUserRepository>(), sp.GetService<INotificationRepository>()));
     
 
@@ -126,7 +126,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 
-if (!app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
 {
     app.UseSwagger(); 
     app.UseSwaggerUI(c =>
