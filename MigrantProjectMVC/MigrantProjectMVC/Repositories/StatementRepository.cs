@@ -113,14 +113,7 @@ namespace MigrantProjectMVC.Repositories
         public async Task Add(StatementModel statement)
         {
             Statements.Add(statement);
-            foreach (var document in statement.Documents)
-            {
-                await _documentRepository.AddDocument(document);
-            }
-            foreach (var migrantDocument in statement.MigrantDocuments)
-            {
-                await _documentRepository.AddDocument(migrantDocument);
-            }
+            SaveContext();
             return;
         }
 

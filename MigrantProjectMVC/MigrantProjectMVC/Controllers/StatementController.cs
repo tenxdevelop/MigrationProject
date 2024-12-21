@@ -9,7 +9,7 @@ namespace MigrantProjectMVC.Controllers
     [ApiController]
     public class StatementController : BaseController
     {
-        [Authorize(Roles ="Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpGet("GetStatementListByPlaceOWnerQuery")]
         public async Task<IActionResult> GetStatementListByPlaceOWner(Guid id)
         {
@@ -45,6 +45,27 @@ namespace MigrantProjectMVC.Controllers
             var result = await commandProcessor.Process(command);
             return Ok(result);
         }
+
+        [Authorize]
+        [HttpPost("CreateStatementCommand")]
+        public async Task<IActionResult> CreateStatemenet(string name, string surname, string patronymic, string previousAddress, string accountingAddress)
+        {
+            var command = new CreateStatementCommand(name, surname, patronymic, previousAddress, accountingAddress);
+            var result = commandProcessor.Process(command);
+            return Ok(result);
+        }
+
+        [Authorize]
+        [HttpPost("FillStatementWithMigrantData")]
+        public async Task<IActionResult> FillStatementWithMigrantData(Guid statementId, string migrantName, string migrantSurname, string migrantPatronymic)
+        {
+            var command = new FillStatementWithMigrantDataCommand(statementId, migrantName, migrantSurname, migrantPatronymic);
+            var result = await commandProcessor.Process(command);
+            return Ok(result);
+        }
+
+
+
 
 
     }

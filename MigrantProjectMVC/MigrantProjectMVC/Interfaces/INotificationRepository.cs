@@ -8,5 +8,6 @@ namespace MigrantProjectMVC.Interfaces
         public Task<NotificationModel> GetNotification(Guid id);
         public Task Add(NotificationModel notification);
         public Task UpdateNotification(NotificationModel notification);
+        public Task SaveContext();
     }
 }

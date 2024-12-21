@@ -18,6 +18,7 @@ namespace MigrantProjectMVC.CommandHandlers
             if (notification == null) return false;
             notification.Status = true;
             notification.NotificationType = requist.NotificationType;
+            _notificationRepository.SaveContext();
             return true;
         }
     }

@@ -9,5 +9,6 @@ namespace MigrantProjectMVC.Interfaces
         public Task<IList<StatementModel>> GetAllStatementsByPlaceOwnerId(Guid userId);
         public Task UpdateStatement(StatementModel statement);
         public Task Add(StatementModel statement);
+        public Task SaveContext();
     }
 }

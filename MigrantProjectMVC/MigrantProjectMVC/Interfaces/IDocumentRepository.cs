@@ -7,5 +7,9 @@ namespace MigrantProjectMVC.Interfaces
         public Task AddDocument(DocumentModel document);
 
         public Task<IList<DocumentModel>> GetAllDocumentsByStatementId(Guid id);
+
+        public Task<IList<DocumentModel>> GetAllDocumentsByUserId(Guid userId);
+
+        public Task SaveContext();
     }
 }

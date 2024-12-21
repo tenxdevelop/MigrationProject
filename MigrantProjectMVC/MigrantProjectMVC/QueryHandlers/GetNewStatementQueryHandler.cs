@@ -17,8 +17,14 @@ namespace MigrantProjectMVC.QueryHandlers
         public async Task<StatementModel> Handle(GetNewStatementQuery query)
         {
             var allStatements = await _statementRepository.GetAllStatements();
-            var statment = allStatements.Where(x => x.Status == StatusType.CREATED).FirstOrDefault();
-            return statment;
+            var statement = allStatements.Where(x => x.Status == StatusType.CREATED).FirstOrDefault();
+            if (statement != null) 
+            {
+                statement.Status = StatusType.INPROCESS;
+                await _statementRepository.SaveContext();
+            } 
+
+            return statement;
         }
     }
 }

@@ -6,7 +6,7 @@ using MigrantProjectMVC.Queries;
 
 namespace MigrantProjectMVC.Controllers
 {
-    public class NotificationConrtoller : BaseController
+    public class NotificationController : BaseController
     {
         [HttpGet]
         public IActionResult Index()
