@@ -110,5 +110,11 @@ namespace MigrantProjectMVC.Repositories
             File.WriteAllText(_filePath, jsonData);
             return Task.CompletedTask;
         }
+
+        public Task<UserModel> GetUserById(Guid id)
+        {
+            var user = Users.FirstOrDefault(x => x.Id == id);
+            return Task.FromResult(user);
+        }
     }
 }

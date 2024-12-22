@@ -20,11 +20,12 @@
                 <ul>
                     <li><a class="users" href="~/Regulation/Reglament">Просмотр регламент услуги</a></li>
 
-                    <li><a class="place-owner" href="">Просмотр уведомлений</a></li>
-                    <li><a class="place-owner" href="">Подать заявление</a></li>
+                    <li><a class="place-owner" href="~/Notification/GetAllNotification">Просмотр уведомлений</a></li>
+                    <li><a class="place-owner" href="~/Statement/Index">Подать заявление</a></li>
+                    
+                    <li><a class="mvd-special" href="~/Statement/StatementCheck">Обработать заявление</a></li>
 
-                    <li><a class="admin" href="~/Notification/Index">Просмотр уведомлений</a></li>
-                    <li><a class="admin" href="">Подать заявление</a></li>
+                    <li><a class="admin" href="">Управление пользователями</a></li>
 
                 </ul>
                 <ul>
@@ -93,6 +94,7 @@
             const usersElements = document.querySelectorAll('.users');
             const placeOwnelElements = document.querySelectorAll('.place-owner');
             const adminElements = document.querySelectorAll('.admin');
+            const mvdElements = document.querySelectorAll('.mvd-special');
 
             if (isAuthenticated()) {
                 guestElements.forEach(el => el.style.display = 'none');
@@ -101,20 +103,27 @@
                 const roleKey = 'http://schemas.microsoft.com/ws/2008/06/identity/claims/role';
 
                 var payload = parseJWT(token);
-
                 if (payload[roleKey] == 'User') {
                     placeOwnelElements.forEach(el => el.style.display = 'none');
                     adminElements.forEach(el => el.style.display = 'none');
+                    mvdElements.forEach(el => el.style.display = 'none');
                 }
                 else if (payload[roleKey] == 'Admin') {
                     placeOwnelElements.forEach(el => el.style.display = 'none');
                     usersElements.forEach(el => el.style.display = 'none');
+                    mvdElements.forEach(el => el.style.display = 'none');
                 } else if (payload[roleKey] == 'Migrant') {
                     placeOwnelElements.forEach(el => el.style.display = 'none');
                     adminElements.forEach(el => el.style.display = 'none');
-                } else if (payload[roleKey] == 'Place Owner') { 
+                    mvdElements.forEach(el => el.style.display = 'none');
+                } else if (payload[roleKey] == 'PlaceOwner') {
                     usersElements.forEach(el => el.style.display = 'none');
                     adminElements.forEach(el => el.style.display = 'none');
+                    mvdElements.forEach(el => el.style.display = 'none');
+                } else if (payload[roleKey] == 'MVD') { 
+                    placeOwnelElements.forEach(el.style.display = 'none');
+                    usersElements.forEach(el.style.display = 'none');
+                    adminElements.forEach(el.style.display = 'none');
                 }
             } else {
                 authElements.forEach(el => el.style.display = 'none');
@@ -122,6 +131,7 @@
                 placeOwnelElements.forEach(el => el.style.display = 'none');
                 adminElements.forEach(el => el.style.display = 'none');
                 usersElements.forEach(el => el.style.display = 'none');
+                mvdElements.forEach(el => el.style.display = 'none');
             }            
         });
     </script>

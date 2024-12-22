@@ -37,6 +37,10 @@ namespace MigrantProjectMVC.Repositories
                         new RoleModel()
                         {
                             Name = "Place Owner"
+                        },
+                        new RoleModel()
+                        {
+                            Name = "MVD"
                         }
                     };
                 var jsonRoles = JsonSerializer.Serialize(Roles);

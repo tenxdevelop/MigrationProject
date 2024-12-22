@@ -3,13 +3,29 @@
     ViewData["ShowHeader"] = true;
 }
 
+@model NotificationModel
+
 <h2>Подробности уведомления</h2>
 
 <div class="notification-detail">
-    <strong>Сообщение:</strong> Message<br />
-    <strong>Дата создания:</strong> DateCreated<br />
+    <strong>Сообщение:</strong><br />
+    @if (Model.Status)
+    {   
+        <p>Заявление было принято и обработано</p>
+    }
+    else
+    {
+        <p>Заявлен было принято и откланено</p>
+    }
     <strong>Подробности:</strong><br />
-    <p>Подробности уведомления етететет ететтет ететет</p>
+    @if (Model.Status)
+    {
+        <p>@($"Заявление на {Model.Name} {Model.Surname} {Model.Patronymic} было принято. Вы можите получить подтверждающий документ постановку на миграционный учет по месту пребывания ")</p>
+    }
+    else
+    {
+        <p>@($"Заявление на {Model.Name} {Model.Surname} {Model.Patronymic} было принято. Вы  не можите получить подтверждающий документ постановку на миграционный учет по месту пребывания по причене некоректных данных в заявлении ")</p>
+    }
 </div>
 
-<a href="">Вернуться к уведомлениям</a>
+<a href="GetAllNotification">Вернуться к уведомлениям</a>

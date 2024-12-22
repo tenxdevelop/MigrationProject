@@ -1,17 +1,1 @@
-[
-  {
-    "EnteringDate": "2090-01-12T00:00:00",
-    "HighlyQualified": true,
-    "ResettelmentProgramMember": true,
-    "ConsistOfMigrationRegistration": false,
-    "Country": "\u0411\u0435\u043B\u043E\u0440\u0443\u0441\u0441\u044C",
-    "Id": "26b188de-d553-47c1-ac7d-8af144d00253",
-    "Name": "Migrant",
-    "Surname": "Migrant",
-    "Patronymic": "Migrant",
-    "Email": "Migrant",
-    "Phone": null,
-    "PasswordHash": "8OVI3rTXTlZ3hNnc/4XCQ1PB4OO312Gisj\u002BpiJvuD0k=",
-    "Role": { "Name": "Migrant" }
-  }
-]
+[{"EnteringDate":"2060-01-12T00:00:00","HighlyQualified":true,"ResettelmentProgramMember":false,"ConsistOfMigrationRegistration":false,"Country":"\u0423\u043A\u0440\u0430\u0438\u043D\u0430","Id":"26b188de-d553-47c1-ac7d-8af144d00253","Name":"Migrant","Surname":"Migrant","Patronymic":"Migrant","Email":"Migrant","Phone":null,"PasswordHash":"8OVI3rTXTlZ3hNnc/4XCQ1PB4OO312Gisj\u002BpiJvuD0k=","Role":{"Name":"Migrant"}}]

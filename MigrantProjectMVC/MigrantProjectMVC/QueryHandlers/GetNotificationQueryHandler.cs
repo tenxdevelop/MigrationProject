@@ -6,9 +6,14 @@ namespace MigrantProjectMVC.QueryHandlers
 {
     public class GetNotificationQueryHandler : IQueryHandler<GetNotificationQuery, NotificationModel>
     {
+        private INotificationRepository _notificationRepository;
+        public GetNotificationQueryHandler(INotificationRepository notificationRepository)
+        {
+            _notificationRepository = notificationRepository;
+        }
         public Task<NotificationModel> Handle(GetNotificationQuery query)
         {
-            throw new NotImplementedException();
+            return _notificationRepository.GetNotification(query.StatementId);
         }
     }
 }

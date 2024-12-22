@@ -1,1 +1,7 @@
-[{"Name":"User"},{"Name":"Admin"},{"Name":"Migrant"},{"Name":"Place Owner"}]
+[
+  { "Name": "User" },
+  { "Name": "Admin" },
+  { "Name": "Migrant" },
+  { "Name": "Place Owner" },
+  { "Name": "MVD" }
+]

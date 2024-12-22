@@ -3,22 +3,26 @@ using Microsoft.AspNetCore.Mvc;
 using MigrantProjectMVC.Commands;
 using MigrantProjectMVC.Enums;
 using MigrantProjectMVC.Queries;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace MigrantProjectMVC.Controllers
 {
     public class NotificationController : BaseController
     {
-        [HttpGet]
-        public IActionResult Index()
-        {
 
-            return View("Index");
-        }
-
+        [Authorize(Roles="PlaceOwner")]
         [HttpGet]
-        public IActionResult DetailsNotification()
+        public async Task<IActionResult> GetAllNotification()
         {
-            return View();
+            var token = HttpContext.Request.Cookies["Auth"];
+            var jwtSecurityHandler = new JwtSecurityTokenHandler();
+            var jwtToken = jwtSecurityHandler.ReadJwtToken(token);
+            var id = new Guid(jwtToken.Claims.First(claim => claim.Type == ClaimTypes.NameIdentifier).Value);
+
+            var query = new GetAllNotificationQuery(id);
+            var result = queryProcessor.Process(query).Result.ToList();
+            return View("Index", result);
         }
 
         [Authorize]
@@ -27,7 +31,7 @@ namespace MigrantProjectMVC.Controllers
         {
             var query = new GetNotificationQuery(id);
             var result = await queryProcessor.Process(query);
-            return Ok(result);
+            return View("DetailsNotification", result);
         }
 
         [Authorize]

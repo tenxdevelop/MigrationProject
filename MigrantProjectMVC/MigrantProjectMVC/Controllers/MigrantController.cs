@@ -12,7 +12,6 @@ namespace MigrantProjectMVC.Controllers
         [HttpGet]
         public IActionResult DataControl()
         {
-
             var token = HttpContext.Request.Cookies["Auth"];
             var jwtSecurityHandler = new JwtSecurityTokenHandler();
             var jwtToken = jwtSecurityHandler.ReadJwtToken(token);

@@ -8,29 +8,35 @@ namespace MigrantProjectMVC.CommandHandlers
     public class CreateStatementCommandHandler : ICommandHandler<CreateStatementCommand, bool>
     {
         private IStatementRepository _statementRepository;
-        private IUserRepository _userRepository;
+        private IMigrantRepository _migrantRepository;
         private IDocumentRepository _documentRepository;
+        private IRegulationRepository _regulationRepository;
 
-        public CreateStatementCommandHandler(IStatementRepository statementRepository, IUserRepository userRepository, IDocumentRepository documentRepository)
+        public CreateStatementCommandHandler(IStatementRepository statementRepository, IMigrantRepository migrantRepository, 
+                                             IDocumentRepository documentRepository, IRegulationRepository regulationRepository)
         {
             _statementRepository = statementRepository;
-            _userRepository = userRepository;
+            _migrantRepository = migrantRepository;
             _documentRepository = documentRepository;
+            _regulationRepository = regulationRepository;
         }
 
         public async Task<bool> Handle(CreateStatementCommand requist)
         {
-            var placeOwner = await _userRepository.GetUserBySNP(requist.Name, requist.Surname, requist.Patronymic);
-            var placeOwnerDocuments = await _documentRepository.GetAllDocumentsByUserId(placeOwner.Id);
-            var statement = new StatementModel()
-            {
-                Id = new Guid(),
-                AccountingAddress = requist.AccountingAddress,
-                PreviousAddress = requist.PreviousAddress,
-                PlaceOwner = placeOwner,
-                Documents = placeOwnerDocuments.ToList(),
-                MigrantDocuments = new List<DocumentModel>(),
-            };
+            var migrant = await _migrantRepository.GetMigrantBySNP(requist.Name, requist.Surname, requist.Patronymic);
+
+            if (migrant is null)
+                return false;
+
+            var migrantDocuments = await _documentRepository.GetAllDocumentsByUserId(migrant.Id);
+
+            var placeOwnerDocuments = await _documentRepository.GetAllDocumentsByUserId(requist.PlaceOwner.Id);
+
+            var regulation = await _regulationRepository.GetRegulationWithCountry(migrant.Country);
+
+            var statement = StatementModel.Create(migrantDocuments.ToList(), placeOwnerDocuments.ToList(), requist.PreviousAddress, requist.AccountingAddress, 
+                                                  StatusType.CREATED, requist.PlaceOwner, regulation);
+
             _statementRepository.Add(statement);
             return true;
         }

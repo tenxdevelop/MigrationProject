@@ -8,7 +8,7 @@ namespace MigrantProjectMVC.Repositories
     public class NotificationRepository : INotificationRepository
     {
         public List<NotificationModel> Notifications { get; set; }
-        string _filePath = "jsons/notification.json";
+        private string _filePath = "jsons/notification.json";
         private IStatementRepository _statementRepository;
 
         public NotificationRepository(IStatementRepository statementRepository)
@@ -25,7 +25,7 @@ namespace MigrantProjectMVC.Repositories
                 {
                     new NotificationModel()
                     {
-                        StatementId = statementRepository.GetAllStatements().Result.Where(x => x.Status == StatusType.APPROVED).First().Id,
+                        StatementId = new Guid("998d3456-1ea0-4d2b-a516-7105cd1c9fed"),
                         Name = "PlaceOwner",
                         Surname = "PlaceOwner",
                         Patronymic = "PlaceOwner"
@@ -64,5 +64,14 @@ namespace MigrantProjectMVC.Repositories
             return Task.CompletedTask;
         }
 
+        public Task<IList<NotificationModel>> GetAll(Guid placeOwnerId)
+        {
+            var statementIds = _statementRepository.GetAllStatementsByPlaceOwnerId(placeOwnerId).Result
+                .Where(statement => statement.Status.Equals(StatusType.APPROVED) || statement.Status.Equals(StatusType.DENIED))
+                .Select(statement => statement.Id);
+
+            var result = Notifications.Where(x => statementIds.Contains(x.StatementId)).ToList();
+            return Task.FromResult(result as IList<NotificationModel>);
+        }
     }
 }

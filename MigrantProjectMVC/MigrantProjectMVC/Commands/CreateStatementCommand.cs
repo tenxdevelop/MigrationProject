@@ -1,5 +1,5 @@
 ﻿using MigrantProjectMVC.Interfaces;
-using System.Windows.Input;
+using MigrantProjectMVC.Models;
 
 namespace MigrantProjectMVC.Commands
 {
@@ -11,14 +11,16 @@ namespace MigrantProjectMVC.Commands
         public string? PreviousAddress { get; set; }
         public string AccountingAddress { get; set; }
 
+        public UserModel PlaceOwner { get; set; }
 
-        public CreateStatementCommand(string name, string surname, string patronymic, string? previousAddress, string accountingAddress)
+        public CreateStatementCommand(string name, string surname, string patronymic, string? previousAddress, string accountingAddress, UserModel placeOwner)
         {
             Name = name;
             Surname = surname;
             Patronymic = patronymic;
             PreviousAddress = previousAddress;
             AccountingAddress = accountingAddress;
+            PlaceOwner = placeOwner;
         }
     }
 }

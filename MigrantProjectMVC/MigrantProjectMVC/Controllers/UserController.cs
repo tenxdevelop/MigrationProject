@@ -4,6 +4,8 @@ using MigrantProjectMVC.Commands;
 using MigrantProjectMVC.Interfaces;
 using MigrantProjectMVC.Models;
 using MigrantProjectMVC.Queries;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace MigrantProjectMVC.Controllers
 {
@@ -46,11 +48,15 @@ namespace MigrantProjectMVC.Controllers
         [HttpGet]
         public IActionResult Prof()
         {
-            var query = new GetUserQuery("admin", "admin", "admin");
+            var token = HttpContext.Request.Cookies["Auth"];
+            var jwtSecurityHandler = new JwtSecurityTokenHandler();
+            var jwtToken = jwtSecurityHandler.ReadJwtToken(token);
+            var id = new Guid(jwtToken.Claims.First(claim => claim.Type == ClaimTypes.NameIdentifier).Value);
 
-            var model = queryProcessor.Process(query).Result;
+            var query = new GetUserByIdQuery(id);
+            var userModel = queryProcessor.Process(query).Result;
 
-            return View(model);
+            return View(userModel);
         }
 
 

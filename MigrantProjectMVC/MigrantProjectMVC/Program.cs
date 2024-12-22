@@ -29,23 +29,22 @@ builder.Services.AddSingleton<INotificationRepository, NotificationRepository>()
 // Регаем в CommandProcessor все исполнители комманд
 builder.Services.AddSingleton<ICommandProcessor>(sp =>
 {
-var commandProcessor = new CommandProcessor();
-commandProcessor.RegisterCommandHadnler(new CreateUserStatementCommandHandler(sp.GetService<IUserRepository>()));
-commandProcessor.RegisterCommandHadnler(new DeleteUserCommandHandler(sp.GetService<IUserRepository>()));
-commandProcessor.RegisterCommandHadnler(new LoginUserCommandHandler(sp.GetService<IUserRepository>(), sp.GetService<IPasswordHasher>(),
+    var commandProcessor = new CommandProcessor();
+    commandProcessor.RegisterCommandHadnler(new CreateUserStatementCommandHandler(sp.GetService<IUserRepository>()));
+    commandProcessor.RegisterCommandHadnler(new DeleteUserCommandHandler(sp.GetService<IUserRepository>()));
+    commandProcessor.RegisterCommandHadnler(new LoginUserCommandHandler(sp.GetService<IUserRepository>(), sp.GetService<IPasswordHasher>(),
             sp.GetService<ITokenProvider>(), sp.GetService<IHttpContextAccessor>()));
-commandProcessor.RegisterCommandHadnler(new RegisterUserCommandHandler(sp.GetService<IUserRepository>(), sp.GetService<IPasswordHasher>()));
-commandProcessor.RegisterCommandHadnler(new SetRoleCommandHandler(sp.GetService<IUserRepository>()));
-commandProcessor.RegisterCommandHadnler(new UpdateDataMigrantCommandHandler(sp.GetService<IMigrantRepository>()));
-commandProcessor.RegisterCommandHadnler(new UpdateRegulationTermCommandHandler(sp.GetService<IRegulationRepository>()));
-commandProcessor.RegisterCommandHadnler(new CreateDocumentCommandHandler(sp.GetService<IDocumentRepository>()));
-commandProcessor.RegisterCommandHadnler(new SetStatementStatusCommandHandler(sp.GetService<IStatementRepository>()));
-commandProcessor.RegisterCommandHadnler(new CreateNotificationCommandHandler(sp.GetService<INotificationRepository>(), sp.GetService<IStatementRepository>(), sp.GetService<IUserRepository>()));
-commandProcessor.RegisterCommandHadnler(new CreateStatementCommandHandler(sp.GetService<IStatementRepository>(), sp.GetService<IUserRepository>(), sp.GetService<IDocumentRepository>()));
-commandProcessor.RegisterCommandHadnler(new FillStatementWithMigrantDataCommandHandler(sp.GetService<IDocumentRepository>(), sp.GetService<IStatementRepository>(), sp.GetService<IMigrantRepository>(), sp.GetService<IRegulationRepository>()));
-commandProcessor.RegisterCommandHadnler(new SendNotificationCommandHandler(sp.GetService<IUserRepository>(), sp.GetService<INotificationRepository>()));
+    commandProcessor.RegisterCommandHadnler(new RegisterUserCommandHandler(sp.GetService<IUserRepository>(), sp.GetService<IPasswordHasher>()));
+    commandProcessor.RegisterCommandHadnler(new SetRoleCommandHandler(sp.GetService<IUserRepository>()));
+    commandProcessor.RegisterCommandHadnler(new UpdateDataMigrantCommandHandler(sp.GetService<IMigrantRepository>()));
+    commandProcessor.RegisterCommandHadnler(new UpdateRegulationTermCommandHandler(sp.GetService<IRegulationRepository>()));
+    commandProcessor.RegisterCommandHadnler(new CreateDocumentCommandHandler(sp.GetService<IDocumentRepository>()));
+    commandProcessor.RegisterCommandHadnler(new SetStatementStatusCommandHandler(sp.GetService<IStatementRepository>()));
+    commandProcessor.RegisterCommandHadnler(new CreateNotificationCommandHandler(sp.GetService<INotificationRepository>(), sp.GetService<IStatementRepository>(), sp.GetService<IUserRepository>()));
+    commandProcessor.RegisterCommandHadnler(new CreateStatementCommandHandler(sp.GetService<IStatementRepository>(), sp.GetService<IMigrantRepository>(), 
+                                                                              sp.GetService<IDocumentRepository>(), sp.GetService<IRegulationRepository>()));
+    commandProcessor.RegisterCommandHadnler(new SendNotificationCommandHandler(sp.GetService<IUserRepository>(), sp.GetService<INotificationRepository>()));
     
-
     return commandProcessor;
 });
 
@@ -64,7 +63,9 @@ builder.Services.AddSingleton<IQueryProcessor>(sp =>
     queryProcessor.RegisterQueryHandler(new GetStatementListByPlaceOwnerQueryHandler(sp.GetService<IStatementRepository>()));
     queryProcessor.RegisterQueryHandler(new GetStatementStatusQueryHandler(sp.GetService<IStatementRepository>()));
     queryProcessor.RegisterQueryHandler(new GetMigrantByIdQueryHandler(sp.GetService<IMigrantRepository>()));
-
+    queryProcessor.RegisterQueryHandler(new GetUserByIdQueryHandler(sp.GetService<IUserRepository>()));
+    queryProcessor.RegisterQueryHandler(new GetAllNotificationQueryHandler(sp.GetService<INotificationRepository>()));
+    queryProcessor.RegisterQueryHandler(new GetNotificationQueryHandler(sp.GetService<INotificationRepository>()));
     return queryProcessor;
 });
 
@@ -126,7 +127,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 
-if (app.Environment.IsDevelopment())
+if (!app.Environment.IsDevelopment())
 {
     app.UseSwagger(); 
     app.UseSwaggerUI(c =>

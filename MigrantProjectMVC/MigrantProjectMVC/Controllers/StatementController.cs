@@ -3,12 +3,19 @@ using Microsoft.AspNetCore.Mvc;
 using MigrantProjectMVC.Commands;
 using MigrantProjectMVC.Enums;
 using MigrantProjectMVC.Queries;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace MigrantProjectMVC.Controllers
 {
-    [ApiController]
     public class StatementController : BaseController
     {
+
+        public IActionResult Index()
+        {
+            return View();
+        }
+ 
         [Authorize(Roles = "Admin")]
         [HttpGet("GetStatementListByPlaceOWnerQuery")]
         public async Task<IActionResult> GetStatementListByPlaceOWner(Guid id)
@@ -29,16 +36,16 @@ namespace MigrantProjectMVC.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpGet("GetNewStatement")]
+        [HttpGet]
         public async Task<IActionResult> GetNewStatement()
         {
             var query = new GetNewStatementQuery();
             var result = await queryProcessor.Process(query);
-            return Ok(result);
+            return View("StatementCheck");
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpGet("SetStatementStatus")]
+        [HttpGet]
         public async Task<IActionResult> SetStatementStatus(Guid id, StatusType status)
         {
             var command = new SetStatementStatusCommand(id, status);
@@ -46,27 +53,23 @@ namespace MigrantProjectMVC.Controllers
             return Ok(result);
         }
 
-        [Authorize]
-        [HttpPost("CreateStatementCommand")]
+        [Authorize(Roles = "PlaceOwner")]
+        [HttpPost]
         public async Task<IActionResult> CreateStatemenet(string name, string surname, string patronymic, string previousAddress, string accountingAddress)
         {
-            var command = new CreateStatementCommand(name, surname, patronymic, previousAddress, accountingAddress);
-            var result = commandProcessor.Process(command);
-            return Ok(result);
-        }
+            var token = HttpContext.Request.Cookies["Auth"];
+            var jwtSecurityHandler = new JwtSecurityTokenHandler();
+            var jwtToken = jwtSecurityHandler.ReadJwtToken(token);
+            var id = new Guid(jwtToken.Claims.First(claim => claim.Type == ClaimTypes.NameIdentifier).Value);
 
-        [Authorize]
-        [HttpPost("FillStatementWithMigrantData")]
-        public async Task<IActionResult> FillStatementWithMigrantData(Guid statementId, string migrantName, string migrantSurname, string migrantPatronymic)
-        {
-            var command = new FillStatementWithMigrantDataCommand(statementId, migrantName, migrantSurname, migrantPatronymic);
+            var query = new GetUserByIdQuery(id);
+            var placeOwner = queryProcessor.Process(query).Result;
+
+            var command = new CreateStatementCommand(name, surname, patronymic, previousAddress, accountingAddress, placeOwner);
             var result = await commandProcessor.Process(command);
-            return Ok(result);
+            if(result)
+                return View("StatementRequestSuccess");
+            return View("../Home/Index");
         }
-
-
-
-
-
     }
 }

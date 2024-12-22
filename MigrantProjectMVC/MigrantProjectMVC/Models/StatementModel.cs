@@ -13,15 +13,19 @@ namespace MigrantProjectMVC.Models
         public List<DocumentModel> MigrantDocuments { get; set; }
         public StatusType Status { get; set; }
 
-        public static StatementModel Create(List<DocumentModel> documents, List<DocumentModel> migrantDocuments, string previousAddress, string accountingAddress)
+        public static StatementModel Create(List<DocumentModel> documents, List<DocumentModel> migrantDocuments, string previousAddress, string accountingAddress, 
+                                            StatusType status, UserModel placeOwner, RegulationModel regulation)
         {
             return new StatementModel
             {
                 Id = Guid.NewGuid(),
+                Status = status,
                 AccountingAddress = accountingAddress,
                 PreviousAddress = previousAddress,
                 Documents = documents,
                 MigrantDocuments = migrantDocuments,
+                PlaceOwner = placeOwner,
+                Regulation = regulation
             };
 
         }

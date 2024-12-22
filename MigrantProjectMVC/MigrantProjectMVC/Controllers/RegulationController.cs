@@ -11,7 +11,6 @@ namespace MigrantProjectMVC.Controllers
 {
     public class RegulationController : BaseController
     {
-
         public async Task<IActionResult> Reglament()
         {
             var token = HttpContext.Request.Cookies["Auth"];

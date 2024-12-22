@@ -3,21 +3,24 @@
     ViewData["ShowHeader"] = true;
 }
 
+@model List<NotificationModel>
+
 <div class="container mt-4">
     <h2>Список Уведомлений</h2>
     <table class="table table-bordered table-striped">
         <thead>
             <tr>
                 <th>Сообщение</th>
-                <th>Дата создания</th>
                 <th>Статус</th>
             </tr>
         </thead>
         <tbody>
             <tr class="table-primary">
-                <td><a href="Notification/DetailsNotification" style="text-decoration: none; color: inherit;">message</a></td>
-                <td><a href="Notification/DetailsNotification" style="text-decoration: none; color: inherit;">2023.12.23</a></td>
-                <td><a href="Notification/DetailsNotification" style="text-decoration: none; color: inherit;">"Не прочитано"</a></td>
+                @foreach(var notificationModel in Model)
+                {
+                    <td><a href="GetNotification?id=@notificationModel.StatementId" style="text-decoration: none; color: inherit;">@($"заявление на имя мигранта {notificationModel.Name}")</a></td>
+                    <td><a href="GetNotification?id=@notificationModel.StatementId" style="text-decoration: none; color: inherit;">@($"{notificationModel.Status.ToString()}")</a></td>
+                }
             </tr>
         </tbody>
     </table>
