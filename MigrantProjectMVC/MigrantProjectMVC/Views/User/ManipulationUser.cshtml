@@ -75,32 +75,34 @@
             Создание нового пользователя
         </div>
         <div class="card-body">
-            <form id="createUserForm">
+            <form id="createUserForm" method="post" action="CreateUserStatement">
                 <div class="form-group">
                     <label for="firstName">Имя</label>
-                    <input type="text" class="form-control" id="firstName" required>
+                    <input type="text" class="form-control" id="firstName" name="name" required>
                 </div>
                 <div class="form-group">
                     <label for="lastName">Фамилия</label>
-                    <input type="text" class="form-control" id="lastName" required>
+                    <input type="text" class="form-control" id="lastName" name="surname" required>
                 </div>
                 <div class="form-group">
                     <label for="middleName">Отчество</label>
-                    <input type="text" class="form-control" id="middleName" required>
+                    <input type="text" class="form-control" id="middleName" name="patronymic" required>
                 </div>
                 <div class="form-group">
                     <label for="email">Почта</label>
-                    <input type="email" class="form-control" id="email" required>
+                    <input type="email" class="form-control" id="email" name="email" required>
                 </div>
                 <div class="form-group">
                     <label for="password">Пароль</label>
-                    <input type="password" class="form-control" id="password" required>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                    <span class="text-danger" id="passwordError"></span>
                 </div>
                 <div class="form-group">
                     <label for="confirmPassword">Подтверждение пароля</label>
                     <input type="password" class="form-control" id="confirmPassword" required>
+                    <span class="text-danger" id="confirmPasswordError"></span>
                 </div>
-                <button type="button" class="btn btn-primary" style="text-align: right; margin-top: 20px">Создать пользователя</button>
+                <button type="submit" class="btn btn-primary" style="text-align: right; margin-top: 20px">Создать пользователя</button>
             </form>
         </div>
     </div>
@@ -111,5 +113,20 @@
     <div class="alert alert-danger" id="errorMessage" style="display:none;">
         Произошла ошибка!
     </div>
+
+    <script>
+        document.getElementById("createUserForm").addEventListener("submit", function (event) {
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirmPassword").value;
+
+            document.getElementById("passwordError").textContent = "";
+            document.getElementById("confirmPasswordError").textContent = "";
+
+            if (password !== confirmPassword) {
+                event.preventDefault(); // предотвращаем отправку формы
+                document.getElementById("confirmPasswordError").textContent = "Пароли не совпадают.";
+            }
+        });
+    </script>
 
 </div>

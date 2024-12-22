@@ -55,7 +55,7 @@ namespace MigrantProjectMVC.Controllers
             var token = commandProcessor.Process(command).Result;
             if (token == null) 
             {
-                return Json(new { status = "error", message = "error logining" });
+                return View("Login");
             }
             Response.Cookies.Append("Auth", token);
 
@@ -85,7 +85,7 @@ namespace MigrantProjectMVC.Controllers
 
         //completed
         [HttpPost()]
-        public IActionResult Register(string name, string surname, string patronymic, string email, string phone, string password)
+        public IActionResult Register(string name, string surname, string patronymic, string email, string phone, string password, bool isMigrant = false)
         {
             var command = new RegisterUserCommand()
             {
@@ -94,7 +94,8 @@ namespace MigrantProjectMVC.Controllers
                 Patronymic = patronymic,
                 Email = email,
                 Phone = phone,
-                Password = password
+                Password = password,
+                IsMigrant = isMigrant
             };
             var text = commandProcessor.Process(command);
 
@@ -134,12 +135,33 @@ namespace MigrantProjectMVC.Controllers
             return View("../Home/Index");
         }
 
+        [Authorize]
+        [HttpPost]
+        public IActionResult DeleteSelf()
+        {
+            var token = HttpContext.Request.Cookies["Auth"];
+            var jwtSecurityHandler = new JwtSecurityTokenHandler();
+            var jwtToken = jwtSecurityHandler.ReadJwtToken(token);
+            var id = new Guid(jwtToken.Claims.First(claim => claim.Type == ClaimTypes.NameIdentifier).Value);
+
+            var command = new DeleteUserCommand(id);
+            var result = commandProcessor.Process(command);
+            if (!result.Result)
+            {
+                return Json(new { status = "fail", message = "user not found" });
+            }
+
+            Response.Cookies.Delete("Auth");
+            return View("../Home/Index");
+        }
+
         //completed
         [Authorize(Roles = "Admin")]
         public IActionResult SetRole(Guid id, string roleName)
         {
             var command = new SetRoleCommand(id, new RoleModel() { Name = roleName });
             var result = commandProcessor.Process(command).Result;
+
             
             return View("../Home/Index");
         }

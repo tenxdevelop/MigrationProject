@@ -39,7 +39,6 @@ namespace MigrantProjectMVC.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpGet("GetRegulation")]
         public async Task<IActionResult> GetRegulation(string email)
         {
             var query = new GetRegulationQuery(email);
@@ -47,21 +46,23 @@ namespace MigrantProjectMVC.Controllers
             return Ok(data);
         }
         [Authorize(Roles = "Admin")]
-        [HttpGet("GetRegulationsList")]
         public async Task<IActionResult> GetRegulationList()
         {
             var query = new GetRegulationListQuery();
             var data = await queryProcessor.Process(query);
-            return Ok(data);
+            return View("ManipulationData", data);
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpPost("UpdateRegulation")]
-        public async Task<IActionResult> UpdateRegulation(RegulationModel regulation)
+        public async Task<IActionResult> UpdateRegulation(RegulationModel regulationModel)
         {
-            var command = new UpdateRegulationTermCommand(regulation);
+
+            if (regulationModel.Term < 0)
+                return View("../Home/Index");
+
+            var command = new UpdateRegulationTermCommand(regulationModel);
             var data = await commandProcessor.Process(command);
-            return Ok(data);
+            return View("../Home/Index");
         }
 
 

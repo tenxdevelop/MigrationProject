@@ -1,12 +1,6 @@
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using MigrantProjectMVC.CommandHandlers;
-using MigrantProjectMVC.Commands;
-using MigrantProjectMVC.Interfaces;
-using MigrantProjectMVC.Models;
-using MigrantProjectMVC.Queries;
-using MigrantProjectMVC.QueryHandlers;
-using MigrantProjectMVC.Repositories;
+using MigrantProjectMVC;
 using System.Text;
 
 
@@ -16,59 +10,11 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddHttpContextAccessor();
 
 //Dependencies
-builder.Services.AddSingleton<ITokenProvider, JwtTokenProvider>();
-builder.Services.AddSingleton<IPasswordHasher, PasswordHasher>();
-builder.Services.AddSingleton<IUserRepository, UserRepository>();
-builder.Services.AddSingleton<IMigrantRepository, MigrantRepository>();
-builder.Services.AddSingleton<IRegulationRepository, RegulationRepository>();
-builder.Services.AddSingleton<IRoleRepostory, RoleRepository>();
-builder.Services.AddSingleton<IDocumentRepository, DocumentRepository>();
-builder.Services.AddSingleton<IStatementRepository, StatementRepository>();
-builder.Services.AddSingleton<INotificationRepository, NotificationRepository>();
+RegisterServices.Register(builder);
 
-// Регаем в CommandProcessor все исполнители комманд
-builder.Services.AddSingleton<ICommandProcessor>(sp =>
-{
-    var commandProcessor = new CommandProcessor();
-    commandProcessor.RegisterCommandHadnler(new CreateUserStatementCommandHandler(sp.GetService<IUserRepository>()));
-    commandProcessor.RegisterCommandHadnler(new DeleteUserCommandHandler(sp.GetService<IUserRepository>()));
-    commandProcessor.RegisterCommandHadnler(new LoginUserCommandHandler(sp.GetService<IUserRepository>(), sp.GetService<IPasswordHasher>(),
-            sp.GetService<ITokenProvider>(), sp.GetService<IHttpContextAccessor>()));
-    commandProcessor.RegisterCommandHadnler(new RegisterUserCommandHandler(sp.GetService<IUserRepository>(), sp.GetService<IPasswordHasher>()));
-    commandProcessor.RegisterCommandHadnler(new SetRoleCommandHandler(sp.GetService<IUserRepository>(), sp.GetService<IMigrantRepository>()));
-    commandProcessor.RegisterCommandHadnler(new UpdateDataMigrantCommandHandler(sp.GetService<IMigrantRepository>()));
-    commandProcessor.RegisterCommandHadnler(new UpdateRegulationTermCommandHandler(sp.GetService<IRegulationRepository>()));
-    commandProcessor.RegisterCommandHadnler(new CreateDocumentCommandHandler(sp.GetService<IDocumentRepository>()));
-    commandProcessor.RegisterCommandHadnler(new SetStatementStatusCommandHandler(sp.GetService<IStatementRepository>()));
-    commandProcessor.RegisterCommandHadnler(new CreateNotificationCommandHandler(sp.GetService<INotificationRepository>(), sp.GetService<IStatementRepository>(), sp.GetService<IUserRepository>()));
-    commandProcessor.RegisterCommandHadnler(new CreateStatementCommandHandler(sp.GetService<IStatementRepository>(), sp.GetService<IMigrantRepository>(), 
-                                                                              sp.GetService<IDocumentRepository>(), sp.GetService<IRegulationRepository>()));
-    commandProcessor.RegisterCommandHadnler(new SendNotificationCommandHandler(sp.GetService<IUserRepository>(), sp.GetService<INotificationRepository>()));
-    commandProcessor.RegisterCommandHadnler(new SetNotificationTypeCommandHandler(sp.GetService<INotificationRepository>()));
-    return commandProcessor;
-    
-});
+RegisterCommandHandler.Register(builder);
 
-builder.Services.AddSingleton<IQueryProcessor>(sp =>
-{
-    var queryProcessor = new QueryProcessor();
-    queryProcessor.RegisterQueryHandler(new GetUserListQueryHandler(sp.GetService<IUserRepository>()));
-    queryProcessor.RegisterQueryHandler(new GetUserQueryHandler(sp.GetService<IUserRepository>()));
-    queryProcessor.RegisterQueryHandler(new GetRegulationListQueryHandler(sp.GetService<IRegulationRepository>()));
-    queryProcessor.RegisterQueryHandler(new GetRegulationQueryHandler(sp.GetService<IMigrantRepository>(), sp.GetService<IRegulationRepository>()));
-    queryProcessor.RegisterQueryHandler(new GetRolesListQueryHandler(sp.GetService<IRoleRepostory>()));
-    queryProcessor.RegisterQueryHandler(new GetMigrantQueryHandler(sp.GetService<IMigrantRepository>()));
-    queryProcessor.RegisterQueryHandler(new GetDocumentListQueryHandler(sp.GetService<IDocumentRepository>()));
-    queryProcessor.RegisterQueryHandler(new GetAllStatementsQueryHandler(sp.GetService<IStatementRepository>()));
-    queryProcessor.RegisterQueryHandler(new GetNewStatementQueryHandler(sp.GetService<IStatementRepository>()));
-    queryProcessor.RegisterQueryHandler(new GetStatementListByPlaceOwnerQueryHandler(sp.GetService<IStatementRepository>()));
-    queryProcessor.RegisterQueryHandler(new GetStatementStatusQueryHandler(sp.GetService<IStatementRepository>()));
-    queryProcessor.RegisterQueryHandler(new GetMigrantByIdQueryHandler(sp.GetService<IMigrantRepository>()));
-    queryProcessor.RegisterQueryHandler(new GetUserByIdQueryHandler(sp.GetService<IUserRepository>()));
-    queryProcessor.RegisterQueryHandler(new GetAllNotificationQueryHandler(sp.GetService<INotificationRepository>()));
-    queryProcessor.RegisterQueryHandler(new GetNotificationQueryHandler(sp.GetService<INotificationRepository>()));
-    return queryProcessor;
-});
+RegisterQueryHandler.Register(builder);
 
 builder.Services.AddEndpointsApiExplorer();
 

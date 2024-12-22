@@ -11,15 +11,12 @@
         padding: 0.5rem; 
         transition: box-shadow 0.3s; 
     }
-
     .form-control:focus {
         box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); 
     }
-
     .form-group {
         margin-bottom: 1.5rem; 
     }
-
     .input-group-text {
         background-color: #fff; 
         border: none; 
@@ -66,13 +63,15 @@
                     <label for="phone">Телефон</label>
                     <input type="tel" class="form-control" id="phone" name="phone" value="@Model.Phone">
                 </div>
-                <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                <!--<button type="submit" class="btn btn-primary">Сохранить изменения</button>-->
             </form>
 
             <div class="mt-5">
                 <h2>Удалить аккаунт</h2>
                 <p>Если вы хотите удалить свой аккаунт, пожалуйста, нажмите кнопку ниже.</p>
-                <button class="btn btn-danger">Удалить аккаунт</button>
+                <form action="DeleteSelf" method="post">
+                    <button type="submit" class="btn btn-danger">Удалить аккаунт</button>
+                </form>               
             </div>
         </main>
     </div>

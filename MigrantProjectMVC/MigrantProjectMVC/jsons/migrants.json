@@ -1,1 +1,17 @@
-[{"EnteringDate":"2023-01-01T00:00:00","HighlyQualified":true,"ResettelmentProgramMember":false,"ConsistOfMigrationRegistration":true,"Country":"\u0423\u043A\u0440\u0430\u0438\u043D\u0430","Id":"0f4a2181-0f96-47ae-a2b0-039daaf4be72","Name":"\u0421\u0435\u0440\u0433\u0435\u0439","Surname":"\u0412\u0438\u0442\u0430\u043B\u044C\u0435\u0432","Patronymic":"\u041D\u0438\u043A\u043E\u043B\u0430\u0435\u0432\u0438\u0447","Email":"migrant@mail.ru","Phone":"89949924532","PasswordHash":"tdvMVVWmp1DFdgloIqPtvavoaz3xSMEX9Udu89AA1Ms=","Role":{"Name":"Migrant"}}]
+[
+  {
+    "EnteringDate": "2023-01-01T00:00:00",
+    "HighlyQualified": true,
+    "ResettelmentProgramMember": false,
+    "ConsistOfMigrationRegistration": true,
+    "Country": "\u0423\u043A\u0440\u0430\u0438\u043D\u0430",
+    "Id": "0f4a2181-0f96-47ae-a2b0-039daaf4be72",
+    "Name": "\u0421\u0435\u0440\u0433\u0435\u0439",
+    "Surname": "\u0412\u0438\u0442\u0430\u043B\u044C\u0435\u0432",
+    "Patronymic": "\u041D\u0438\u043A\u043E\u043B\u0430\u0435\u0432\u0438\u0447",
+    "Email": "migrant@mail.ru",
+    "Phone": "89949924532",
+    "PasswordHash": "tdvMVVWmp1DFdgloIqPtvavoaz3xSMEX9Udu89AA1Ms=",
+    "Role": { "Name": "Migrant" }
+  }
+]

@@ -6,7 +6,7 @@
 <div class="row d-flex align-items-center justify-content-center">
     <div class="col-md-4 card p-3">
         <h2 class="text-center text-info">Регистрация</h2>
-        <form asp-action="Register" method="post" asp-route-returnurl="@ViewData["ReturnUrl"]">
+        <form action="Register" method="post" id="registrationForm">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="mb-1">
                 <label  class="control-label">Имя</label>
@@ -35,12 +35,17 @@
             </div>
             <div class="mb-1">
                 <label class="control-label">Пароль</label>
-                <input class="form-control" name="password"/>
-                <span class="text-danger"></span>
+                <input type="password" class="form-control" name="password" />
+                <span class="text-danger" id="passwordError"></span>
             </div>
             <div class="mb-1">
                 <label class="control-label">повторный пароль</label>
-                <input class="form-control" />
+                <input type="password" class="form-control" />
+                <span class="text-danger" id="confirmPasswordError"></span>
+            </div>
+            <div class="mb-1">
+                <input type="checkbox" id="isMigrant" name="isMigrant" value="true" />
+                <label class="control-label" for="isMigrant">Являюсь мигрантом</label>
                 <span class="text-danger"></span>
             </div>
             <div class="row">
@@ -53,4 +58,18 @@
             </div>
         </form>
     </div>
+    <script>
+        document.getElementById("registrationForm").addEventListener("submit", function(event) {
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirmPassword").value;
+
+            document.getElementById("passwordError").textContent = "";
+            document.getElementById("confirmPasswordError").textContent = "";
+
+            if (password !== confirmPassword) {
+                event.preventDefault(); // предотвращаем отправку формы
+                document.getElementById("confirmPasswordError").textContent = "Пароли не совпадают.";
+            }
+        });
+    </script>
 </div>
