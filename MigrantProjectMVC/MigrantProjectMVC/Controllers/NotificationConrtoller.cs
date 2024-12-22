@@ -34,31 +34,43 @@ namespace MigrantProjectMVC.Controllers
             return View("DetailsNotification", result);
         }
 
-        [Authorize]
-        [HttpGet]
-        public async Task<IActionResult> GetAllTypes()
+
+        public List<NotificationType> GetAllTypes()
         {
             var query = new GetAllNotificationTypesQuery();
-            var types = Enum.GetValues(typeof(NotificationType)).Cast<NotificationType>().Select(x => x.ToString()).ToList();
-            return Ok(types);
-        }
-
-        [Authorize]
-        [HttpPost("CreateNotification")]
-        public async Task<IActionResult> CreateNotification(Guid statementId, string name, string surname, string patronymic)
-        {
-            var command = new CreateNotificationCommand(statementId, name, surname, patronymic);
-            var result = await commandProcessor.Process(command);
-            return Ok(result);
+            var types = Enum.GetValues(typeof(NotificationType)).Cast<NotificationType>().ToList();
+            return types;
         }
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> SetNotificationType(Guid statementId, NotificationType type)
+        public async Task<IActionResult> CreateNotification(Guid statementId, string name, string surname, string patronymic, NotificationType type)
         {
-            var command = new SetNotificationTypeCommand(statementId, type);
+            var command = new CreateNotificationCommand(statementId, name, surname, patronymic);
             var result = await commandProcessor.Process(command);
+            if (result)
+            {
+                var setTypeCommand = new SetNotificationTypeCommand(statementId, type);
+                result = await commandProcessor.Process(setTypeCommand);
+                if (result)
+                    return View("../Home/Index");
+                
+            }
             return Ok(result);
+        }
+
+
+        [Authorize(Roles ="MVD")]
+        [HttpGet]
+        public IActionResult CreateNotification()
+        {
+            var query = new GetAllStatementsQuery();
+            var result = queryProcessor.Process(query).Result;
+            var model = result.Where(statement => statement.Status.Equals(StatusType.APPROVED) || statement.Status.Equals(StatusType.DENIED)).ToList();
+            var types = GetAllTypes();
+            ViewBag.NotificationTypes = types;
+
+            return View(model);
         }
     }
 }

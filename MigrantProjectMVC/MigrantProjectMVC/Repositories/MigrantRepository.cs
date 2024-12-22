@@ -49,8 +49,6 @@ namespace MigrantProjectMVC.Repositories
             }
         }
 
-
-
         public Task<string> GetCountryByEmail(string email)
         {
             var migrant = migrants.FirstOrDefault(x => x.Email == email);
@@ -89,11 +87,30 @@ namespace MigrantProjectMVC.Repositories
             return Task.FromResult(migrant);
         }
 
+        public Task<bool> AddMigrant(MigrantModel migrant)
+        {
+            migrants.Add(migrant);
+            SaveContext();
+            return Task.FromResult(true);
+        }
+
         public Task SaveContext()
         {
             var jsonMigrants = JsonSerializer.Serialize(migrants);
             File.WriteAllText(_filePath, jsonMigrants);
             return Task.CompletedTask;
+        }
+
+        public Task<bool> DeleteMigrant(Guid id)
+        {
+            var migrant =  migrants.FirstOrDefault(x => x.Id == id);
+
+            if (migrant == null)
+                return Task.FromResult(false);
+
+            migrants.Remove(migrant);
+            SaveContext();
+            return Task.FromResult(true);
         }
     }
 }

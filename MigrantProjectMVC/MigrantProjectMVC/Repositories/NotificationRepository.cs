@@ -18,9 +18,11 @@ namespace MigrantProjectMVC.Repositories
             try
             {
                 Notifications = JsonSerializer.Deserialize<List<NotificationModel>>(fs);
+                fs.Dispose();
             }
             catch (Exception ex) 
             {
+                fs.Dispose();
                 Notifications = new List<NotificationModel>()
                 {
                     new NotificationModel()

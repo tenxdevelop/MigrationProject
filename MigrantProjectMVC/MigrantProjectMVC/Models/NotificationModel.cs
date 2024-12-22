@@ -2,6 +2,7 @@
 
 namespace MigrantProjectMVC.Models
 {
+
     public class NotificationModel
     {
         public Guid StatementId { get; set; }

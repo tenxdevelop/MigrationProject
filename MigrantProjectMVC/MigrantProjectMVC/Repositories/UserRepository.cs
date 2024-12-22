@@ -25,40 +25,16 @@ namespace MigrantProjectMVC.Repositories
                     Users = new List<UserModel>();   
                 }
             }
-            #region mb need if return .on txt files
-            //if (!File.Exists(_filePath))
-            //{
-            //    return;
-            //}
-
-            //var lines = File.ReadAllLines(_filePath);
-
-            //foreach (var line in lines)
-            //{
-            //    var parts = line.Split(';');
-            //    if (parts.Length == 8)
-            //    {
-            //        Users.Add(new UserModel
-            //        {
-            //            Id = Convert.ToInt32(parts[0]),
-            //            Name = parts[1],
-            //            Surname = parts[2],
-            //            Patronymic = parts[3],
-            //            Email = parts[4],
-            //            Phone = parts[5],
-            //            Password = parts[6],
-            //            Role = parts[7]
-            //        });
-            //    }
-            //}
-            #endregion
         }
         public Task<bool> Add(UserModel user)
         { 
             user.PasswordHash = _passwordHasher.GenerateHash(user.PasswordHash);
             Users.Add(user);
-            //var lines = Users.Select(x => $"{user.Id};{user.Name};{user.Surname};{user.Patronymic};{user.Email};{user.Phone};{user.Password};{user.Role}").ToArray();
-            //File.WriteAllLines(_filePath, lines);
+            var lines = Users.Select(x => $"{user.Id};{user.Name};{user.Surname};{user.Patronymic};{user.Email};{user.Phone};{user.PasswordHash};{user.Role}").ToArray();
+            using (var fs = new FileStream(_filePath, FileMode.Open))
+            {
+                JsonSerializer.Serialize(fs, Users);
+            }
 
             return Task.FromResult(true);
         }

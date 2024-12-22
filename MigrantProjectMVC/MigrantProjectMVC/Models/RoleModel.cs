@@ -5,7 +5,7 @@
         public string Name { get; set; }
         public static RoleModel GetDefaultRole()
         {
-            return new RoleModel() {Name = "User" };
+            return new RoleModel() {Name = "PlaceOwner" };
         }
     }
 }

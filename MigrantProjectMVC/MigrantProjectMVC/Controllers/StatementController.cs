@@ -35,21 +35,25 @@ namespace MigrantProjectMVC.Controllers
             return Ok(result);
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "MVD")]
         [HttpGet]
         public async Task<IActionResult> GetNewStatement()
         {
             var query = new GetNewStatementQuery();
             var result = await queryProcessor.Process(query);
-            return View("StatementCheck");
+            if (result is null)
+                return View("../Home/Index");
+            return View("StatementCheck", result);
         }
 
-        [Authorize(Roles = "Admin")]
-        [HttpGet]
+        [Authorize(Roles = "MVD")]
+        [HttpPost]
         public async Task<IActionResult> SetStatementStatus(Guid id, StatusType status)
         {
             var command = new SetStatementStatusCommand(id, status);
             var result = await commandProcessor.Process(command);
+            if(result)
+                return View("../Home/Index");
             return Ok(result);
         }
 

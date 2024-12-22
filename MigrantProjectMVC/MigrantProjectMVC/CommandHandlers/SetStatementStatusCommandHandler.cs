@@ -17,6 +17,7 @@ namespace MigrantProjectMVC.CommandHandlers
             var statement = await _statementRepository.GetStatementById(requist.Id);
             if (statement == null) return false;
             statement.Status = requist.Status;
+            _statementRepository.SaveContext();
             return true;
         }
     }

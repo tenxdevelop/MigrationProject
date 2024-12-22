@@ -1,0 +1,36 @@
+﻿
+@model List<StatementModel>
+<div class="container mt-5">
+    <h1>Создать уведомление</h1>
+    <form asp-action="CreateNotification" method="post">
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <label for="statement" class="control-label">Выберите заявление:</label>
+            <select name="statementId" id="statement" class="form-control" required>
+                @foreach(var statementModel in Model)
+                {
+                    <option value="@statementModel.Id">@($"Номер заявления: {statementModel.Id} статус: {statementModel.Status.ToString()}")"</option>
+                    <input style="display: none" name="name" value="@statementModel.PlaceOwner.Name" />
+                    <input style="display: none" name="surname" value="@statementModel.PlaceOwner.Surname" />
+                    <input style="display: none" name="patronymic" value="@statementModel.PlaceOwner.Patronymic" />
+                }
+            </select>
+            <span class="text-danger" id="ResultError"></span>
+            
+            <label for="status" class="control-label">Выберите тип уведомления:</label>
+            <select name="type" id="status" class="form-control" required>
+                @foreach (var notificationType in ViewBag.NotificationTypes)
+                {
+                    <option value="@notificationType">@notificationType</option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="Comments" class="control-label">Комментарии:</label>
+            <textarea id="Comments" class="form-control" rows="4" placeholder="Введите комментарии (опционально)"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-3">Отправить уведомление</button>
+    </form>
+</div>

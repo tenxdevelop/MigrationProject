@@ -18,18 +18,19 @@
             <nav class="breadcrumbs">
                 <h3>Migration Project</h3>
                 <ul>
-                    <li><a class="users" href="~/Regulation/Reglament">Просмотр регламент услуги</a></li>
+                    <li><a class="migrant" href="~/Regulation/Reglament">Просмотр регламент услуги</a></li>
 
                     <li><a class="place-owner" href="~/Notification/GetAllNotification">Просмотр уведомлений</a></li>
                     <li><a class="place-owner" href="~/Statement/Index">Подать заявление</a></li>
-                    
-                    <li><a class="mvd-special" href="~/Statement/StatementCheck">Обработать заявление</a></li>
 
-                    <li><a class="admin" href="">Управление пользователями</a></li>
+                    <li><a class="mvd-special" href="~/Statement/GetNewStatement">Обработать заявление</a></li>
+                    <li><a class="mvd-special" href="~/Notification/CreateNotification">Отправить уведомление</a></li>
+
+                    <li><a class="admin" href="~/User/ManipulationUser">Управление пользователями</a></li>
 
                 </ul>
                 <ul>
-                    <li><a class="auth-only" href="~/User/Login">Выход</a></li>
+                    <li><a class="auth-only" href="~/User/Logout">Выход</a></li>
                     <li><a class="auth-only" href="~/User/Prof">Редактировать профиль</a></li>
 
                     <li><a class="guest-only" href="~/User/Login">Войти</a></li>
@@ -91,7 +92,7 @@
             const authElements = document.querySelectorAll('.auth-only');
             const guestElements = document.querySelectorAll('.guest-only');
 
-            const usersElements = document.querySelectorAll('.users');
+            const migrantElements = document.querySelectorAll('.migrant');
             const placeOwnelElements = document.querySelectorAll('.place-owner');
             const adminElements = document.querySelectorAll('.admin');
             const mvdElements = document.querySelectorAll('.mvd-special');
@@ -101,36 +102,38 @@
 
                 const token = getTokenFromCookies();
                 const roleKey = 'http://schemas.microsoft.com/ws/2008/06/identity/claims/role';
-
+                
                 var payload = parseJWT(token);
-                if (payload[roleKey] == 'User') {
+                
+                if (payload[roleKey] == 'Migrant') {
                     placeOwnelElements.forEach(el => el.style.display = 'none');
                     adminElements.forEach(el => el.style.display = 'none');
                     mvdElements.forEach(el => el.style.display = 'none');
                 }
                 else if (payload[roleKey] == 'Admin') {
                     placeOwnelElements.forEach(el => el.style.display = 'none');
-                    usersElements.forEach(el => el.style.display = 'none');
-                    mvdElements.forEach(el => el.style.display = 'none');
-                } else if (payload[roleKey] == 'Migrant') {
-                    placeOwnelElements.forEach(el => el.style.display = 'none');
-                    adminElements.forEach(el => el.style.display = 'none');
+                    migrantElements.forEach(el => el.style.display = 'none');
                     mvdElements.forEach(el => el.style.display = 'none');
                 } else if (payload[roleKey] == 'PlaceOwner') {
-                    usersElements.forEach(el => el.style.display = 'none');
+                    migrantElements.forEach(el => el.style.display = 'none');
                     adminElements.forEach(el => el.style.display = 'none');
                     mvdElements.forEach(el => el.style.display = 'none');
-                } else if (payload[roleKey] == 'MVD') { 
-                    placeOwnelElements.forEach(el.style.display = 'none');
-                    usersElements.forEach(el.style.display = 'none');
-                    adminElements.forEach(el.style.display = 'none');
+                } else if (payload[roleKey] == 'MVD') {
+                    placeOwnelElements.forEach(el => el.style.display = 'none');
+                    migrantElements.forEach(el => el.style.display = 'none');
+                    adminElements.forEach(el => el.style.display = 'none');
+                } else { 
+                    placeOwnelElements.forEach(el => el.style.display = 'none');
+                    adminElements.forEach(el => el.style.display = 'none');
+                    migrantElements.forEach(el => el.style.display = 'none');
+                    mvdElements.forEach(el => el.style.display = 'none');
                 }
             } else {
                 authElements.forEach(el => el.style.display = 'none');
 
                 placeOwnelElements.forEach(el => el.style.display = 'none');
                 adminElements.forEach(el => el.style.display = 'none');
-                usersElements.forEach(el => el.style.display = 'none');
+                migrantElements.forEach(el => el.style.display = 'none');
                 mvdElements.forEach(el => el.style.display = 'none');
             }            
         });

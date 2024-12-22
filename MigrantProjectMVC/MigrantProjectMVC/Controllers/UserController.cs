@@ -12,10 +12,31 @@ namespace MigrantProjectMVC.Controllers
     public class UserController : BaseController
     {
 
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        public IActionResult ManipulationUser()
+        {
+            var query = new GetUserListQuery();
+            var users = queryProcessor.Process(query).Result;
+            ViewBag.UserModels = users;
+
+            var queryRoles = new GetRolesListQuery();
+            var roles = queryProcessor.Process(queryRoles).Result;
+            ViewBag.Roles = roles;
+            return View();
+        }
+
         [HttpGet]
         public IActionResult Login()
         {
             return View();
+        }
+
+        [Authorize]
+        public IActionResult Logout()
+        {
+            Response.Cookies.Delete("Auth");
+            return View("../Home/Index");
         }
 
         //completed
@@ -28,6 +49,8 @@ namespace MigrantProjectMVC.Controllers
                 Phone = phone,
                 Password = password,
             };
+            if (string.IsNullOrEmpty(password))
+                return View("Login");
 
             var token = commandProcessor.Process(command).Result;
             if (token == null) 
@@ -66,6 +89,9 @@ namespace MigrantProjectMVC.Controllers
         {
             var command = new RegisterUserCommand()
             {
+                Name = name,
+                Surname = surname,
+                Patronymic = patronymic,
                 Email = email,
                 Phone = phone,
                 Password = password
@@ -78,17 +104,16 @@ namespace MigrantProjectMVC.Controllers
 
         //completed
         [Authorize(Roles = "Admin")]
-        [HttpPost("CreateUserStatement")]
+        [HttpPost]
         public IActionResult CreateUserStatement(string name, string surname, string patronymic, string email, string password)
         {
             var command = new CreateUserStatementCommand(name, surname, patronymic, email, password);
             var result = commandProcessor.Process(command);
-            return Ok(result);
+            return View("../Home/Index");
         }
 
         //completed
         [Authorize(Roles = "Admin")]
-        [HttpGet("GetAllUsers")]
         public IActionResult GetAllUsers()
         {
             var query = new GetUserListQuery();
@@ -98,7 +123,6 @@ namespace MigrantProjectMVC.Controllers
 
         //completed
         [Authorize(Roles = "Admin")]
-        [HttpPost("DeleteUser")]
         public IActionResult DeleteUser(Guid id)
         {
             var command = new DeleteUserCommand(id);
@@ -107,28 +131,26 @@ namespace MigrantProjectMVC.Controllers
             {
                 return Json(new { status = "fail", message = "user not found" });
             }
-            return Json(new { status = "success", message = "customer created" });
+            return View("../Home/Index");
         }
 
         //completed
         [Authorize(Roles = "Admin")]
-        [HttpPost("SetRole")]
-        public IActionResult SetRole(Guid id, RoleModel role)
+        public IActionResult SetRole(Guid id, string roleName)
         {
-            var command = new SetRoleCommand(id, role);
-            var result = commandProcessor.Process(command);
-            return Ok(result);
+            var command = new SetRoleCommand(id, new RoleModel() { Name = roleName });
+            var result = commandProcessor.Process(command).Result;
+            
+            return View("../Home/Index");
         }
 
         //completed
         [Authorize(Roles = "Admin")]
-        [HttpGet("GetUser")]
         public IActionResult GetUser(string name, string surname, string patronymic)
         {
             var query = new GetUserQuery(name, surname, patronymic);
             var result = queryProcessor.Process(query);
             return Ok(result);
-
         }
 
         //test pages
@@ -145,15 +167,5 @@ namespace MigrantProjectMVC.Controllers
         {
             return Ok("Enter on page with role protection");
         }
-        [HttpPost ("logout")]
-        [Authorize]
-        public IActionResult Logout()
-        {
-            Response.Cookies.Delete("Auth");
-            return Ok();
-        }
-
-
-        
     }
 }
