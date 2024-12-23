@@ -26,6 +26,8 @@ namespace MigrantProjectMVC
                 queryProcessor.RegisterQueryHandler(new GetUserByIdQueryHandler(sp.GetService<IUserRepository>()));
                 queryProcessor.RegisterQueryHandler(new GetAllNotificationQueryHandler(sp.GetService<INotificationRepository>()));
                 queryProcessor.RegisterQueryHandler(new GetNotificationQueryHandler(sp.GetService<INotificationRepository>()));
+                queryProcessor.RegisterQueryHandler(new GetAllDocsTypesQueryHandler(sp.GetService<IDocumentRepository>()));
+                queryProcessor.RegisterQueryHandler(new GetAllNotificationReadableTypesQueryHandler(sp.GetService<INotificationRepository>()));
                 return queryProcessor;
             });
         }

@@ -39,7 +39,12 @@ namespace MigrantProjectMVC.Controllers
         [HttpGet]
         public async Task<IActionResult> GetNewStatement()
         {
-            var query = new GetNewStatementQuery();
+            var token = HttpContext.Request.Cookies["Auth"];
+            var jwtSecurityHandler = new JwtSecurityTokenHandler();
+            var jwtToken = jwtSecurityHandler.ReadJwtToken(token);
+            var id = new Guid(jwtToken.Claims.First(claim => claim.Type == ClaimTypes.NameIdentifier).Value);
+
+            var query = new GetNewStatementQuery(id);
             var result = await queryProcessor.Process(query);
             if (result is null)
                 return View("../Home/Index");

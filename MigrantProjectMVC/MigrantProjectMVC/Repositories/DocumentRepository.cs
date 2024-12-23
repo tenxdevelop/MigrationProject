@@ -88,6 +88,17 @@ namespace MigrantProjectMVC.Repositories
             return Task.FromResult(userDocuments.ToList() as IList<DocumentModel>);
         }
 
+        public Task<Dictionary<DocumentType, string>> GetAllDocumentTypes()
+        {
+            var docs = new Dictionary<DocumentType, string>() 
+            {
+                {DocumentType.PASSPORTPLACEOWNER, "Паспорт РФ"},
+                {DocumentType.PASSPORTMIGRANT , "Паспорт мигранта"},
+                {DocumentType.VISA, "Виза мигранта"},
+                {DocumentType.MIGRATIONCARD, "Миграционная карта"},
+            };
+            return Task.FromResult(docs);
+        }
 
         public Task SaveContext()
         {

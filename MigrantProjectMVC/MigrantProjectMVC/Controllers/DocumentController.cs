@@ -3,15 +3,20 @@ using Microsoft.AspNetCore.Mvc;
 using MigrantProjectMVC.Commands;
 using MigrantProjectMVC.Enums;
 using MigrantProjectMVC.Queries;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace MigrantProjectMVC.Controllers
 {
     public class DocumentController : BaseController
     {
 
-        public IActionResult Document()
+        public async Task<IActionResult> Document()
         {
             ViewBag.DocumentTypes = new List<DocumentType>() { DocumentType.VISA, DocumentType.MIGRATIONCARD, DocumentType.PASSPORTMIGRANT, DocumentType.PASSPORTPLACEOWNER };
+            var query = new GetAllDocsTypesQuery();
+            var docsTypes = await queryProcessor.Process(query);
+            ViewBag.DocsTypes = docsTypes;
             return View();
         }
 
@@ -19,11 +24,17 @@ namespace MigrantProjectMVC.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateDocument(string name, string content)
         {
+            var token = HttpContext.Request.Cookies["Auth"];
+            var jwtSecurityHandler = new JwtSecurityTokenHandler();
+            var jwtToken = jwtSecurityHandler.ReadJwtToken(token);
+            var id = new Guid(jwtToken.Claims.First(claim => claim.Type == ClaimTypes.NameIdentifier).Value);
             var creationDate = DateTime.Now;
-            var command = new CreateDocumentCommand(name, content, creationDate); // Сюда ещё нужно передавать Id user-a, что бы за ним закреплять документ
+            var command = new CreateDocumentCommand(id, name, content, creationDate); // Сюда ещё нужно передавать Id user-a, что бы за ним закреплять документ
             var result = await commandProcessor.Process(command);
-
             ViewBag.DocumentTypes = new List<DocumentType>() { DocumentType.VISA, DocumentType.MIGRATIONCARD, DocumentType.PASSPORTMIGRANT, DocumentType.PASSPORTPLACEOWNER };
+            var query = new GetAllDocsTypesQuery();
+            var docsTypes = await queryProcessor.Process(query);
+            ViewBag.DocsTypes = docsTypes;
             return View("Document");
         }
 
@@ -35,5 +46,7 @@ namespace MigrantProjectMVC.Controllers
             var result = await queryProcessor.Process(query);
             return Ok(result);
         }
+
+        
     }
 }

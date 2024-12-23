@@ -75,5 +75,15 @@ namespace MigrantProjectMVC.Repositories
             var result = Notifications.Where(x => statementIds.Contains(x.StatementId)).ToList();
             return Task.FromResult(result as IList<NotificationModel>);
         }
+
+        public Task<Dictionary<NotificationType, string>> GetAllNotificationTypes()
+        {
+            var NotificationTypes = new Dictionary<NotificationType, string>() 
+            {
+                {NotificationType.EMAIl, "Электронная почта"},
+                {NotificationType.PHYSICALMESSAGE, "Физическое сообщение"},
+            };
+            return Task.FromResult(NotificationTypes);
+        }
     }
 }

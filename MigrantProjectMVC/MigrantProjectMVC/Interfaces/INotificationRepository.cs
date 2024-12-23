@@ -1,4 +1,5 @@
-﻿using MigrantProjectMVC.Models;
+﻿using MigrantProjectMVC.Enums;
+using MigrantProjectMVC.Models;
 
 namespace MigrantProjectMVC.Interfaces
 {
@@ -9,6 +10,7 @@ namespace MigrantProjectMVC.Interfaces
         public Task Add(NotificationModel notification);
         public Task<IList<NotificationModel>> GetAll(Guid placeOwnerId);
         public Task UpdateNotification(NotificationModel notification);
+        public Task<Dictionary<NotificationType, string>> GetAllNotificationTypes();
         public Task SaveContext();
     }
 }

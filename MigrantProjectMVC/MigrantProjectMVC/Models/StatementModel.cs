@@ -8,6 +8,7 @@ namespace MigrantProjectMVC.Models
         public string AccountingAddress { get; set; }
         public string PreviousAddress { get; set; }
         public RegulationModel Regulation { get; set; }
+        public Guid MvdWorkerId { get; set; }
         public UserModel PlaceOwner { get; set; }
         public List<DocumentModel> Documents { get; set; }
         public List<DocumentModel> MigrantDocuments { get; set; }

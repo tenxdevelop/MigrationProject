@@ -25,9 +25,9 @@ namespace MigrantProjectMVC.CommandHandlers
             var notification = new NotificationModel()
             {
                 StatementId = requist.StatementId,
-                Name = requist.Name,
-                Surname = requist.Surname,
-                Patronymic = requist.Patronymic,
+                Name = statement.PlaceOwner.Name,
+                Surname = statement.PlaceOwner.Surname,
+                Patronymic = statement.PlaceOwner.Patronymic,
                 Status = false,
                 NotificationType = null
             };

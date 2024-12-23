@@ -13,5 +13,20 @@
     "Phone": "89949924532",
     "PasswordHash": "tdvMVVWmp1DFdgloIqPtvavoaz3xSMEX9Udu89AA1Ms=",
     "Role": { "Name": "Migrant" }
+  },
+  {
+    "EnteringDate": "0001-01-01T00:00:00",
+    "HighlyQualified": false,
+    "ResettelmentProgramMember": false,
+    "ConsistOfMigrationRegistration": false,
+    "Country": "\u0423\u043A\u0440\u0430\u0438\u043D\u0430",
+    "Id": "192f327d-dff1-40c3-b507-2880bd03fb23",
+    "Name": "\u044F\u043C\u0438\u0433\u0440\u0430\u043D\u0442",
+    "Surname": "\u044F\u043C\u0438\u0433\u0440\u0430\u043D\u0442",
+    "Patronymic": "\u044F\u043C\u0438\u0433\u0440\u0430\u043D\u0442",
+    "Email": "migrant@mail.ru2",
+    "Phone": "2132412",
+    "PasswordHash": "tdvMVVWmp1DFdgloIqPtvavoaz3xSMEX9Udu89AA1Ms=",
+    "Role": { "Name": "Migrant" }
   }
 ]

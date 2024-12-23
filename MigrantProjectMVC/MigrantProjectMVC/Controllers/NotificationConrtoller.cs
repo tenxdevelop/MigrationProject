@@ -42,11 +42,28 @@ namespace MigrantProjectMVC.Controllers
             return types;
         }
 
+        //[Authorize]
+        //[HttpPost]
+        //public async Task<IActionResult> CreateNotification(Guid statementId, string name, string surname, string patronymic, NotificationType type)
+        //{
+        //    var command = new CreateNotificationCommand(statementId, name, surname, patronymic);
+        //    var result = await commandProcessor.Process(command);
+        //    if (result)
+        //    {
+        //        var setTypeCommand = new SetNotificationTypeCommand(statementId, type);
+        //        result = await commandProcessor.Process(setTypeCommand);
+        //        if (result)
+        //            return View("../Home/Index");
+                
+        //    }
+        //    return Ok(result);
+        //}
+
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> CreateNotification(Guid statementId, string name, string surname, string patronymic, NotificationType type)
+        public async Task<IActionResult> CreateNotification(Guid statementId, NotificationType type)
         {
-            var command = new CreateNotificationCommand(statementId, name, surname, patronymic);
+            var command = new CreateNotificationCommand(statementId);
             var result = await commandProcessor.Process(command);
             if (result)
             {
@@ -54,7 +71,7 @@ namespace MigrantProjectMVC.Controllers
                 result = await commandProcessor.Process(setTypeCommand);
                 if (result)
                     return View("../Home/Index");
-                
+
             }
             return Ok(result);
         }
@@ -62,13 +79,16 @@ namespace MigrantProjectMVC.Controllers
 
         [Authorize(Roles ="MVD")]
         [HttpGet]
-        public IActionResult CreateNotification()
+        public async Task<IActionResult> CreateNotification()
         {
             var query = new GetAllStatementsQuery();
             var result = queryProcessor.Process(query).Result;
             var model = result.Where(statement => statement.Status.Equals(StatusType.APPROVED) || statement.Status.Equals(StatusType.DENIED)).ToList();
             var types = GetAllTypes();
             ViewBag.NotificationTypes = types;
+            var typesQuery = new GetAllNotificationReadableTypesQuery();
+            var readableTypes = await queryProcessor.Process(typesQuery);
+            ViewBag.NotificationReadableTypes = readableTypes;
 
             return View(model);
         }

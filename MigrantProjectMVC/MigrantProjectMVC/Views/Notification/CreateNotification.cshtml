@@ -10,11 +10,14 @@
             <select name="statementId" id="statement" class="form-control" required>
                 @foreach(var statementModel in Model)
                 {
-                    <option value="@statementModel.Id">@($"Номер заявления: {statementModel.Id} статус: {statementModel.Status.ToString()}")"</option>
+                    <option value="@statementModel.Id">@($"Номер заявления: {statementModel.Id} статус: {statementModel.Status.ToString()}")" </option>
+                    <!--
                     <input style="display: none" name="name" value="@statementModel.PlaceOwner.Name" />
                     <input style="display: none" name="surname" value="@statementModel.PlaceOwner.Surname" />
                     <input style="display: none" name="patronymic" value="@statementModel.PlaceOwner.Patronymic" />
+                    -->
                 }
+                    
             </select>
             <span class="text-danger" id="ResultError"></span>
             
@@ -22,7 +25,7 @@
             <select name="type" id="status" class="form-control" required>
                 @foreach (var notificationType in ViewBag.NotificationTypes)
                 {
-                    <option value="@notificationType">@notificationType</option>
+                    <option value="@notificationType">@ViewBag.NotificationReadableTypes[notificationType]</option>
                 }
             </select>
         </div>

@@ -17,6 +17,7 @@ namespace MigrantProjectMVC.CommandHandlers
         {
             var document = new DocumentModel()
             {
+                OwnerId = requist.OwnerId,
                 Name = requist.Name,
                 Content = requist.Content,
                 CreationDate = requist.CreationDate,
