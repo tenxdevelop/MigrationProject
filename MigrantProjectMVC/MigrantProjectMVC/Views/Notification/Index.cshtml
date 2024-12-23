@@ -14,14 +14,14 @@
                 <th>Статус</th>
             </tr>
         </thead>
-        <tbody>
-            <tr class="table-primary">
+        <tbody>         
                 @foreach(var notificationModel in Model)
                 {
-                    <td><a href="GetNotification?id=@notificationModel.StatementId" style="text-decoration: none; color: inherit;">@($"заявление на имя мигранта {notificationModel.Name}")</a></td>
-                    <td><a href="GetNotification?id=@notificationModel.StatementId" style="text-decoration: none; color: inherit;">@($"{notificationModel.Status.ToString()}")</a></td>
-                }
-            </tr>
+                    <tr class="table-primary">
+                        <td><a href="GetNotification?id=@notificationModel.StatementId" style="text-decoration: none; color: inherit;">@($"заявление на имя мигранта {notificationModel.Name} {notificationModel.Surname} {notificationModel.Patronymic}")</a></td>
+                        <td><a href="GetNotification?id=@notificationModel.StatementId" style="text-decoration: none; color: inherit;">@($"{notificationModel.Status.ToString()}")</a></td>
+                    </tr>
+                }      
         </tbody>
     </table>
 </div>

@@ -10,7 +10,7 @@
             <select name="statementId" id="statement" class="form-control" required>
                 @foreach(var statementModel in Model)
                 {
-                    <option value="@statementModel.Id">@($"Номер заявления: {statementModel.Id} статус: {statementModel.Status.ToString()}")" </option>
+                    <option value="@statementModel.Id">@($"Номер заявления: {statementModel.Id} на мигранта {statementModel.Migrant.Name} статус: {statementModel.Status.ToString()}")" </option>
                     <!--
                     <input style="display: none" name="name" value="@statementModel.PlaceOwner.Name" />
                     <input style="display: none" name="surname" value="@statementModel.PlaceOwner.Surname" />

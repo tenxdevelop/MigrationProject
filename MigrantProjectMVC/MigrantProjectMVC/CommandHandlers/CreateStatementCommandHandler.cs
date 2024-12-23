@@ -35,9 +35,9 @@ namespace MigrantProjectMVC.CommandHandlers
             var regulation = await _regulationRepository.GetRegulationWithCountry(migrant.Country);
 
             var statement = StatementModel.Create(migrantDocuments.ToList(), placeOwnerDocuments.ToList(), requist.PreviousAddress, requist.AccountingAddress, 
-                                                  StatusType.CREATED, requist.PlaceOwner, regulation);
+                                                  StatusType.CREATED, requist.PlaceOwner, regulation, migrant);
 
-            _statementRepository.Add(statement);
+            await _statementRepository.Add(statement);
             return true;
         }
     }

@@ -42,23 +42,6 @@ namespace MigrantProjectMVC.Controllers
             return types;
         }
 
-        //[Authorize]
-        //[HttpPost]
-        //public async Task<IActionResult> CreateNotification(Guid statementId, string name, string surname, string patronymic, NotificationType type)
-        //{
-        //    var command = new CreateNotificationCommand(statementId, name, surname, patronymic);
-        //    var result = await commandProcessor.Process(command);
-        //    if (result)
-        //    {
-        //        var setTypeCommand = new SetNotificationTypeCommand(statementId, type);
-        //        result = await commandProcessor.Process(setTypeCommand);
-        //        if (result)
-        //            return View("../Home/Index");
-                
-        //    }
-        //    return Ok(result);
-        //}
-
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateNotification(Guid statementId, NotificationType type)

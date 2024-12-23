@@ -10,14 +10,13 @@ namespace MigrantProjectMVC.CommandHandlers
 
         private INotificationRepository _notificationRepository;
         private IStatementRepository _statementRepository;
-        private IUserRepository _userRepository;
 
-        public CreateNotificationCommandHandler(INotificationRepository notificationRepository, IStatementRepository statementRepository, IUserRepository userRepository)
+        public CreateNotificationCommandHandler(INotificationRepository notificationRepository, IStatementRepository statementRepository)
         {
             _notificationRepository = notificationRepository;
             _statementRepository = statementRepository;
-            _userRepository = userRepository;
         }
+
         public async Task<bool> Handle(CreateNotificationCommand requist)
         {
             var statement = await _statementRepository.GetStatementById(requist.StatementId);
@@ -25,13 +24,13 @@ namespace MigrantProjectMVC.CommandHandlers
             var notification = new NotificationModel()
             {
                 StatementId = requist.StatementId,
-                Name = statement.PlaceOwner.Name,
-                Surname = statement.PlaceOwner.Surname,
-                Patronymic = statement.PlaceOwner.Patronymic,
-                Status = false,
+                Name = statement.Migrant.Name,
+                Surname = statement.Migrant.Surname,
+                Patronymic = statement.Migrant.Patronymic,
+                Status = statement.Status.Equals(StatusType.APPROVED),
                 NotificationType = null
             };
-            _notificationRepository.Add(notification);
+            await _notificationRepository.Add(notification);
             return true;
 
         }

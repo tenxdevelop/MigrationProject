@@ -15,7 +15,8 @@
                 Данные мигранта
             </div>
             <div class="card-body">
-                <p class="card-text">@($"регламент: {Model.Regulation?.Name}")</p>
+                <h5 class="card-title">@($"ФИО: {Model.Migrant.Name} {Model.Migrant.Surname} {Model.Migrant.Patronymic}")</h5>
+                <p class="card-text">@($"регламент: {Model.Regulation?.Rules} {Model.Regulation?.Country}")</p>
                 <p class="card-text">@($"срок: {Model.Regulation?.Term}")</p>
                 @foreach (var document in Model.MigrantDocuments)
                 {

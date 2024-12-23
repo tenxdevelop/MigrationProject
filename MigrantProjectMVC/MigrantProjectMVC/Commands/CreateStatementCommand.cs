@@ -10,9 +10,7 @@ namespace MigrantProjectMVC.Commands
         public string Patronymic { get; set; }
         public string? PreviousAddress { get; set; }
         public string AccountingAddress { get; set; }
-
         public UserModel PlaceOwner { get; set; }
-
         public CreateStatementCommand(string name, string surname, string patronymic, string? previousAddress, string accountingAddress, UserModel placeOwner)
         {
             Name = name;
