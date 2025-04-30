@@ -63,7 +63,21 @@
                     <label for="phone">Телефон</label>
                     <input type="tel" class="form-control" id="phone" name="phone" value="@Model.Phone">
                 </div>
-                <!--<button type="submit" class="btn btn-primary">Сохранить изменения</button>-->
+                <div>
+                    
+                    <label>Выберите имеющиеся у вас документы</label>
+                    <select onchange="addToForm()" id="documentSelect" class = "form-select" aria-label="Выберите документ">
+                        <option selected id="selectLabel">Выберите из списка документы</option>
+                        <option>Высоквалифированный специалист</option>
+                        <option>Член программы переселения</option>
+                        <option>Состоял ли на миграционном учёте раннее</option>
+                    </select>
+                    <div id="documentBox">
+                        <p>Имеющиеся документы: </p>
+
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Сохранить изменения</button>
             </form>
 
             <div class="mt-5">
@@ -76,3 +90,27 @@
         </main>
     </div>
 </div>
+
+<script>
+    var documentBox = document.getElementById("documentBox")
+    function addToForm(){
+        selectLabel = document.getElementById("selectLabel")
+        if(selectLabel != null){
+            selectLabel.remove()
+        }
+        var documentSelect = document.getElementById("documentSelect")
+        var documentName = documentSelect.value
+        existedDocumentName = document.getElementById(documentName)
+        if(existedDocumentName != null) return
+        var newDocumentLine = document.createElement('div')
+        newDocumentLine.className = "d-flex flex-row"
+        newDocumentLine.id = documentName
+        newDocumentLine.innerHTML = `<p name = ${documentName}>${documentName}</p> <button class="btn btn-light" onclick="removeItemFromBox('${documentName}')">X</button>`
+        documentBox.appendChild(newDocumentLine)
+    }
+
+    function removeItemFromBox(documentName){
+        var element = document.getElementById(documentName)
+        element.remove()
+    }
+</script>
