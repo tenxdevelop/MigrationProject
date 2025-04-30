@@ -106,10 +106,9 @@
 
         selectedDocuments.push(documentValue);
 
-        // Обновляем скрытое поле (будет отправлено как строка с разделителем)
+        // Добавляю к строке новый документ, разделитель ','
         document.getElementById("documentNames").value = selectedDocuments.join(',');
 
-        // Визуальное отображение (без input, просто текст и кнопка удаления)
         var newDocumentLine = document.createElement('div');
         newDocumentLine.className = "d-flex flex-row";
         newDocumentLine.id = documentValue;

@@ -11,6 +11,7 @@ namespace MigrantProjectMVC.Controllers
 {
     public class RegulationController : BaseController
     {
+        //сейчас идёт сюда перенаправление, если мигрант хочет получить инфу по порядку действий, напиши мне, если надо будет это изменить.
         public async Task<IActionResult> Reglament()
         {
             var token = HttpContext.Request.Cookies["Auth"];
