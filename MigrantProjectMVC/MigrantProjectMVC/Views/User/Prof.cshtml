@@ -25,24 +25,10 @@
 
 <div class="container-fluid">
     <div class="row">
-        <nav class="col-md-2 sidebar">
-            <h2>Профиль:</h2>
-            <ul class="nav flex-column">
-                <li class="nav-item">
-                    <a class="nav-link active" href="~/Document/Document">Добавить документы и данные</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active migrant" href="~/Migrant/DataControl">Управление данными мигранта</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="">Безопасность</a>
-                </li>
-            </ul>
-        </nav>
 
         <main class="col-md-9 ml-sm-auto col-lg-10 px-4">
             <h1 class="mt-4">Профиль пользователя</h1>
-            <form id="profileForm" class="mt-4" method="post" action="">
+            <form id="profileForm" class="mt-4" method="post" action="saveUserData">
                 <div class="form-group">
                     <label for="firstName">Имя</label>
                     <input type="text" class="form-control" id="firstName" name="firstName" value="@Model.Name" required>
@@ -63,19 +49,29 @@
                     <label for="phone">Телефон</label>
                     <input type="tel" class="form-control" id="phone" name="phone" value="@Model.Phone">
                 </div>
+                <div class="form-group d-flex flex-column">
+                    <label>Выберите вашу страну гражданства</label>
+                    <select name="country" class="form-select">
+                        @foreach (var item in ViewBag.Countries)
+                        {
+                            <option>@item</option>
+                        }
+                    </select>   
+                </div>
                 <div>
-                    
                     <label>Выберите имеющиеся у вас документы</label>
                     <select onchange="addToForm()" id="documentSelect" class = "form-select" aria-label="Выберите документ">
                         <option selected id="selectLabel">Выберите из списка документы</option>
-                        <option>Высоквалифированный специалист</option>
-                        <option>Член программы переселения</option>
-                        <option>Состоял ли на миграционном учёте раннее</option>
+                        <option value="highlyQualified">Высоквалифированный специалист</option>
+                        <option value="ressetlementProgrammMember">Член программы переселения</option>
+                        <option value="consistsOfMigrationRegulation">Состоял на миграционном учёте раннее</option>
                     </select>
                     <div id="documentBox">
                         <p>Имеющиеся документы: </p>
-
                     </div>
+                </div>
+                <div id="documentBox">
+                    <input type="hidden" id="documentNames" name="documentNames" value="">
                 </div>
                 <button type="submit" class="btn btn-primary">Сохранить изменения</button>
             </form>
@@ -93,24 +89,39 @@
 
 <script>
     var documentBox = document.getElementById("documentBox")
-    function addToForm(){
-        selectLabel = document.getElementById("selectLabel")
-        if(selectLabel != null){
-            selectLabel.remove()
+    var selectedDocuments = []; // Массив для хранения выбранных документов
+
+    function addToForm() {
+        var documentSelect = document.getElementById("documentSelect");
+        var selectedOption = documentSelect.options[documentSelect.selectedIndex];
+
+        if(document.getElementById("selectLabel") != null) {
+            document.getElementById("selectLabel").remove();
         }
-        var documentSelect = document.getElementById("documentSelect")
-        var documentName = documentSelect.value
-        existedDocumentName = document.getElementById(documentName)
-        if(existedDocumentName != null) return
-        var newDocumentLine = document.createElement('div')
-        newDocumentLine.className = "d-flex flex-row"
-        newDocumentLine.id = documentName
-        newDocumentLine.innerHTML = `<p name = ${documentName}>${documentName}</p> <button class="btn btn-light" onclick="removeItemFromBox('${documentName}')">X</button>`
-        documentBox.appendChild(newDocumentLine)
+
+        var documentValue = selectedOption.value;
+        var documentText = selectedOption.text;
+
+        if(selectedDocuments.includes(documentValue)) return;
+
+        selectedDocuments.push(documentValue);
+
+        // Обновляем скрытое поле (будет отправлено как строка с разделителем)
+        document.getElementById("documentNames").value = selectedDocuments.join(',');
+
+        // Визуальное отображение (без input, просто текст и кнопка удаления)
+        var newDocumentLine = document.createElement('div');
+        newDocumentLine.className = "d-flex flex-row";
+        newDocumentLine.id = documentValue;
+        newDocumentLine.innerHTML = `
+            <span>${documentText}</span>
+            <button class="btn btn-light" onclick="removeItemFromBox('${documentValue}')">X</button>
+        `;
+        documentBox.appendChild(newDocumentLine);
     }
 
-    function removeItemFromBox(documentName){
-        var element = document.getElementById(documentName)
+    function removeItemFromBox(documentEnglishName){
+        var element = document.getElementById(documentEnglishName)
         element.remove()
     }
 </script>

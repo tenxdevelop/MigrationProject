@@ -75,7 +75,10 @@ namespace MigrantProjectMVC.Controllers
             var jwtSecurityHandler = new JwtSecurityTokenHandler();
             var jwtToken = jwtSecurityHandler.ReadJwtToken(token);
             var id = new Guid(jwtToken.Claims.First(claim => claim.Type == ClaimTypes.NameIdentifier).Value);
-
+            ViewBag.Countries = new List<string>()
+            {
+                "Украина", "Белорусь"
+            }; //временная задычка, замени потом на список из репозитория стран
             var query = new GetUserByIdQuery(id);
             var userModel = queryProcessor.Process(query).Result;
 
@@ -101,6 +104,19 @@ namespace MigrantProjectMVC.Controllers
 
             return View("Login");
            
+        }
+
+        [HttpPost]
+        public IActionResult saveUserData(string firstName, string lastName, string patronymic, string email,
+            string phone, string country, string documentNames) // Получаем как строку с разделителями
+        {
+            if (documentNames != null) {
+                var documentsList = documentNames.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
+            } //проверка на тот случай, если у мигранта нет документов
+
+            //все данные отправляются, осталось заполнить
+
+            return View("../User/Prof");
         }
 
         //completed
@@ -143,7 +159,6 @@ namespace MigrantProjectMVC.Controllers
             var jwtSecurityHandler = new JwtSecurityTokenHandler();
             var jwtToken = jwtSecurityHandler.ReadJwtToken(token);
             var id = new Guid(jwtToken.Claims.First(claim => claim.Type == ClaimTypes.NameIdentifier).Value);
-
             var command = new DeleteUserCommand(id);
             var result = commandProcessor.Process(command);
             if (!result.Result)
