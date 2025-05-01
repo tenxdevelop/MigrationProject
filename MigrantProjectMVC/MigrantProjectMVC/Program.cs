@@ -21,8 +21,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Secure API", Version = "v1" });
-
-    // Добавляем поддержку авторизации
+    
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Name = "Authorization",
@@ -92,7 +91,7 @@ app.Use(async (context, next) =>
         context.Request.Headers.Add("Authorization", $"Bearer {token}");
     }
     await next();
-}); // проверка токена пользователя
+});
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
@@ -102,8 +101,6 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}");
+app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}");
 
 app.Run();

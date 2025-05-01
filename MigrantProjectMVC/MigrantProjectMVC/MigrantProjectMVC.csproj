@@ -18,4 +18,23 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="7.1.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Application\Features\Queries\Queries\" />
+    <Folder Include="Application\Features\Queries\QueryHandlers\" />
+    <Folder Include="jsons\" />
+    <Folder Include="Views\Shared\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Regulation\ManipulationData.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Regulation\Reglament.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Error.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\_Layout.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\_ValidationScriptsPartial.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Statement\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Statement\StatementCheck.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Statement\StatementRequestSuccess.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Migrant\DataControl.cshtml" />
+  </ItemGroup>
+
 </Project>

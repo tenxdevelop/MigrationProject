@@ -4,36 +4,36 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]</title>
+    
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/CustomStyle.css" />
     <link rel="stylesheet" href="~/MigrantProjectMVC.styles.css" asp-append-version="true" />
-
 </head>
 <body>
-    
     @if (ViewData["ShowHeader"] != null && (bool)ViewData["ShowHeader"] == true)
     {
         <header class="mainHeader">
-            <nav class="breadcrumbs">
+                <nav class="breadcrumbs">
                 <h3>Migration Project</h3>
                 <ul>
-                    <li><a class="migrant" href="~/Regulation/Reglament">Просмотр регламент услуги</a></li>
-
-                    <li><a class="admin" href="~/User/ManipulationUser">Управление пользователями</a></li>
-                    <li><a class="admin" href="~/Regulation/GetRegulationList">Управление регламентом</a></li>
+                    <li><a class="users" href="">Получить направление</a></li>
+                    <li><a class="users" href="">Просмотр уведомлений</a></li>
                 </ul>
                 <ul>
-                    <li><a class="auth-only" href="~/User/Logout">Выход</a></li>
-                    <li><a class="auth-only" href="~/User/Prof">Заполнить/Изменить данные</a></li>
-
-                    <li><a class="guest-only" href="~/User/Login">Войти</a></li>
-                    <li><a class="guest-only" href="~/User/Register">Создать аккаунт</a></li>
+                    <li><a class="users" href="">Добавить данные мигранта</a></li>
+                    
+                    <li><a class="users" href="">Редактировать данные мигранта</a></li>
+                    
+                    <li><a class="auth-only" href="../User/Logout">Выход</a></li>
+                    
+                    <li><a class="guest-only" href="../User/Login">Войти</a></li>
+                    <li><a class="guest-only" href="../User/Register">Создать аккаунт</a></li>
                 </ul>
             </nav>
         </header>
     }
-
+    
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -42,14 +42,7 @@
 
     <footer class="">
         
-        
     </footer>
-
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
-
     <script>
         function parseJWT(token) {
             // Разделяем токен на части
@@ -86,52 +79,35 @@
             const authElements = document.querySelectorAll('.auth-only');
             const guestElements = document.querySelectorAll('.guest-only');
 
-            const migrantElements = document.querySelectorAll('.migrant');
-            const placeOwnelElements = document.querySelectorAll('.place-owner');
+            const usersElements = document.querySelectorAll('.users');
             const adminElements = document.querySelectorAll('.admin');
-            const mvdElements = document.querySelectorAll('.mvd-special');
 
             if (isAuthenticated()) {
                 guestElements.forEach(el => el.style.display = 'none');
 
                 const token = getTokenFromCookies();
                 const roleKey = 'http://schemas.microsoft.com/ws/2008/06/identity/claims/role';
-                
+
                 var payload = parseJWT(token);
-                
-                if (payload[roleKey] == 'Migrant') {
-                    placeOwnelElements.forEach(el => el.style.display = 'none');
+
+                if (payload[roleKey] === 'User') {
                     adminElements.forEach(el => el.style.display = 'none');
-                    mvdElements.forEach(el => el.style.display = 'none');
                 }
-                else if (payload[roleKey] == 'Admin') {
-                    placeOwnelElements.forEach(el => el.style.display = 'none');
-                    migrantElements.forEach(el => el.style.display = 'none');
-                    mvdElements.forEach(el => el.style.display = 'none');
-                } else if (payload[roleKey] == 'PlaceOwner') {
-                    migrantElements.forEach(el => el.style.display = 'none');
-                    adminElements.forEach(el => el.style.display = 'none');
-                    mvdElements.forEach(el => el.style.display = 'none');
-                } else if (payload[roleKey] == 'MVD') {
-                    placeOwnelElements.forEach(el => el.style.display = 'none');
-                    migrantElements.forEach(el => el.style.display = 'none');
-                    adminElements.forEach(el => el.style.display = 'none');
-                } else { 
-                    placeOwnelElements.forEach(el => el.style.display = 'none');
-                    adminElements.forEach(el => el.style.display = 'none');
-                    migrantElements.forEach(el => el.style.display = 'none');
-                    mvdElements.forEach(el => el.style.display = 'none');
+                else if (payload[roleKey] === 'Admin') {
+                    usersElements.forEach(el => el.style.display = 'none');
                 }
             } else {
                 authElements.forEach(el => el.style.display = 'none');
-
-                placeOwnelElements.forEach(el => el.style.display = 'none');
+                
                 adminElements.forEach(el => el.style.display = 'none');
-                migrantElements.forEach(el => el.style.display = 'none');
-                mvdElements.forEach(el => el.style.display = 'none');
-            }            
+                usersElements.forEach(el => el.style.display = 'none');
+            }
         });
+        
     </script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
-
