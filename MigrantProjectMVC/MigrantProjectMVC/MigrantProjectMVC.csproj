@@ -19,8 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Application\Features\Queries\Queries\" />
-    <Folder Include="Application\Features\Queries\QueryHandlers\" />
     <Folder Include="jsons\" />
     <Folder Include="Views\Shared\" />
   </ItemGroup>

@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using MigrantProjectMVC.Application.Features.Queries.Queries;
+using Microsoft.AspNetCore.Authorization;
+using MigrantProjectMVC.ViewModel;
 using MigrantProjectMVC.Commands;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,11 +14,13 @@ namespace MigrantProjectMVC.Controllers
             return View(URL_LOGIN);
         }
 
-        [Authorize]
+        //[Authorize]
         public IActionResult Logout()
         {
             Response.Cookies.Delete(COOKIES_KEY_AUTH_TOKEN);
-            return View(URL_HOME);
+            
+            var sharedViewModel = SharedViewModel.Create(false);
+            return View(URL_HOME, sharedViewModel);
         }
         
         [HttpPost]
@@ -33,13 +37,22 @@ namespace MigrantProjectMVC.Controllers
                 return View(URL_LOGIN);
             
             Response.Cookies.Append(COOKIES_KEY_AUTH_TOKEN, token);
-            return View(URL_HOME);
+
+            var userQuery = new GetUserByEmailQuery(email);
+            var user = await queryProcessor.Process(userQuery);
+
+            var isHaveMigrantDataQuery = new IsHaveMigrantDataByUserQuery(user.Id);
+            var isHaveMigrantData = await queryProcessor.Process(isHaveMigrantDataQuery);
+            var sharedViewModel = SharedViewModel.Create(isHaveMigrantData);
+            
+            return View(URL_HOME, sharedViewModel);
         }
 
         [HttpGet]
         public IActionResult Register()
         {
-            return View(URL_REGISTER);
+            var registerViewModel = RegisterViewModel.Create(false, string.Empty);
+            return View(URL_REGISTER, registerViewModel);
         }
 
         [HttpPost]
@@ -47,12 +60,12 @@ namespace MigrantProjectMVC.Controllers
         {
             var command = new RegisterUserCommand(email, password);
             
-            var isRegister = await commandProcessor.Process(command);
+            var registerViewModel = await commandProcessor.Process(command);
 
-            if (isRegister)
+            if (registerViewModel.IsRegisterSuccess)
                 return View(URL_LOGIN);
             
-            return View(URL_REGISTER);
+            return View(URL_REGISTER, registerViewModel);
            
         }
         

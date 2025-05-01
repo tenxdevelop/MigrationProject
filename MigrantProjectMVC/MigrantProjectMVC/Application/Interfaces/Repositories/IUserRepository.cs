@@ -6,5 +6,7 @@ namespace MigrantProjectMVC.Interfaces
     {
         public Task<bool> AddUser(UserModel user);
         public Task<UserModel> GetUserByEmail(string email);
+
+        public Task<bool> IsHaveUserByEmail(string email);
     }
 }

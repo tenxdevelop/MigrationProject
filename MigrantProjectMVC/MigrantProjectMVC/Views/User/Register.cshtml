@@ -1,6 +1,9 @@
-﻿@{
+﻿@using MigrantProjectMVC.ViewModel
+
+@{
     ViewData["ShowHeader"] = false;
     ViewData["Title"] = "Register";
+    ViewData["ErrorMessage"] = (@Model as RegisterViewModel).ErrorMessage;
 }
 
 <div class="row d-flex align-items-center justify-content-center">
@@ -21,7 +24,7 @@
             <div class="mb-1">
                 <label class="control-label">повторный пароль</label>
                 <input type="password" class="form-control" id="confirmPassword"/>
-                <span class="text-danger" id="confirmPasswordError"></span>
+                <span class="text-danger" id="confirmPasswordError">@ViewData["ErrorMessage"]</span>
             </div>
             <div class="row">
                 <div class="col-8">

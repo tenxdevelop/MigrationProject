@@ -4,13 +4,13 @@ using MigrantProjectMVC.Models;
 
 namespace MigrantProjectMVC.Repositories
 {
-    public class UserRepository : JsonPrefs<List<UserModel>>, IUserRepository
+    public class UserJsonPrefs : JsonPrefs<List<UserModel>>, IUserRepository
     {
         private const string FILE_PATH = "jsons/users.json";
         
         private List<UserModel> _users;
         
-        public UserRepository() : base(FILE_PATH)
+        public UserJsonPrefs() : base(FILE_PATH)
         {
             _users = LoadFromJson();
         }
@@ -28,6 +28,12 @@ namespace MigrantProjectMVC.Repositories
             
             return Task.FromResult(user);
         }
-        
+
+        public async Task<bool> IsHaveUserByEmail(string email)
+        {
+            var user = await GetUserByEmail(email);
+            var result = user is not null;
+            return result;
+        }
     }
 }

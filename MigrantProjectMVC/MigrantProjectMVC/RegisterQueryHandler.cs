@@ -1,4 +1,6 @@
-﻿using MigrantProjectMVC.Interfaces;
+﻿using MigrantProjectMVC.Application.Features.Queries.QueryHandlers;
+using MigrantProjectMVC.Interfaces.Services;
+using MigrantProjectMVC.Interfaces;
 using MigrantProjectMVC.Queries;
 
 namespace MigrantProjectMVC
@@ -7,10 +9,12 @@ namespace MigrantProjectMVC
     {
         public static void Register(WebApplicationBuilder builder)
         {
-            builder.Services.AddSingleton<IQueryProcessor>(sp =>
+            builder.Services.AddSingleton<IQueryProcessor>(factory =>
             {
                 var queryProcessor = new QueryProcessor();
-                //queryProcessor.RegisterQueryHandler(new GetUserListQueryHandler(sp.GetService<IUserRepository>()));
+                queryProcessor.RegisterQueryHandler(new IsHaveMigrantDataByUserQueryHandler(factory.GetService<IMigrantService>()));
+                queryProcessor.RegisterQueryHandler(new GetUserByEmailQueryHandler(factory.GetService<IUserService>()));
+                
                 return queryProcessor;
             });
         }

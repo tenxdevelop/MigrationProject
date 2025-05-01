@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using MigrantProjectMVC.ViewModel
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -10,6 +11,9 @@
     <link rel="stylesheet" href="~/css/CustomStyle.css" />
     <link rel="stylesheet" href="~/MigrantProjectMVC.styles.css" asp-append-version="true" />
 </head>
+
+@model SharedViewModel
+
 <body>
     @if (ViewData["ShowHeader"] != null && (bool)ViewData["ShowHeader"] == true)
     {
@@ -17,16 +21,21 @@
                 <nav class="breadcrumbs">
                 <h3>Migration Project</h3>
                 <ul>
-                    <li><a class="users" href="">Получить направление</a></li>
-                    <li><a class="users" href="">Просмотр уведомлений</a></li>
+                    <li><a class="users" href="../Home/Index">Получить направление</a></li>
+                    <li><a class="users" href="../Home/Index">Просмотр уведомлений</a></li>
                 </ul>
                 <ul>
-                    <li><a class="users" href="">Добавить данные мигранта</a></li>
-                    
-                    <li><a class="users" href="">Редактировать данные мигранта</a></li>
+                    @if (Model.IsHaveMigrantData)
+                    {
+                        <li><a class="users" href="../Home/Index">Редактировать данные мигранта</a></li>
+                    }
+                    else
+                    {
+                        <li><a class="users" href="../Migrant/RegisterMigrantData">Добавить данные мигранта</a></li>
+                    }
                     
                     <li><a class="auth-only" href="../User/Logout">Выход</a></li>
-                    
+
                     <li><a class="guest-only" href="../User/Login">Войти</a></li>
                     <li><a class="guest-only" href="../User/Register">Создать аккаунт</a></li>
                 </ul>

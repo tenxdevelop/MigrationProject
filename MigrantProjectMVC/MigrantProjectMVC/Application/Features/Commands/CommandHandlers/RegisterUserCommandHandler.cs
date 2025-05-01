@@ -1,35 +1,21 @@
-﻿using MigrantProjectMVC.Interfaces;
+﻿using MigrantProjectMVC.Interfaces.Services;
+using MigrantProjectMVC.Interfaces;
 using MigrantProjectMVC.Commands;
-using MigrantProjectMVC.Models;
+using MigrantProjectMVC.ViewModel;
 
 namespace MigrantProjectMVC.CommandHandlers
 {
-    public class RegisterUserCommandHandler : ICommandHandler<RegisterUserCommand, bool>
+    public class RegisterUserCommandHandler : ICommandHandler<RegisterUserCommand, RegisterViewModel>
     {
-        private IUserRepository _userRepository;
-        private IPasswordHasher _passwordHasher;
-        public RegisterUserCommandHandler(IUserRepository userRepository, IPasswordHasher passwordHasher)
+        private IUserService _userService;
+        public RegisterUserCommandHandler(IUserService userService)
         {
-            _userRepository = userRepository;
-            _passwordHasher = passwordHasher;
+            _userService = userService;
         }
-
-        public async Task<bool> Handle(RegisterUserCommand requist)
+        public async Task<RegisterViewModel> Handle(RegisterUserCommand requist)
         {
-            var passwordHash = _passwordHasher.GenerateHash(requist.Password);
-            
-            var user = new UserModel()
-            {
-                Id = Guid.NewGuid(),
-                Email = requist.Email,
-                PasswordHash = passwordHash
-            };
-            
-            await _userRepository.AddUser(user);
-            
-            return true;
-            
-
+            var result = await _userService.RegisterUser(requist.Email, requist.Password);
+            return result;
         }
     }
 }

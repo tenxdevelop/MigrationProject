@@ -1,35 +1,23 @@
 ﻿
 using MigrantProjectMVC.Interfaces;
 using MigrantProjectMVC.Commands;
+using MigrantProjectMVC.Interfaces.Services;
 using MigrantProjectMVC.Models;
 
 namespace MigrantProjectMVC.CommandHandlers
 {
     public class LoginUserCommandHandler : ICommandHandler<LoginUserCommand, string>
     {
-        private ITokenProvider _tokenProvider;
-        private IPasswordHasher _passwordHasher;
-        private IUserRepository _userRepository;
+        private IUserService _userService;
         
-        public LoginUserCommandHandler(IUserRepository userRepository, IPasswordHasher passwordHasher, ITokenProvider tokenProvider)
+        public LoginUserCommandHandler(IUserService userRepository)
         {
-            _userRepository = userRepository;
-            _passwordHasher = passwordHasher;
-            _tokenProvider = tokenProvider;
+            _userService = userRepository;
         }
         public async Task<string> Handle(LoginUserCommand requist)
         {
-            UserModel user = await _userRepository.GetUserByEmail(requist.Email);
-
-            if (user is null) 
-                return null;
-
-            if (!_passwordHasher.Verify(requist.Password, user.PasswordHash)) 
-                return null;
-   
-            var token = _tokenProvider.GenerateToken(user);
-            
-            return token; 
+            var token = await _userService.LoginUser(requist.Email, requist.Password);
+            return token;
         }
     }
 }

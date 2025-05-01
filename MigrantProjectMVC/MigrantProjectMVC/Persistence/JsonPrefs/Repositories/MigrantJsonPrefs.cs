@@ -1,0 +1,33 @@
+using MigrantProjectMVC.Models.JsonPrefs.Base;
+using MigrantProjectMVC.Interfaces;
+using MigrantProjectMVC.Models;
+
+namespace MigrantProjectMVC.Repositories
+{
+    public class MigrantJsonPrefs : JsonPrefs<List<MigrantModel>>, IMigrantRepository
+    {
+        private const string FILE_PATH = "jsons/migrants.json";
+        
+        private List<MigrantModel> _migrants;
+        
+        public MigrantJsonPrefs() : base(FILE_PATH)
+        {
+            _migrants = LoadFromJson();
+        }
+
+        public Task<bool> IsHaveMigrantData(Guid userId)
+        {
+            var migrant = _migrants.Where(migrant => migrant.UserId == userId).FirstOrDefault();
+
+            var result = migrant is not null;
+            return Task.FromResult(result);
+        }
+
+        public Task<bool> AddMigrant(MigrantModel migrant)
+        {
+            _migrants.Add(migrant);
+            var result = SaveToJson(_migrants);
+            return Task.FromResult(result);
+        }
+    }
+}
