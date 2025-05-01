@@ -5,12 +5,17 @@
 
 <main>
     <article class="row d-flex align-items-center justify-content-center">
-        <section class="col-md-3 card p-3">
+        <section class="col-md-5 card p-3">
             <h2 class="text-center text-info">Получить направление</h2>
             <form method="get" action="GetRefferal">
                 <div class="mb-1">
-                    <label class="control-label">Название цели</label>
-                    <input type="text" class="form-control" name="targetName" id="targetName"/>
+                    <label class="control-label">Выберите цель</label>
+                    <select id="targetSelect" onchange="changeTarget()" class="form-select">
+                        @foreach (var item in ViewBag.Targets){
+                            <option value="@item">@item</option>  
+                        }
+                    </select>
+                    <input type="text" style="visibility: hidden; height: 0px" value="@ViewBag.Targets[0]" class="form-control" name="targetName" id="targetName"/>
                 </div>
                 <div class="mb-1">
                     <label class="control-label">Имя</label>
@@ -31,3 +36,11 @@
         </section>
     </article>
 </main>
+<script>
+    function changeTarget(){
+        var targetSelect = document.getElementById('targetSelect')
+        console.log(targetSelect.value)
+        var targetInput = document.getElementById('targetName')
+        targetInput.value = targetSelect.value
+    }
+</script>
