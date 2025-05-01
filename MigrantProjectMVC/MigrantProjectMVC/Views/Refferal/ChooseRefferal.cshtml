@@ -1,0 +1,44 @@
+﻿@model List<string>
+@{
+    ViewData["ShowHeader"] = true;
+}
+
+@foreach (var item in Model)
+{
+    <button class="btn get-refferal" data-target="@item">@item</button>
+}
+<div id="resultBlock">
+
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $('.get-refferal').click(function() {
+                var targetName = $(this).data('target');
+
+                $.ajax({
+                    url: '/Refferal/GetRefferal',
+                    type: 'GET',
+                    data: { targetName: targetName },
+                    success: function(data) 
+                    {
+                        drawRefferalInfo(data)
+                    }
+                });
+            });
+        });
+
+        function drawRefferalInfo(data){
+            var resultBlock = document.getElementById('resultBlock')
+            var resultHtml = `
+                            <p><strong>Уважаемый:</strong> ${data.fullName}</p>
+                            <p><strong>Необходимый вам порядок действий:</strong> ${data.description}</p>
+                            <p><strong>Дата вашего въезда:</strong> ${new Date(data.date).toLocaleString()}</p>
+                            <p><strong>Количество оставшихся дней до истечения срока законного пребывания:</strong> ${data.count}</p>
+                       `;
+            resultBlock.innerHTML = resultHtml
+
+        }
+    </script>
+}
