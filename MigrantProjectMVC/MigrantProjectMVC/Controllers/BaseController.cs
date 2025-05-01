@@ -12,6 +12,8 @@ namespace MigrantProjectMVC.Controllers
         public const string URL_LOGIN = "../User/Login";
         public const string URL_REGISTER = "../User/Register";
         public const string URL_REGISTER_MIGRANT_DATA = "../Migrant/RegisterMigrantData";
+        public const string URL_SHOW_REFFERAL = "../Refferal/ShowRefferal";
+        public const string URL_SHOW_REFFERAL_FORM = "../Refferal/ShowRefferalForm";
         
         private ICommandProcessor _commandProcessor;
         private IQueryProcessor _queryProcessor;

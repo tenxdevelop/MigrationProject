@@ -1,3 +1,5 @@
+using MigrantProjectMVC.Models;
+
 namespace MigrantProjectMVC.Interfaces.Services
 {
     public interface IMigrantService

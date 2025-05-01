@@ -24,8 +24,9 @@ namespace MigrantProjectMVC.Models.JsonPrefs.Base
                 {
                     return JsonSerializer.Deserialize<T>(fileStream, _jsonOptions);
                 }
-                catch
+                catch (Exception e)
                 {
+                    Console.WriteLine(e);
                     return Activator.CreateInstance<T>();
                 }
             }

@@ -27,6 +27,10 @@ namespace MigrantProjectMVC.Models
             
             return new MigrantModel() { UserId = userId, Name = name, Surname = surname, Patronymic = patronymic, EnteringDate = enteringDate, Country = country, Documents = documents };
         }
-        
+
+        public string GetFIO()
+        {
+            return Surname + " " + Name + " " + Patronymic + " ";
+        }
     }
 }

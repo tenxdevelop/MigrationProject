@@ -14,6 +14,7 @@ namespace MigrantProjectMVC
                 var queryProcessor = new QueryProcessor();
                 queryProcessor.RegisterQueryHandler(new IsHaveMigrantDataByUserQueryHandler(factory.GetService<IMigrantService>()));
                 queryProcessor.RegisterQueryHandler(new GetUserByEmailQueryHandler(factory.GetService<IUserService>()));
+                queryProcessor.RegisterQueryHandler(new GetRefferalQueryHandler(factory.GetService<IRefferalService>()));
                 
                 return queryProcessor;
             });

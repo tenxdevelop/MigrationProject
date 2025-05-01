@@ -25,7 +25,7 @@ namespace MigrantProjectMVC.Controllers
             else
             {
                 var userId = new Guid(jwtToken.Claims.First(claim => claim.Type == ClaimTypes.NameIdentifier).Value);
-
+                Console.WriteLine(userId);
                 var query = new IsHaveMigrantDataByUserQuery(userId);
             
                 var isHaveMigrantData = await queryProcessor.Process(query);

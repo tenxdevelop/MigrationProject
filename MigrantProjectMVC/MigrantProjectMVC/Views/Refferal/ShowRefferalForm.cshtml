@@ -1,0 +1,33 @@
+@{
+    ViewData["ShowHeader"] = true;
+    ViewData["Title"] = "Получить направление";
+}
+
+<main>
+    <article class="row d-flex align-items-center justify-content-center">
+        <section class="col-md-3 card p-3">
+            <h2 class="text-center text-info">Получить направление</h2>
+            <form method="get" action="GetRefferal">
+                <div class="mb-1">
+                    <label class="control-label">Название цели</label>
+                    <input type="text" class="form-control" name="targetName" id="targetName"/>
+                </div>
+                <div class="mb-1">
+                    <label class="control-label">Имя</label>
+                    <input type="text" class="form-control" name="name" id="name"/>
+                </div>
+                <div class="mb-1">
+                    <label class="control-label">Фамилия</label>
+                    <input type="text" class="form-control" name="surname" id="surname"/>
+                </div>
+                <div class="mb-1">
+                    <label class="control-label">Отчество</label>
+                    <input type="text" class="form-control" name="patronymic" id="patronymic"/>
+                </div>
+                <div class="col-4 justify-content-center">
+                    <button type="submit" class="btn btn-primary btn-sm float-end">Получить направление</button>
+                </div>
+            </form>
+        </section>
+    </article>
+</main>

@@ -17,8 +17,8 @@ namespace MigrantProjectMVC.Repositories
 
         public Task<bool> IsHaveMigrantData(Guid userId)
         {
-            var migrant = _migrants.Where(migrant => migrant.UserId == userId).FirstOrDefault();
-
+            var migrant = _migrants.Where(migrant => migrant.UserId.Equals(userId)).FirstOrDefault();
+            Console.WriteLine(migrant?.Name ?? "NULL");
             var result = migrant is not null;
             return Task.FromResult(result);
         }
@@ -28,6 +28,13 @@ namespace MigrantProjectMVC.Repositories
             _migrants.Add(migrant);
             var result = SaveToJson(_migrants);
             return Task.FromResult(result);
+        }
+
+        public Task<MigrantModel> GetMigrant(string name, string surname, string patronymic)
+        {
+            var migrant = _migrants.Where(migrant => migrant.Name.Equals(name) && migrant.Surname.Equals(surname) && migrant.Patronymic.Equals(patronymic)).FirstOrDefault();
+            
+            return Task.FromResult(migrant);
         }
     }
 }

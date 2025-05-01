@@ -7,5 +7,12 @@ namespace MigrantProjectMVC.Models
         {
             return new HighlyQualifiedDocument() { Name = "HighlyQualified" };
         }
+
+        public override bool Equals(Document other)
+        {
+            var otherDocument = other as HighlyQualifiedDocument;
+            
+            return Name.Equals(otherDocument.Name);
+        }
     }
 }

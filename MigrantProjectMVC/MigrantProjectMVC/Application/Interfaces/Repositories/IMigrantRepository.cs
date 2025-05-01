@@ -4,8 +4,10 @@ namespace MigrantProjectMVC.Interfaces
 {
     public interface IMigrantRepository
     {
-        public Task<bool> IsHaveMigrantData(Guid userId);
+        Task<bool> IsHaveMigrantData(Guid userId);
 
-        public Task<bool> AddMigrant(MigrantModel migrant);
+        Task<bool> AddMigrant(MigrantModel migrant);
+        
+        Task<MigrantModel> GetMigrant(string name, string surname, string patronymic);
     }
 }

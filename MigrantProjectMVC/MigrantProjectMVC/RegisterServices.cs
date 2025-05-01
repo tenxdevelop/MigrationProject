@@ -18,10 +18,13 @@ namespace MigrantProjectMVC
             builder.Services.AddSingleton<IUserRepository, UserJsonPrefs>();
             builder.Services.AddSingleton<IMigrantRepository, MigrantJsonPrefs>();
             builder.Services.AddSingleton<ICountryRepository, CountryJsonPrefs>();
+            builder.Services.AddSingleton<ITargetRepository, TargetJsonPrefs>();
+            builder.Services.AddSingleton<INotificationRepository, NotificationJsonPrefs>();
             
             //register services
             builder.Services.AddSingleton<IUserService, UserService>();
             builder.Services.AddSingleton<IMigrantService, MigrantService>();
+            builder.Services.AddSingleton<IRefferalService, RefferalService>();
         }
     }
 }

@@ -2,7 +2,7 @@ namespace MigrantProjectMVC.ViewModel
 {
     public class SharedViewModel
     {
-        public bool IsHaveMigrantData { get; private set; }
+        public bool IsHaveMigrantData { get; set; }
 
         
         public static SharedViewModel Create(bool isHaveMigrantData)

@@ -1,26 +1,10 @@
 [
   {
-    "UserId": "4de66814-6f03-4648-b486-b169dbb36a6d",
+    "UserId": "33285abb-eb64-418c-9390-a90b27bfac87",
     "Name": "\u0418\u0432\u0430\u043D",
     "Surname": "\u0418\u0432\u0430\u043D\u043E\u0432",
     "Patronymic": "\u0418\u0432\u0430\u043D\u043E\u0432\u0438\u0447",
-    "EnteringDate": "2025-05-01T00:00:00",
-    "Country": null,
-    "Documents": [
-      {
-        "Name": "ResettlementProgramMember"
-      },
-      {
-        "Name": "HighlyQualified"
-      }
-    ]
-  },
-  {
-    "UserId": "33285abb-eb64-418c-9390-a90b27bfac87",
-    "Name": "\u0421\u0435\u0440\u0433\u0435\u0439",
-    "Surname": "\u0415\u0432\u0440\u0438\u043C\u043E\u0432",
-    "Patronymic": "\u041D\u0438\u043F\u0443\u0442\u0438\u043D",
-    "EnteringDate": "2025-01-22T00:00:00",
+    "EnteringDate": "2025-04-29T00:00:00",
     "Country": null,
     "Documents": [
       {
