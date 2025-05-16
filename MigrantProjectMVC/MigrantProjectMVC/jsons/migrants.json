@@ -33,5 +33,53 @@
         "Name": "ResettlementProgramMember"
       }
     ]
+  },
+  {
+    "UserId": "7afe969f-e92a-4192-af47-bfd690b9257b",
+    "Name": "Golenkov",
+    "Surname": "Igor",
+    "Patronymic": "Vladimirovich",
+    "EnteringDate": "2025-02-05T00:00:00",
+    "Country": null,
+    "Documents": [
+      {
+        "Name": "HighlyQualified"
+      }
+    ]
+  },
+  {
+    "UserId": "d82b784d-6503-480a-86f8-3157f7f3ba1b",
+    "Name": "\u0418\u0433\u043E\u0440\u044C",
+    "Surname": "\u0413\u043E\u043B\u0435\u043D\u043A\u043E\u0432",
+    "Patronymic": "\u0412\u043B\u0430\u0434\u0438\u043C\u0438\u0440\u043E\u0432\u0438\u0447",
+    "EnteringDate": "2025-01-07T00:00:00",
+    "Country": null,
+    "Documents": [
+      {
+        "Name": "ResettlementProgramMember"
+      }
+    ]
+  },
+  {
+    "UserId": "f932f569-a6ed-4374-8c86-231dcd1aacba",
+    "Name": "\u0418\u0433\u043E\u0440\u044C",
+    "Surname": "\u0413\u043E\u043B\u0435\u043D\u043A\u043E\u0432",
+    "Patronymic": "\u0412\u043B\u0430\u0434\u0438\u043C\u0438\u0440\u043E\u0432\u0438\u0447",
+    "EnteringDate": "2025-05-09T00:00:00",
+    "Country": null,
+    "Documents": [
+      {
+        "Name": "HighlyQualified"
+      }
+    ]
+  },
+  {
+    "UserId": "6b9f2598-895e-49cf-9e85-fee290697c95",
+    "Name": "\u0418\u0433\u043E\u0440\u044C",
+    "Surname": "\u0413\u043E\u043B\u0435\u043D\u043A\u043E\u0432",
+    "Patronymic": "\u0412\u043B\u0430\u0434\u0438\u043C\u0438\u0440\u043E\u0432\u0438\u0447",
+    "EnteringDate": "2025-05-15T00:00:00",
+    "Country": null,
+    "Documents": []
   }
 ]

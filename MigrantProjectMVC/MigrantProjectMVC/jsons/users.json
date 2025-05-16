@@ -8,5 +8,25 @@
     "Id": "33285abb-eb64-418c-9390-a90b27bfac87",
     "Email": "root@bk.ru",
     "PasswordHash": "SBNJTRN\u002BFjG7owHVrKtue7eqdM4RhdRWVl71HXN2d7I="
+  },
+  {
+    "Id": "7afe969f-e92a-4192-af47-bfd690b9257b",
+    "Email": "igor2@mail.ru",
+    "PasswordHash": "70Lpirv1IEvbMvJIphOgDTWF9Xeb3kPYJv4MXJC6npA="
+  },
+  {
+    "Id": "d82b784d-6503-480a-86f8-3157f7f3ba1b",
+    "Email": "igor3@mail.ru",
+    "PasswordHash": "oDYxRiYQ1ItgL5TSUmlWLmuRtiMilaqexVLMW2GMYu4="
+  },
+  {
+    "Id": "f932f569-a6ed-4374-8c86-231dcd1aacba",
+    "Email": "igor4@mail.ru",
+    "PasswordHash": "oDYxRiYQ1ItgL5TSUmlWLmuRtiMilaqexVLMW2GMYu4="
+  },
+  {
+    "Id": "6b9f2598-895e-49cf-9e85-fee290697c95",
+    "Email": "igor5@mail.ru",
+    "PasswordHash": "oDYxRiYQ1ItgL5TSUmlWLmuRtiMilaqexVLMW2GMYu4="
   }
 ]

@@ -17,9 +17,13 @@ namespace MigrantProjectMVC.Controllers
         [HttpPost]
         public async Task<IActionResult> RegisterMigrant(string name, string surname, string patronymic, DateTime enteringDate, string countryName, string documentNames)
         {
+            var documentNamesParsed = new List<string>();
             var jwtToken = GetJwtToken();
             var userId = new Guid(jwtToken.Claims.First(claim => claim.Type == ClaimTypes.NameIdentifier).Value);
-            var documentNamesParsed = documentNames.Split(',').ToList();
+            if (documentNames != null)
+            {
+                documentNamesParsed = documentNames.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
+            }
             var command = new RegisterMigrantCommand(userId, name, surname, patronymic, enteringDate, countryName, documentNamesParsed);
             
             var result = await commandProcessor.Process(command);
