@@ -7,9 +7,19 @@
 }
 
 <div class="container mt-5">
-    <h1 class="text-center">Направление</h1>
-    <p class="lead text-center">@ViewData["Refferal"]</p>
-    <hr />
-    <h2 class="mt-4">Ошибка</h2>
-    <p class="text-justify">@ViewData["ErrorMessage"]</p>
+   
+    @{
+        if (ViewData["ErrorMessage"] == String.Empty)
+        {
+            <h1 class="text-center">Добро пожаловать в проект "Migration Project"!</h1>
+            <p class="lead text-center">@ViewData["Refferal"]</p>
+            <hr />
+        }else
+        {
+            <h2 class="mt-4">Ошибка</h2>
+            <p class="text-justify">@ViewData["ErrorMessage"]</p>
+        }
+
+    }
+   
 </div>

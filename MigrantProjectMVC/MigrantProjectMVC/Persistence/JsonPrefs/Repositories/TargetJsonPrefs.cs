@@ -93,7 +93,7 @@ namespace MigrantProjectMVC.Repositories
 
             var target = new TargetModel()
             {
-                Name = "Постановка на миграционный учет",
+                Name = "Постановка на миграционный учёт",
                 Date = DateTime.Today,
                 Condition = condition
             };
@@ -104,6 +104,7 @@ namespace MigrantProjectMVC.Repositories
         }
         public Task<TargetModel> GetTarget(string targetName, DateTime date)
         {
+
             var correctTarget = _targets.Where(target => target.Name.Equals(targetName));
             
             var actualTarget = correctTarget.MinBy(target => Convert.ToInt32((date - target.Date).TotalDays));
