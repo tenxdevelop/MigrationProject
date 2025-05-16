@@ -102,7 +102,6 @@ namespace MigrantProjectMVC.Repositories
             
             _targets = LoadFromJson();
         }
-
         public Task<TargetModel> GetTarget(string targetName, DateTime date)
         {
             var correctTarget = _targets.Where(target => target.Name.Equals(targetName));
@@ -110,6 +109,10 @@ namespace MigrantProjectMVC.Repositories
             var actualTarget = correctTarget.MinBy(target => Convert.ToInt32((date - target.Date).TotalDays));
             
             return Task.FromResult(actualTarget);
+        }
+        public Task<List<TargetModel>> GetTargets()
+        {
+            return Task.FromResult(_targets);
         }
     }
 }

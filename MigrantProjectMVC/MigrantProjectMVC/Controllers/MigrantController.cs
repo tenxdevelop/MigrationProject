@@ -1,16 +1,21 @@
-using System.Security.Claims;
-using Microsoft.AspNetCore.Mvc;
-using MigrantProjectMVC.Commands;
+using MigrantProjectMVC.Application.Features.Queries.Queries;
 using MigrantProjectMVC.ViewModel;
+using MigrantProjectMVC.Commands;
+using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace MigrantProjectMVC.Controllers
 {
-
     public class MigrantController : BaseController
     {
         [HttpGet]
-        public IActionResult RegisterMigrantData()
+        public async Task<IActionResult> RegisterMigrantData()
         {
+            var query = new GetAllCountriesQuery();
+            
+            var countires = await queryProcessor.Process(query);
+            
+            ViewBag.Countries = countires.Select(country => country.Name);
             return View(URL_REGISTER_MIGRANT_DATA);
         }
 
@@ -19,7 +24,7 @@ namespace MigrantProjectMVC.Controllers
         {
             var jwtToken = GetJwtToken();
             var userId = new Guid(jwtToken.Claims.First(claim => claim.Type == ClaimTypes.NameIdentifier).Value);
-            var documentNamesParsed = documentNames.Split(',').ToList();
+            var documentNamesParsed = documentNames.Split(',').Where(documentName => !string.IsNullOrEmpty(documentName)).ToList();
             var command = new RegisterMigrantCommand(userId, name, surname, patronymic, enteringDate, countryName, documentNamesParsed);
             
             var result = await commandProcessor.Process(command);

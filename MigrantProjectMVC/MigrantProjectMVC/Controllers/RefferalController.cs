@@ -14,9 +14,11 @@ namespace MigrantProjectMVC.Controllers
             var userId = new Guid(jwtToken.Claims.First(claim => claim.Type == ClaimTypes.NameIdentifier).Value);
 
             var isHaveMigrantDataQuery = new IsHaveMigrantDataByUserQuery(userId);
-            ViewBag.Targets = new List<string>() {
-            "Постановка на миграционный учёт",
-            "Цель номер 2"};
+            var getAllTargetQuery = new GetAllTargetsQuery();
+            
+            var targets = await queryProcessor.Process(getAllTargetQuery);
+            
+            ViewBag.Targets = targets.Select(target => target.Name).ToList();
             var isHaveMigrantData = await queryProcessor.Process(isHaveMigrantDataQuery);
             var sharedViewModel  = SharedViewModel.Create(isHaveMigrantData);
             

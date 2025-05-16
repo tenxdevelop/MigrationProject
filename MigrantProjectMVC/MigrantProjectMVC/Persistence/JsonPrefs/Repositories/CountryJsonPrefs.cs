@@ -12,6 +12,19 @@ namespace MigrantProjectMVC.Repositories
         
         public CountryJsonPrefs() : base(FILE_PATH)
         {
+            var countries = new List<CountryModel>()
+            {
+                new CountryModel() { Name="Таджикистан"},
+                new CountryModel() { Name="Узбекистан"},
+                new CountryModel() { Name="Киргизия"},
+                new CountryModel() { Name="Казахстан"},
+                new CountryModel() { Name="Армения"},
+                new CountryModel() { Name="Белорусь"},
+                new CountryModel() { Name="Украина"},
+                new CountryModel() { Name = "Другая страна" }
+            };
+
+            SaveToJson(countries);
             _countries = LoadFromJson();
         }
 
@@ -19,6 +32,10 @@ namespace MigrantProjectMVC.Repositories
         {
             var country = _countries.FirstOrDefault(country => country.Name.Equals(countryName));
             return Task.FromResult(country);
+        }
+        public Task<List<CountryModel>> GetCountries()
+        {
+            return Task.FromResult(_countries);
         }
     }
 }

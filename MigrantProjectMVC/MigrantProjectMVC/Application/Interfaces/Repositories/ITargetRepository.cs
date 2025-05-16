@@ -5,5 +5,7 @@ namespace MigrantProjectMVC.Interfaces
     public interface ITargetRepository
     {
         Task<TargetModel> GetTarget(string targetName, DateTime date);
+        
+        Task<List<TargetModel>> GetTargets();
     }
 }
