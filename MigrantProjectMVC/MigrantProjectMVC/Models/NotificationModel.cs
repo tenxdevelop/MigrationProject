@@ -10,7 +10,7 @@ namespace MigrantProjectMVC.Models
 
         public NotificationModel(ConditionModel condition, MigrantModel migrant, DateTime date, int countRemandingDays)
         {
-            var refferal = "Уважаемый, " + migrant.GetFIO() + ", ";
+            var refferal = "Уважаемый(ая), " + migrant.GetFIO() + ", ";
             
             if (condition is null || countRemandingDays <= 0)
                 refferal += "В соответствии с законом вы нарушили статью 18.9 КоАП РФ, вам необходимо оплатить штраф";
