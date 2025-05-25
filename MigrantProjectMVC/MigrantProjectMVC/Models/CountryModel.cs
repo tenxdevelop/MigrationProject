@@ -5,12 +5,12 @@ namespace MigrantProjectMVC.Models
     {
         public string Name { get; set; }
 
-        public override bool Equals(object? obj)
+        public override bool Equals(object? otherObject)
         {
-            if (obj.GetType() != typeof(CountryModel))
+            if (otherObject.GetType() != typeof(CountryModel))
                 return false;
             
-            var otherCountry = obj as CountryModel;
+            var otherCountry = otherObject as CountryModel;
             
             return Name.Equals(otherCountry.Name);
         }

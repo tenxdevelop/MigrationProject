@@ -17,6 +17,7 @@ namespace MigrantProjectMVC
                 queryProcessor.RegisterQueryHandler(new GetRefferalQueryHandler(factory.GetService<IRefferalService>()));
                 queryProcessor.RegisterQueryHandler(new GetAllCountriesQueryHandler(factory.GetService<ICountryRepository>()));
                 queryProcessor.RegisterQueryHandler(new GetAllTargetsQueryHandler(factory.GetService<ITargetRepository>()));
+                queryProcessor.RegisterQueryHandler(new GetRegulationsQueryHandler(factory.GetService<ITargetRepository>()));
                 
                 return queryProcessor;
             });

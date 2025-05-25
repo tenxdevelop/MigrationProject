@@ -19,7 +19,7 @@ namespace MigrantProjectMVC
             builder.Services.AddSingleton<IMigrantRepository, MigrantJsonPrefs>();
             builder.Services.AddSingleton<ICountryRepository, CountryJsonPrefs>();
             builder.Services.AddSingleton<ITargetRepository, TargetJsonPrefs>();
-            builder.Services.AddSingleton<INotificationRepository, NotificationJsonPrefs>();
+            builder.Services.AddSingleton<IDocumentRepository, DocumentJsonPrefs>();
             
             //register services
             builder.Services.AddSingleton<IUserService, UserService>();

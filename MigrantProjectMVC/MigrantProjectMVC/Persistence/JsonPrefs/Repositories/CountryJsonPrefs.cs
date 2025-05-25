@@ -12,6 +12,7 @@ namespace MigrantProjectMVC.Repositories
         
         public CountryJsonPrefs() : base(FILE_PATH)
         {
+            //for test
             var countries = new List<CountryModel>()
             {
                 new CountryModel() { Name="Таджикистан"},

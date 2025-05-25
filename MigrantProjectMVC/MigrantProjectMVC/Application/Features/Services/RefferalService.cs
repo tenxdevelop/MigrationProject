@@ -9,13 +9,11 @@ namespace MigrantProjectMVC.Application.Features.Services
     {
         private IMigrantRepository _migrantRepository;
         private ITargetRepository _targetRepository;
-        private INotificationRepository _notificationRepository;
-
-        public RefferalService(IMigrantRepository migrantRepository, ITargetRepository targetRepository, INotificationRepository notificationRepository)
+        
+        public RefferalService(IMigrantRepository migrantRepository, ITargetRepository targetRepository)
         {
             _migrantRepository = migrantRepository;
             _targetRepository = targetRepository;
-            _notificationRepository = notificationRepository;
         }
         public async Task<RefferalViewModel> GetRefferal(string targetName, string name, string surname, string patronymic)
         {
@@ -31,29 +29,20 @@ namespace MigrantProjectMVC.Application.Features.Services
             
             var condition = target.Condition;
 
-            var regulations = condition.Regulations;
+            var regulations = target.GetRegulations();
 
             foreach (var regulation in regulations)
             {
                 if (regulation.IsValidRegulation(migrant))
                 {
                     var countRemandingDays = Convert.ToInt32(regulation.Term - (DateTime.Now - migrant.EnteringDate).TotalDays);
-                    var notification = NotificationModel.Create(condition, migrant, DateTime.Today,  countRemandingDays);
-                    var isSavedNotification = await _notificationRepository.AddNotification(notification);
-                    
-                    if (!isSavedNotification)
-                        return RefferalViewModel.Create(notification.RefferalText, "Не получилось сохранить уведомление");
+                    var notification = new NotificationModel(condition, migrant, DateTime.Today,  countRemandingDays);
                     
                     return RefferalViewModel.Create(notification.RefferalText);
                 }
             }
             
-            var failedNotification = NotificationModel.Create(null, migrant, DateTime.Today,  0);
-            var isSavedFailedNotification = await _notificationRepository.AddNotification(failedNotification);
-            
-            
-            if (!isSavedFailedNotification)
-                return RefferalViewModel.Create(failedNotification.RefferalText, "Не получилось сохранить уведомление");
+            var failedNotification = new NotificationModel(null, migrant, DateTime.Today,  0);
             
             return RefferalViewModel.Create(failedNotification.RefferalText);
         }

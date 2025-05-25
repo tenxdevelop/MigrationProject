@@ -26,8 +26,8 @@ namespace MigrantProjectMVC.Repositories
 
             var useDocument1 = new List<Document>()
             {
-                HighlyQualifiedDocument.Create(),
-                ConsistOfMigrationProgramDocument.Create()
+                new Document() { Name="HighlyQualifiedDocument"},
+                new Document() { Name="ConsistOfMigrationProgramDocument"}
             };
             
             var regulation1 = new RegulationModel() { Term=30, Name = "regulation1", Countries = countries1, UseDocuments = useDocument1 };
@@ -48,7 +48,7 @@ namespace MigrantProjectMVC.Repositories
             
             var useDocuments3 = new List<Document>()
             {
-                HighlyQualifiedDocument.Create()
+                new Document() { Name="HighlyQualifiedDocument"}
             };
             
             var regulation3 = new RegulationModel() { Term=90, Name = "regulation3", Countries = countries3, UseDocuments = useDocuments3 };
@@ -79,7 +79,7 @@ namespace MigrantProjectMVC.Repositories
 
             var useDocuments6 = new List<Document>()
             {
-                ResettlementDocument.Create()
+                new Document() { Name="ResettlementDocument"}
             };
             
             var regulation6 = new RegulationModel() {Term=30, Name="regulation6", Countries = countires6, UseDocuments = useDocuments6};
@@ -87,16 +87,17 @@ namespace MigrantProjectMVC.Repositories
             
             var condition = new ConditionModel()
             {
-                Instruction = "вам необходимо обратиться к владельцу жил площади, чтобы он написал заявление на постановку миграционного учета на сайте гос услуг",
-                Regulations = regulations
+                Instruction = "вам необходимо обратиться к владельцу жил площади, чтобы он написал заявление на постановку миграционного учета на сайте гос услуг"
             };
 
             var target = new TargetModel()
             {
                 Name = "Постановка на миграционный учёт",
                 Date = DateTime.Today,
-                Condition = condition
+                Condition = condition,
+                Regulations = regulations
             };
+            
             _targets = new List<TargetModel>() { target };
             SaveToJson(_targets);
             
@@ -105,15 +106,51 @@ namespace MigrantProjectMVC.Repositories
         public Task<TargetModel> GetTarget(string targetName, DateTime date)
         {
 
-            var correctTarget = _targets.Where(target => target.Name.Equals(targetName));
+            var correctTargets = _targets.Where(target => target.Name.Equals(targetName));
             
-            var actualTarget = correctTarget.MinBy(target => Convert.ToInt32((date - target.Date).TotalDays));
+            var actualTarget = correctTargets.MinBy(target => Convert.ToInt32((date - target.Date).TotalDays));
             
             return Task.FromResult(actualTarget);
         }
         public Task<List<TargetModel>> GetTargets()
         {
             return Task.FromResult(_targets);
+        }
+
+        public Task<bool> SaveTarget(TargetModel target)
+        {
+            _targets.Add(target);
+            var result = SaveToJson(_targets);
+            return Task.FromResult(result);
+        }
+
+        public Task<bool> IsHaveTarget(string targetName)
+        {
+            var target = _targets.Where(target => target.Name.Equals(targetName)).FirstOrDefault();
+            return Task.FromResult(target is not null);
+        }
+
+        public Task<bool> RegisterTarget(string targetName)
+        {
+            var target = new TargetModel()
+            {
+                Name = targetName,
+                Date = DateTime.Now,
+                Condition = new ConditionModel(),
+                Regulations = new List<RegulationModel>()
+            };
+            _targets.Add(target);
+            var result = SaveToJson(_targets);
+            return Task.FromResult(result);
+        }
+
+        public Task<bool> DeleteTarget(string targetName)
+        {
+            var target = _targets.Where(target => target.Name.Equals(targetName)).FirstOrDefault();
+            
+            _targets.Remove(target);
+            var result = SaveToJson(_targets);
+            return Task.FromResult(result);
         }
     }
 }

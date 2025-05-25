@@ -4,6 +4,10 @@ namespace MigrantProjectMVC.Models
     public class ConditionModel
     {
         public string Instruction { get; set; }
-        public List<RegulationModel> Regulations { get; set; }
+
+        public void Update(string newInstruction)
+        {
+            Instruction = newInstruction;
+        }
     }
 }

@@ -26,6 +26,13 @@ namespace MigrantProjectMVC.Models
             
             return true;
         }
+
+        public void Update(List<CountryModel> countries, List<Document> useDocuments, int term)
+        {
+            Term = term;
+            Countries = countries;
+            UseDocuments = useDocuments;
+        }
         
         private bool ContainsDocument(Document useDocument, List<Document> migrantDocuments)
         {

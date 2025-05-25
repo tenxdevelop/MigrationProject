@@ -15,7 +15,12 @@ namespace MigrantProjectMVC
                 commandProcessor.RegisterCommandHadnler(new LoginUserCommandHandler(factory.GetService<IUserService>()));
                 commandProcessor.RegisterCommandHadnler(new RegisterUserCommandHandler(factory.GetService<IUserService>()));
                 commandProcessor.RegisterCommandHadnler(new RegisterMigrantCommandHandler(factory.GetService<IMigrantService>()));
-
+                commandProcessor.RegisterCommandHadnler(new ChangeConditionCommandHandler(factory.GetService<ITargetService>()));
+                commandProcessor.RegisterCommandHadnler(new ChangeRegulationCommandHandler(factory.GetService<ITargetService>()));
+                commandProcessor.RegisterCommandHadnler(new DeleteRegulationCommandHandler(factory.GetService<ITargetService>()));
+                commandProcessor.RegisterCommandHadnler(new DeleteTargetCommandHandler(factory.GetService<ITargetService>()));
+                commandProcessor.RegisterCommandHadnler(new RegisterTargetCommandHandler(factory.GetService<ITargetService>()));
+                
                 return commandProcessor;
 
             });

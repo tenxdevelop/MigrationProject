@@ -18,14 +18,16 @@ namespace MigrantProjectMVC.Repositories
         public Task<bool> IsHaveMigrantData(Guid userId)
         {
             var migrant = _migrants.Where(migrant => migrant.UserId.Equals(userId)).FirstOrDefault();
-            Console.WriteLine(migrant?.Name ?? "NULL");
+            
             var result = migrant is not null;
             return Task.FromResult(result);
         }
 
-        public Task<bool> AddMigrant(MigrantModel migrant)
+        public Task<bool> CreateMigrant(Guid userId, string name, string surname, string patronymic, DateTime enteringDate, CountryModel country, List<Document> documents)
         {
+            var migrant = new MigrantModel(userId, name, surname, patronymic, enteringDate, country, documents);
             _migrants.Add(migrant);
+            
             var result = SaveToJson(_migrants);
             return Task.FromResult(result);
         }

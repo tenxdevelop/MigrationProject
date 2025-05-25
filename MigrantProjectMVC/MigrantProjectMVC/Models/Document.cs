@@ -5,15 +5,15 @@ namespace MigrantProjectMVC.Models
     {
         public string Name { get; set; }
 
-        public override bool Equals(object? obj)
+        public override bool Equals(object? otherObject)
         {
-            if(obj.GetType() != GetType())
+            if(otherObject.GetType() != GetType())
                 return false;
             
-            Document other = (Document)obj;
+            Document other = (Document)otherObject;
             return Equals(other);
         }
-
+        
         public virtual bool Equals(Document other)
         {
             return Name == other.Name;
