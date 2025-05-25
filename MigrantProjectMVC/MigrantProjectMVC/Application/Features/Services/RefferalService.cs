@@ -35,7 +35,7 @@ namespace MigrantProjectMVC.Application.Features.Services
             {
                 if (regulation.IsValidRegulation(migrant))
                 {
-                    var countRemandingDays = Convert.ToInt32(regulation.Term - (DateTime.Now - migrant.EnteringDate).TotalDays);
+                    var countRemandingDays = Convert.ToInt32(regulation.GetTerm() - (DateTime.Now - migrant.EnteringDate).TotalDays);
                     var notification = new NotificationModel(condition, migrant, DateTime.Today,  countRemandingDays);
                     
                     return RefferalViewModel.Create(notification.RefferalText);

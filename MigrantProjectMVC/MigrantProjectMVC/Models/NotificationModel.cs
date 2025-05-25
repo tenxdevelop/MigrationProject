@@ -15,7 +15,7 @@ namespace MigrantProjectMVC.Models
             if (condition is null || countRemandingDays <= 0)
                 refferal += "В соответствии с законом вы нарушили статью 18.9 КоАП РФ, вам необходимо оплатить штраф";
             else    
-                refferal += condition.Instruction + ", в течении " + countRemandingDays + " дней.";
+                refferal += condition.GetInstruction() + ", в течении " + countRemandingDays + " дней.";
             
             RefferalText = refferal;
             Date = date;

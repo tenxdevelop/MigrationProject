@@ -8,14 +8,19 @@ namespace MigrantProjectMVC.Models
         public List<CountryModel> Countries { get; set; }
         public List<Document> UseDocuments { get; set; }
 
+        public int GetTerm()
+        {
+            return Term;
+        }
+        
         public bool IsValidRegulation(MigrantModel migrant)
         {
-            var migrantDocuments = migrant.Documents;
+            var migrantDocuments = migrant.GetDocuments();
 
-            if ((DateTime.Now - migrant.EnteringDate).TotalDays - Term > 0)
+            if ((DateTime.Now - migrant.GetEnteringDate()).TotalDays - Term > 0)
                 return false;
             
-            if(Countries.Count > 0  && !Countries.Contains(migrant.Country))
+            if(Countries.Count > 0  && !Countries.Contains(migrant.GetCountry()))
                 return false;
 
             foreach (var useDocument in UseDocuments)

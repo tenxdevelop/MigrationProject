@@ -33,5 +33,20 @@ namespace MigrantProjectMVC.Models
         {
             return Surname + " " + Name + " " + Patronymic + " ";
         }
+
+        public CountryModel GetCountry()
+        {
+            return Country;
+        }
+
+        public List<Document> GetDocuments()
+        {
+            return Documents;
+        }
+
+        public DateTime GetEnteringDate()
+        {
+            return EnteringDate;
+        }
     }
 }

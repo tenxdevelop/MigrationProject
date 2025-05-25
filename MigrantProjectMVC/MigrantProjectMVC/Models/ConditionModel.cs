@@ -9,5 +9,10 @@ namespace MigrantProjectMVC.Models
         {
             Instruction = newInstruction;
         }
+
+        public string GetInstruction()
+        {
+            return Instruction;
+        }
     }
 }
