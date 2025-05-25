@@ -14,12 +14,12 @@
     }
     
 </style>
-
 <div class="container-fluid">
     <div class="row">
         <main class="col-md-9 ml-sm-auto col-lg-10 px-4">
             <h1 class="mt-4">Добавить данные о мигранте</h1>
-            <form id="profileForm" class="mt-4" method="post" action="RegisterMigrant">
+            <form id="profileForm" class="mt-4" method="post" asp-controller="Migrant" asp-action="RegisterMigrant">
+                @Html.AntiForgeryToken()
                 <div class="form-group">
                     <label for="name">Имя</label>
                     <input type="text" class="form-control" id="name" name="name" required>
@@ -50,9 +50,9 @@
                     <label>Выберите имеющиеся у вас документы</label>
                     <select onchange="addToForm()" id="documentSelect" class="form-select " aria-label="Выберите документ">
                         <option selected id="selectLabel">Выберите из списка документы</option>
-                        <option value="highlyqualified">Высоквалифицированный специалист</option>
-                        <option value="resettlementprogrammember">Член программы переселения</option>
-                        <option value="consistofmigrationprogram">Состоял на миграционном учёте раннее</option>
+                        <option value="HighlyQualifiedDocument">Высоквалифицированный специалист</option>
+                        <option value="ResettlementDocument">Член программы переселения</option>
+                        <option value="ConsistOfMigrationProgramDocument">Состоял на миграционном учёте раннее</option>
                     </select>
                     <div id="documentBox">
                         <p>Имеющиеся документы: </p>

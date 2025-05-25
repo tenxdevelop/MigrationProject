@@ -25,6 +25,7 @@ namespace MigrantProjectMVC
             builder.Services.AddSingleton<IUserService, UserService>();
             builder.Services.AddSingleton<IMigrantService, MigrantService>();
             builder.Services.AddSingleton<IRefferalService, RefferalService>();
+            builder.Services.AddSingleton<ITargetService, TargetService>();
         }
     }
 }

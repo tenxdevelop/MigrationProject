@@ -50,9 +50,9 @@
                     <label>Выберите имеющиеся у вас документы</label>
                     <select onchange="addToForm()" id="documentSelect" class="form-select " aria-label="Выберите документ">
                         <option selected id="selectLabel">Выберите из списка документы</option>
-                        <option value="highlyqualified">Высоквалифицированный специалист</option>
-                        <option value="resettlementprogrammember">Член программы переселения</option>
-                        <option value="consistofmigrationprogram">Состоял на миграционном учёте раннее</option>
+                        <option value="HighlyQualifiedDocument">Высоквалифицированный специалист</option>
+                        <option value="ResettlementDocument">Член программы переселения</option>
+                        <option value="ConsistOfMigrationProgramDocument">Состоял на миграционном учёте раннее</option>
                     </select>
                     <div id="documentBox">
                         <p>Имеющиеся документы: </p>
@@ -67,49 +67,5 @@
     </div>
 </div>
 <script>
-    var documentBox = document.getElementById("documentBox")
-    var selectedDocuments = []; // Массив для хранения выбранных документов
-
-    function addToForm() {
-        var documentSelect = document.getElementById("documentSelect");
-        var selectedOption = documentSelect.options[documentSelect.selectedIndex];
-
-        if(document.getElementById("selectLabel") != null) {
-            document.getElementById("selectLabel").remove();
-        }
-
-        var documentValue = selectedOption.value;
-        var documentText = selectedOption.text;
-
-        if(selectedDocuments.includes(documentValue)) return;
-
-        selectedDocuments.push(documentValue);
-
-        // Добавляю к строке новый документ, разделитель ','
-        document.getElementById("documentNames").value = selectedDocuments.join(',');
-
-        var newDocumentLine = document.createElement('div');
-        newDocumentLine.className = "d-flex flex-row";
-        newDocumentLine.id = documentValue;
-        newDocumentLine.innerHTML = `
-            <span class = "d-flex align-items-center justify-content-between form-control">${documentText}
-            <button class="btn btn-light" onclick="removeItemFromBox('${documentValue}')">X</button></span>
-        `;
-        documentBox.appendChild(newDocumentLine);
-    }
-
-    function removeItemFromBox(documentEnglishName){
-        var element = document.getElementById(documentEnglishName)
-        element.remove();
-        var documentNames = document.getElementById("documentNames").value;
-        document.getElementById("documentNames").value = documentNames.replace(documentEnglishName, "");
-    }
     
-    function changeCountryValue(){
-        var countryInput = document.getElementById('countryName')
-        var countrySelect = document.getElementById('countrySelect')
-        var countryName = countrySelect.value
-        countryInput.value = countryName
-        
-    }
 </script>

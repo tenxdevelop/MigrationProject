@@ -7,11 +7,36 @@ namespace MigrantProjectMVC.Controllers
     public class TargetController : BaseController
     {
         [HttpGet]
+        public async Task<IActionResult> InstructionChange()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ChangeRegulation()
+        {
+            var query = new GetAllCountriesQuery();
+            var countryModels = await queryProcessor.Process(query);
+            var countries = countryModels.Select(country => country.Name).ToList();
+
+            if (countries.Count.Equals(0))
+            {
+                HttpContext.Response.StatusCode = 404;
+                return Content("don't have country");
+            }
+
+            ViewBag.Countries = countries;
+
+            
+
+            return View();
+        }
+
+        [HttpGet]
         public async Task<IActionResult> GetTargets()
         {
             var query = new GetAllTargetsQuery();
             var result = await queryProcessor.Process(query);
-            
             return Ok(result);
         }
 
@@ -24,7 +49,7 @@ namespace MigrantProjectMVC.Controllers
             return Ok(result);
         }
         
-        [HttpPut]
+        [HttpPost]
         public async Task<IActionResult> ChangeCondition(string targetName, string newInsctuction)
         {
             var command = new ChangeConditionCommand(targetName, newInsctuction);
@@ -34,10 +59,12 @@ namespace MigrantProjectMVC.Controllers
             return Ok(result);
         }
         
-        [HttpPut]
+        [HttpPost]
         public async Task<IActionResult> ChangeRegulation(string targetName, string regulationName, List<string> countriesName, List<string> useDocuments, int term)
         {
-            var command = new ChangeRegulationCommand(targetName, regulationName, countriesName, useDocuments, term);
+            var countries = countriesName[0].Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
+            var documents = useDocuments[0].Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
+            var command = new ChangeRegulationCommand(targetName, regulationName, countries, documents, term);
             
             var result = await commandProcessor.Process(command);
             

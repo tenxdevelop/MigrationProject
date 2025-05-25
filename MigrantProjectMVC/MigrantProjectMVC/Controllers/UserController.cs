@@ -18,7 +18,7 @@ namespace MigrantProjectMVC.Controllers
         public IActionResult Logout()
         {
             Response.Cookies.Delete(COOKIES_KEY_AUTH_TOKEN);
-            
+       
             var sharedViewModel = SharedViewModel.Create(false);
             return View(URL_HOME, sharedViewModel);
         }
