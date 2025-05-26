@@ -8,7 +8,7 @@ namespace MigrantProjectMVC.Interfaces
         
         Task<List<TargetModel>> GetTargets();
 
-        Task<bool> SaveTarget(TargetModel target);
+        Task<bool> Save();
         
         Task<bool> IsHaveTarget(string targetName);
         

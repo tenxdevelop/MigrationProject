@@ -14,8 +14,7 @@ namespace MigrantProjectMVC.Repositories
         public TargetJsonPrefs() : base(FILE_PATH)
         {
             var regulations = new List<RegulationModel>();
-            //if (!File.Exists(FILE_PATH))
-            //{
+
            
                 //for test
                 var countries1 = new List<CountryModel>()
@@ -101,8 +100,8 @@ namespace MigrantProjectMVC.Repositories
                 };
             
                 _targets = new List<TargetModel>() { target };
-                SaveToJson(_targets);
-            //}
+                //SaveToJson(_targets);
+ 
 
             _targets = LoadFromJson();
         }
@@ -120,9 +119,8 @@ namespace MigrantProjectMVC.Repositories
             return Task.FromResult(_targets);
         }
 
-        public Task<bool> SaveTarget(TargetModel target)
+        public Task<bool> Save()
         {
-            _targets.Add(target);
             var result = SaveToJson(_targets);
             return Task.FromResult(result);
         }

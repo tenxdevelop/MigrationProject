@@ -11,10 +11,11 @@ namespace MigrantProjectMVC.Application.Features.Services
         private ICountryRepository _countryRepository;
         private IDocumentRepository _documentRepository;
 
-        public TargetService(ITargetRepository targetRepository)
+        public TargetService(ITargetRepository targetRepository, ICountryRepository countryRepository, IDocumentRepository documentRepository)
         {
             _targetRepository = targetRepository;
-            
+            _countryRepository = countryRepository;
+            _documentRepository = documentRepository;
         }
 
         public async Task<bool> RegisterTarget(string targetName)
@@ -79,7 +80,7 @@ namespace MigrantProjectMVC.Application.Features.Services
             var regulations = target.GetRegulations();
             regulations.Add(newRegulation);
 
-            var result = await _targetRepository.SaveTarget(target);
+            var result = await _targetRepository.Save();
             return result;
         }
 
@@ -96,7 +97,7 @@ namespace MigrantProjectMVC.Application.Features.Services
             var regulationDelete = regulations.First(x => x.Name == regulationName);
             regulations.Remove(regulationDelete);
             
-            var result = await _targetRepository.SaveTarget(target);
+            var result = await _targetRepository.Save();
             return result;
         }
 
@@ -105,7 +106,7 @@ namespace MigrantProjectMVC.Application.Features.Services
             var target = await _targetRepository.GetTarget(targetName, DateTime.Now);
             
             target.Condition.Update(newInstruction);
-            var result = await _targetRepository.SaveTarget(target);
+            var result = await _targetRepository.Save();
             return result;
         }
 
@@ -143,7 +144,7 @@ namespace MigrantProjectMVC.Application.Features.Services
             
             regulation.Update(countries, useDocuments, term);
             
-            var result = await _targetRepository.SaveTarget(target);
+            var result = await _targetRepository.Save();
             return result;
         }
     }
