@@ -7,65 +7,163 @@
 
 
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Target Viewer</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+
+        .form-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+
+        .page-title {
+            color: #0d6efd;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .form-section {
+            margin-bottom: 25px;
+            padding: 20px;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+        }
+
+        .form-section-title {
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #495057;
+        }
+
+        .selected-items-box {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            min-height: 50px;
+        }
+
+        .action-buttons {
+            margin-top: 30px;
+            display: flex;
+            gap: 10px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Выберите Target</h1>
-    <form id="profileForm" class="mt-4" method="post" asp-controller="Target" asp-action="ChangeRegulation">
-        <select id="ChangeRegulationTargetSelect">
-            <option value="">-- Выберите цель --</option>
-        </select>
-        <input name="targetName" id="targetNameInput" style="visibility: hidden" />
-        <select id="regulationSelect" style="visibility: hidden">
-            <option value="">-- Выберите условия --</option>
-        </select>
-        <input name="regulationName" id="ChangeRegulationTargetInput" style="visibility: hidden" value="sdawd" />
-        
-        <select id="countrySelect" onchange="addToCountryForm()" style="visibility: hidden">
-            <option value="">-- Выберите страны --</option>
-            @{
-                foreach (var item in ViewBag.Countries)
-                    {
-                    <option value="@item">@item</option>
-                    }
-            }
-        </select>
-        <div id="countryBox" style="visibility: hidden">
-            <p>Имеющиеся документы: </p>
+    <div class="container">
+        <div class="form-container">
+            <h1 class="page-title">Настройка условий Target</h1>
+
+            <form id="profileForm" method="post" asp-controller="Target" asp-action="ChangeRegulation">
+                <!-- Target Selection -->
+                <div class="form-section">
+                    <h5 class="form-section-title">Выбор цели</h5>
+                    <div class="mb-3">
+                        <label for="ChangeRegulationTargetSelect" class="form-label">Цель:</label>
+                        <select class="form-select" id="ChangeRegulationTargetSelect" aria-label="Выбор цели">
+                            <option value="" selected>-- Выберите цель --</option>
+                        </select>
+                        <input type="hidden" name="targetName" id="targetNameInput">
+                    </div>
+                </div>
+
+                <!-- Regulation Selection -->
+                <div class="form-section" id="regulationSection" style="display: none;">
+                    <h5 class="form-section-title">Условия</h5>
+                    <div class="mb-3">
+                        <label for="regulationSelect" class="form-label">Выберите условия:</label>
+                        <select class="form-select" id="regulationSelect" aria-label="Выбор условий">
+                            <option value="" selected>-- Выберите условия --</option>
+                        </select>
+                        <input type="hidden" name="regulationName" id="ChangeRegulationTargetInput" value="sdawd">
+                    </div>
+                </div>
+
+                <!-- Country Selection -->
+                <div class="form-section" id="countrySection" style="display: none;">
+                    <h5 class="form-section-title">Страны</h5>
+                    <div class="mb-3">
+                        <label for="countrySelect" class="form-label">Выберите страны:</label>
+                        <select class="form-select" id="countrySelect" onchange="addToCountryForm()" aria-label="Выбор стран">
+                            <option value="" selected>-- Выберите страны --</option>
+                            @{
+                                foreach (var item in ViewBag.Countries)
+                                {
+                                    <option value="@item">@item</option>
+                                }
+                            }
+                        </select>
+                        <div class="mt-2">
+                            <p class="mb-1">Выбранные страны:</p>
+                            <div id="countryBox" class="selected-items-box"></div>
+                            <input type="hidden" id="countryNames" name="countriesName" value="">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Document Selection -->
+                <div class="form-section" id="documentSection" style="display: none;">
+                    <h5 class="form-section-title">Документы</h5>
+                    <div class="mb-3">
+                        <label for="documentSelect" class="form-label">Выберите документы:</label>
+                        <select class="form-select" id="documentSelect" onchange="addToForm()" aria-label="Выбор документов">
+                            <option onclick="showAlert()" value="" selected>-- Выберите документы --</option>
+                            <option value="HighlyQualifiedDocument">Высоквалифицированный специалист</option>
+                            <option value="ResettlementDocument">Член программы переселения</option>
+                            <option value="ConsistOfMigrationProgramDocument">Состоял на миграционном учёте ранее</option>
+                        </select>
+                        <div class="mt-2">
+                            <p class="mb-1">Выбранные документы:</p>
+                            <div id="documentBox" class="selected-items-box"></div>
+                            <input type="hidden" id="documentNames" name="useDocuments" value="">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Term Input -->
+                <div class="form-section" id="termSection" style="display: none;">
+                    <h5 class="form-section-title">Срок</h5>
+                    <div class="mb-3">
+                        <label for="termInput" class="form-label">Срок (дни):</label>
+                        <input type="number" class="form-control" id="termInput" name="term">
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                    <a href="../Hone/Index" class="btn btn-outline-secondary">Отмена</a>
+                </div>
+            </form>
         </div>
-        <div id="countryBox">
-            <input type="hidden" id="countryNames" name="countriesName" value="">
-        </div>
+    </div>
 
-
-        <select onchange="addToForm()" id="documentSelect" style="visibility: hidden">
-            <option value="">-- Выберите документы --</option>
-            <option value="HighlyQualifiedDocument">Высоквалифицированный специалист</option>
-            <option value="ResettlementDocument">Член программы переселения</option>
-            <option value="ConsistOfMigrationProgramDocument">Состоял на миграционном учёте раннее</option>
-        </select>
-        <div id="documentBox" style="visibility: hidden">
-            <p>Имеющиеся документы: </p>
-        </div>
-        <div id="documentBox">
-            <input type="hidden" id="documentNames" name="useDocuments" value="">
-        </div>
-
-        <input id="termInput" name="term" style="visibility: hidden" />
-
-
-        <button type="submit">Сохранить</button>
-        <a type="button" href="../Hone/Index">Отмена</a>
-    </form>
-
+    <!-- Bootstrap 5 JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-           document.addEventListener("DOMContentLoaded", function () {
-               loadTargetsChangeRegulation()
+        document.addEventListener("DOMContentLoaded", function () {
+            loadTargetsChangeRegulation();
         });
+
+        function showAlert(){
+            alert("wadawd")
+        }
     </script>
 </body>
 </html>
+
