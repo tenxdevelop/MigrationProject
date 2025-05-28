@@ -18,7 +18,7 @@ namespace MigrantProjectMVC.Repositories
             documents.Add(new Document() { Name = "HighlyQualifiedDocument" });
             documents.Add(new Document() { Name = "ConsistOfMigrationProgramDocument" });
             documents.Add(new Document() { Name = "ResettlementDocument" });
-            SaveToJson(documents);
+            //SaveToJson(documents);
 
             _documents = LoadFromJson();
         }

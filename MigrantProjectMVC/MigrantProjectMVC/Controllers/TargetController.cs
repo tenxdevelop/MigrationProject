@@ -1,6 +1,8 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using MigrantProjectMVC.Application.Features.Queries.Queries;
 using MigrantProjectMVC.Commands;
+using MigrantProjectMVC.ViewModel;
 
 namespace MigrantProjectMVC.Controllers
 {
@@ -56,19 +58,30 @@ namespace MigrantProjectMVC.Controllers
             
             var result = await commandProcessor.Process(command);
             
-            return Ok(result);
+            return await ShowHome(result);
         }
         
         [HttpPost]
         public async Task<IActionResult> ChangeRegulation(string targetName, string regulationName, List<string> countriesName, List<string> useDocuments, int term)
         {
-            var countries = countriesName[0].Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
-            var documents = useDocuments[0].Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
+            var countries = new List<string>();
+            
+            if (countriesName[0] is not null)
+            {
+                countries = countriesName[0].Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
+            }
+            var documents = new List<string>();
+            
+            if (useDocuments[0] is not null)
+            {
+                documents = useDocuments[0].Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
+            }
+
             var command = new ChangeRegulationCommand(targetName, regulationName, countries, documents, term);
             
             var result = await commandProcessor.Process(command);
             
-            return Ok(result);
+            return await ShowHome(result);
         }
 
         [HttpDelete]
@@ -78,7 +91,7 @@ namespace MigrantProjectMVC.Controllers
             
             var result = await commandProcessor.Process(command);
             
-            return Ok(result);
+            return await ShowHome(result);
         }
 
         [HttpDelete]
@@ -88,7 +101,7 @@ namespace MigrantProjectMVC.Controllers
 
             var result = await commandProcessor.Process(command);
             
-            return Ok(result);
+            return await ShowHome(result);
         }
 
         [HttpPost]
@@ -97,6 +110,34 @@ namespace MigrantProjectMVC.Controllers
             var command = new RegisterTargetCommand(targetName);
 
             var result = await commandProcessor.Process(command);
+            
+            return await ShowHome(result);
+        }
+
+        private async Task<IActionResult> ShowHome(bool result)
+        {
+            if (result)
+            {
+                SharedViewModel sharedViewModel;
+            
+                var jwtToken = GetJwtToken();
+            
+                if (jwtToken is null)
+                {
+                    sharedViewModel = SharedViewModel.Create(false);
+                }
+                else
+                {
+                    var userId = new Guid(jwtToken.Claims.First(claim => claim.Type == ClaimTypes.NameIdentifier).Value);
+                    Console.WriteLine(userId);
+                    var query = new IsHaveMigrantDataByUserQuery(userId);
+            
+                    var isHaveMigrantData = await queryProcessor.Process(query);
+                    sharedViewModel = SharedViewModel.Create(isHaveMigrantData);
+                }
+            
+                return View(URL_HOME, sharedViewModel);
+            }
             
             return Ok(result);
         }

@@ -13,5 +13,10 @@
     "Id": "1315b3d1-d0f1-487e-9b9f-b45e3a9b431f",
     "Email": "igor3@mail.ru",
     "PasswordHash": "oDYxRiYQ1ItgL5TSUmlWLmuRtiMilaqexVLMW2GMYu4="
+  },
+  {
+    "Id": "fb5c2ee9-d852-4b46-ba23-d80b6e0e7b7b",
+    "Email": "testuser@bk.ru",
+    "PasswordHash": "SBNJTRN\u002BFjG7owHVrKtue7eqdM4RhdRWVl71HXN2d7I="
   }
 ]

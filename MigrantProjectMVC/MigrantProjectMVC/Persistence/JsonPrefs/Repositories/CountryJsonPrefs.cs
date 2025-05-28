@@ -25,7 +25,7 @@ namespace MigrantProjectMVC.Repositories
                 new CountryModel() { Name = "Другая страна" }
             };
 
-            SaveToJson(countries);
+            //SaveToJson(countries);
             _countries = LoadFromJson();
         }
 

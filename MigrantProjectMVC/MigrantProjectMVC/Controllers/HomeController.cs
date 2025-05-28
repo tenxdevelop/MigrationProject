@@ -11,7 +11,8 @@ namespace MigrantProjectMVC.Controllers
         {
             
         }
-
+        
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             SharedViewModel sharedViewModel;
