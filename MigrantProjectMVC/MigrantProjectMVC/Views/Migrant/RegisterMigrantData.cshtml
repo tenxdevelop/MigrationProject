@@ -69,18 +69,19 @@
 <script>
     var documentBox = document.getElementById("documentBox")
     var selectedDocuments = []; // Массив для хранения выбранных документов
-
+    
     function addToForm() {
+
         var documentSelect = document.getElementById("documentSelect");
         var selectedOption = documentSelect.options[documentSelect.selectedIndex];
 
         if(document.getElementById("selectLabel") != null) {
             document.getElementById("selectLabel").remove();
         }
-
+        
         var documentValue = selectedOption.value;
         var documentText = selectedOption.text;
-
+        
         if(selectedDocuments.includes(documentValue)) return;
 
         selectedDocuments.push(documentValue);
