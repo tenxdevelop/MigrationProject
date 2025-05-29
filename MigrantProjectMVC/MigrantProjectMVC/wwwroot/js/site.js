@@ -31,6 +31,7 @@ async function loadTargetsInstructionPage() {
     }
 }
 
+
 function fullFillTargetSelect() {
     const select = document.getElementById('targetSelect');
     targets.forEach((target, index) => {
@@ -126,7 +127,6 @@ async function handleTargetChangeSelectionChange(event) {
     select.remove(0)
    
     var targetName = targets[event.target.value].name
-    document.getElementById('ChangeRegulationTargetInput').value = targetName
     try {
         const response = await fetch(`/Target/GetRegulations?targetName=${targetName}`)
         if (!response.ok) {
@@ -159,12 +159,26 @@ function fullFillRegulationSelect() {
 }
 
 function handleRegulationSelectionChange(event) {
+
     var countrySelect = document.getElementById('countrySelect')
     var documentSelect = document.getElementById('documentSelect')
     var termInput = document.getElementById('termInput')
     var documentFormList = document.getElementById('documentBox')
     var countryFormList = document.getElementById('countryBox')
-   
+
+
+    var regulationNameInput = document.getElementById('ChangeRegulationTargetInput')
+    var regulationIndex = event.target.value
+    var regulation = regulations[regulationIndex]
+    regulationNameInput.value = regulation.name
+
+
+
+
+
+    if (termInput === null) {
+        return
+    }
     while (documentFormList.firstChild) {
         documentFormList.removeChild(documentFormList.firstChild);
     }
@@ -172,16 +186,15 @@ function handleRegulationSelectionChange(event) {
         countryFormList.removeChild(countryFormList.firstChild);
     }
 
-    var regulationNameInput = document.getElementById('ChangeRegulationTargetInput')
+    
     selectedCountries = []
     selectedDocuments = []
-   
+
+
     document.getElementById("documentNames").value = selectedDocuments.join(',');
     document.getElementById("countryNames").value = selectedDocuments.join(',');
 
-    var regulationIndex = event.target.value
 
-    var regulation = regulations[regulationIndex]
     var countries = regulation.countries
     var documents = regulation.useDocuments
     termInput.value = regulation.term

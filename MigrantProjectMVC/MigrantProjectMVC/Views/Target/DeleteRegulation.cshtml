@@ -1,0 +1,67 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<!DOCTYPE html>
+<html>
+<style>
+    body {
+        padding: 20px;
+        background-color: #f8f9fa;
+    }
+
+    .form-container {
+        max-width: 800px;
+        margin: 0 auto;
+        background-color: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+
+    .page-title {
+        color: #0d6efd;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    .action-buttons {
+        margin-top: 20px;
+        display: flex;
+        gap: 10px;
+    }
+
+    textarea {
+        min-height: 300px;
+    }
+</style>
+<head>
+    <meta charset="UTF-8">
+    <title>Target Viewer</title>
+</head>
+<body>
+    <h1>Выберите Target</h1>
+    <form id="profileForm" class="mt-4" method="post" asp-controller="Target" asp-action="DeleteRegulation">
+        <select id="ChangeRegulationTargetSelect" class="form-select">
+            <option value="">-- Выберите цель --</option>
+        </select>
+        <input name="targetName" id="targetNameInput" style="visibility: hidden" />
+        <select id="regulationSelect" style="visibility: hidden" class="form-select">
+            <option value="">-- Выберите условия --</option>
+        </select>
+        <input name="regulationName" id="ChangeRegulationTargetInput" style="visibility: hidden"  class=""/>
+        <div class="d-flex flex-column mt-2">
+            <div class="d-flex flex-row">
+                <button class="btn btn-primary me-3" type="submit">Удалить</button>
+                <a type="button" class="btn btn-outline-info" href="../Home/Index">Отмена</a>
+            </div>
+        </div>
+    </form>
+</body>
+
+<script>
+       document.addEventListener("DOMContentLoaded", function () {
+           loadTargetsChangeRegulation()
+    });
+</script>

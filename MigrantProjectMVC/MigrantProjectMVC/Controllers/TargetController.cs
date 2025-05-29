@@ -13,6 +13,11 @@ namespace MigrantProjectMVC.Controllers
         {
             return View();
         }
+        [HttpGet]
+        public async Task<IActionResult> DeleteRegulation()
+        {
+            return View();
+        }
 
         [HttpGet]
         public async Task<IActionResult> ChangeRegulation()
@@ -30,6 +35,26 @@ namespace MigrantProjectMVC.Controllers
             ViewBag.Countries = countries;
 
             
+
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CreateRegulation()
+        {
+            var query = new GetAllCountriesQuery();
+            var countryModels = await queryProcessor.Process(query);
+            var countries = countryModels.Select(country => country.Name).ToList();
+
+            if (countries.Count.Equals(0))
+            {
+                HttpContext.Response.StatusCode = 404;
+                return Content("don't have country");
+            }
+
+            ViewBag.Countries = countries;
+
+
 
             return View();
         }
@@ -94,9 +119,15 @@ namespace MigrantProjectMVC.Controllers
             return await ShowHome(result);
         }
 
-        [HttpDelete]
+        [HttpPost]
         public async Task<IActionResult> DeleteRegulation(string targetName, string regulationName)
         {
+            if (string.IsNullOrWhiteSpace(regulationName) || string.IsNullOrWhiteSpace(targetName))
+            {
+                HttpContext.Response.StatusCode = 404;
+                return Content("Цель или регламент не выбран");
+            }
+
             var command = new DeleteRegulationCommand(targetName, regulationName);
 
             var result = await commandProcessor.Process(command);
