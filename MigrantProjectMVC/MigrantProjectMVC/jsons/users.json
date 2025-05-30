@@ -1,22 +1,10 @@
 [
   {
-    "Id": "3063784e-10de-4aea-8696-699206a3d3fb",
-    "Email": "test",
-    "PasswordHash": "n4bQgYhMfWWaL\u002BqgxVrQFaO/TxsrC4Is0V1sFbDwCgg="
-  },
-  {
-    "Id": "6758bd42-8da3-4222-9277-f30735cbe1ab",
-    "Email": "igor2@mail.ru",
-    "PasswordHash": "oDYxRiYQ1ItgL5TSUmlWLmuRtiMilaqexVLMW2GMYu4="
-  },
-  {
-    "Id": "1315b3d1-d0f1-487e-9b9f-b45e3a9b431f",
-    "Email": "igor3@mail.ru",
-    "PasswordHash": "oDYxRiYQ1ItgL5TSUmlWLmuRtiMilaqexVLMW2GMYu4="
-  },
-  {
-    "Id": "fb5c2ee9-d852-4b46-ba23-d80b6e0e7b7b",
-    "Email": "testuser@bk.ru",
-    "PasswordHash": "SBNJTRN\u002BFjG7owHVrKtue7eqdM4RhdRWVl71HXN2d7I="
+    "Id": "b0152081-69ae-4ae2-a0da-2b8097f1112b",
+    "Email": "root@bk.ru",
+    "PasswordHash": "SBNJTRN\u002BFjG7owHVrKtue7eqdM4RhdRWVl71HXN2d7I=",
+    "Role": {
+      "Name": "Admin"
+    }
   }
 ]

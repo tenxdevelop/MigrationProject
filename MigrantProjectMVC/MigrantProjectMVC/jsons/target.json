@@ -40,7 +40,14 @@
             "Name": "\u0423\u043A\u0440\u0430\u0438\u043D\u0430"
           }
         ],
-        "UseDocuments": []
+        "UseDocuments": [
+          {
+            "Name": "ResettlementDocument"
+          },
+          {
+            "Name": "ConsistOfMigrationProgramDocument"
+          }
+        ]
       },
       {
         "Term": 90,

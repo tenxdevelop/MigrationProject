@@ -99,7 +99,7 @@
                 var payload = parseJWT(token);
                 console.log(payload)
 
-                if (payload[roleKey] === 'User') {
+                if (payload[roleKey] === 'Migrant') {
                     adminElements.forEach(el => el.style.display = 'none');
                 }
                 else if (payload[roleKey] === 'Admin') {
