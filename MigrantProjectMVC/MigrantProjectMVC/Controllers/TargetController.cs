@@ -1,8 +1,11 @@
+using System.Reflection.Metadata;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using MigrantProjectMVC.Application.Features.Queries.Queries;
 using MigrantProjectMVC.Commands;
+using MigrantProjectMVC.Models;
 using MigrantProjectMVC.ViewModel;
+using Newtonsoft.Json;
 
 namespace MigrantProjectMVC.Controllers
 {
@@ -15,6 +18,16 @@ namespace MigrantProjectMVC.Controllers
         }
         [HttpGet]
         public async Task<IActionResult> DeleteRegulation()
+        {
+            return View();
+        }
+
+        public async Task<IActionResult> CreateTarget()
+        {
+            return View();
+        }
+
+        public async Task<IActionResult> DeleteTarget()
         {
             return View();
         }
@@ -109,7 +122,7 @@ namespace MigrantProjectMVC.Controllers
             return await ShowHome(result);
         }
 
-        [HttpDelete]
+        [HttpPost]
         public async Task<IActionResult> DeleteTarget(string targetName)
         {
             var command = new DeleteTargetCommand(targetName);
@@ -136,14 +149,43 @@ namespace MigrantProjectMVC.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> RegisterTarget(string targetName)
+        public async Task<IActionResult> RegisterTarget([FromBody] TargetDTO targetDTO)
         {
+            var targetName = targetDTO.targetName;
+            var instruction = targetDTO.instructionText;
+            var regulationsDTOs = targetDTO.regulations;
+
+            foreach (var item in regulationsDTOs)
+            {
+                var countries = item.countries;
+                var documents = item.documents;
+                var term = Int32.Parse(item.term);
+                var name = item.name;
+            }
+
+            //Выше я написал как распарсить данные, ниже тыкнул return что бы ничего не сохранять пока что
+            return CreateTarget().Result;
             var command = new RegisterTargetCommand(targetName);
 
             var result = await commandProcessor.Process(command);
-            
+
             return await ShowHome(result);
         }
+        [HttpPost]
+        public async Task<IActionResult> RegisterRegulation([FromBody] RegulationDTO regulationDTO)
+        {
+
+            //ToDo накалякай тут метод создания regulation
+
+            var regulationName = regulationDTO.name;
+            var targetName = regulationDTO.targetName;
+            var documents = regulationDTO.documents;
+            var countries = regulationDTO.countries;
+            var term = Int32.Parse(regulationDTO.term);
+
+            return null;
+        }
+        
 
         private async Task<IActionResult> ShowHome(bool result)
         {

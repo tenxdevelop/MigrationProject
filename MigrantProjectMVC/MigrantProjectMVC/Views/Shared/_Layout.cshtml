@@ -31,8 +31,10 @@
 
                     <li><a class="admin" href="../Target/InstructionChange">Редактировать инструкцию</a></li>
                     <li><a class="admin" href="../Target/ChangeRegulation">Редактировать сроки и правила</a></li>
-                    <!--<li><a class="admin" href="../Target/CreateRegulation">Создать регламент</a></li>-->
+                    <li><a class="admin" href="../Target/CreateRegulation">Создать регламент</a></li>
+                    <li><a class="admin" href="../Target/DeleteTarget">Удалить цель</a></li>
                     <li><a class="admin" href="../Target/DeleteRegulation">Удалить регламент</a></li>
+                    <li><a class="admin" href="../Target/CreateTarget">Добавить услугу</a></li>
                     <li><a class="auth-only" href="../User/Logout">Выход</a></li>
 
                     <li><a class="guest-only" href="../User/Login">Войти</a></li>
@@ -116,7 +118,11 @@
     </script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    @if (!IsSectionDefined("DisableSiteJS"))
+    {
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    }
+    @RenderSection("DisableSiteJS", required: false)
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

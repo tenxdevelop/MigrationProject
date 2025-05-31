@@ -1,0 +1,27 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+<body>
+
+    <label for="targetInput">Введите название услуги</label>
+    <input name="targetName" class="form-control" id="targetInput" />
+    <label for="instructionInput">Введите инструкцию</label>
+    <textarea class="form-control" id="instructionInput"></textarea>
+
+    <a onclick="toCreateRegulationPage()" href="../Target/CreateRegulation">Добавить правило</a>
+    <button onclick="CreateTarget()">Сохранить</button>
+    <button>Отмена</button>
+
+</body>
+
+<script src="~/js/targetCreating.js" asp-append-version="true"></script>
+<script>
+       document.addEventListener("DOMContentLoaded", function () {
+            CheckTargetInStorage()
+       }
+    }
+</script>

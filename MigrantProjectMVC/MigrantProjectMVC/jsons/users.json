@@ -6,5 +6,13 @@
     "Role": {
       "Name": "Admin"
     }
+  },
+  {
+    "Id": "e3a18fee-35b6-42de-80f8-c75b0de30fa3",
+    "Email": "igor2@mail.ru",
+    "PasswordHash": "oDYxRiYQ1ItgL5TSUmlWLmuRtiMilaqexVLMW2GMYu4=",
+    "Role": {
+      "Name": "Migrant"
+    }
   }
 ]

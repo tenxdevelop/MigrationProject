@@ -361,3 +361,170 @@ function changeCountryValue() {
     countryInput.value = countryName
 
 }
+
+function createRegulation() {
+    var regulationInput = document.getElementById("regulationInput")
+    var regulationName = regulationInput.value
+
+    var termInput = document.getElementById("termInput")
+    var term = termInput.value
+
+    var target = JSON.parse(sessionStorage["target"])
+
+    if (target.regulations === null) {
+        target.regulations = {
+            "0": {
+                name: regulationName,
+                countries: selectedCountries,
+                documents: selectedDocuments,
+                term: term
+            }
+        }
+        sessionStorage.setItem("target", JSON.stringify(target))
+    }
+    else {
+        var index = (Object.keys(target.regulations).length)
+        target.regulations[index] = {
+            name: regulationName,
+            countries: selectedCountries,
+            documents: selectedDocuments,
+            term: term
+        }
+        sessionStorage.setItem("target", JSON.stringify(target))
+    }
+
+    window.location.href = "CreateTarget"
+}
+
+async function CreateTarget() {
+
+    var target = JSON.parse(sessionStorage.getItem("target"))
+
+
+    const requestData = {
+        targetName: target.name,
+        instructionText: target.instruction,
+        regulations: Object.values(target.regulations || {}) // если это объект — превращаем в массив
+    };
+
+    fetch('/Target/RegisterTarget', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestData)
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Успех:', data);
+        })
+        .catch(error => {
+            console.error('Ошибка:', error);
+        });
+
+    window.location.href = "../Home/Index"
+}
+
+function checkTargetCreation() {
+    var target = sessionStorage.getItem("target")
+
+    if (target === null) {
+        var targetSelect = document.getElementById("targetSelectOnRegulationCreation")
+        targetSelect.style.visibility = "visible"
+        CreateRegulationPage()
+        var saveButton = document.getElementById("createButton")
+        var cancelButton = document.getElementById("cancelButton")
+
+        saveButton.onclick = function () {
+            saveNewTargetsRegulation()
+        }
+        cancelButton.addEventListener('click', cancelNewTargetsRegulation)
+        
+    }
+    else {
+        return
+    }
+}
+
+function targetSelectionChange(event) {
+    var targetSelect = document.getElementById("targetSelectOnRegulationCreation")
+}
+
+function CreateRegulationPage() {
+    getAllTargets()
+
+}
+function fullFillSelect() {
+    var targetSelect = document.getElementById("targetSelectOnRegulationCreation")
+    targets.forEach((target, index) => {
+        const option = document.createElement('option');
+        option.value = index;
+        option.textContent = target.name;
+
+
+        targetSelect.appendChild(option)
+    });
+
+    targetSelect.addEventListener('change', targetSelectionChangeOnRegulationCreation);
+}
+
+async function getAllTargets() {
+    try {
+        const response = await fetch('/Target/GetTargets');
+        if (!response.ok) {
+            throw new Error('Ошибка при загрузке: ' + response.status);
+        }
+        targets = await response.json();
+        fullFillSelect()
+    } catch (error) {
+       
+        console.error('Ошибка:', error);
+    }
+}
+
+function targetSelectionChangeOnRegulationCreation(event) {
+    const selectedIndex = event.target.value;
+    const selectedTarget = targets[selectedIndex];
+    targetName = selectedTarget.name
+
+}
+
+function cancelNewTargetsRegulation(event) {
+
+}
+
+function saveNewTargetsRegulation(event) {
+    alert("sdadwad")
+
+    var regulationInput = document.getElementById("regulationInput")
+    var countriesNamesInput = document.getElementById("countryNames")
+    var documentNamesInput = document.getElementById("documentNames")
+    var termInput = document.getElementById("termInput")
+
+    regulationName = regulationInput.value
+    countryNames = countriesNamesInput.value
+    documentNames = documentNamesInput.value
+    term = termInput.value
+
+    const requestData = {
+        targetName: targetName,
+        name: regulationName,
+        countries: selectedCountries,
+        documents: selectedDocuments,
+        term: term
+    };
+
+    fetch('/Target/RegisterRegulation', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(
+            requestData
+        ) 
+    }).then(response => response.json())
+        .then(data => {
+            console.log('Успех:', data);
+        })
+        .catch(error => {
+            console.error('Ошибка:', error);
+        });
+}
