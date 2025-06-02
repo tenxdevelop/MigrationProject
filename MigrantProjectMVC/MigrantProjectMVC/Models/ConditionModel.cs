@@ -5,6 +5,16 @@ namespace MigrantProjectMVC.Models
     {
         public string Instruction { get; set; }
 
+        public ConditionModel()
+        {
+            
+        }
+        
+        public ConditionModel(string instruction)
+        {
+            Instruction = instruction;
+        }
+        
         public void Update(string newInstruction)
         {
             Instruction = newInstruction;

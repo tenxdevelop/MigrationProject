@@ -138,7 +138,7 @@ namespace MigrantProjectMVC.Controllers
             if (string.IsNullOrWhiteSpace(regulationName) || string.IsNullOrWhiteSpace(targetName))
             {
                 HttpContext.Response.StatusCode = 404;
-                return Content("Цель или регламент не выбран");
+                return Content("пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ");
             }
 
             var command = new DeleteRegulationCommand(targetName, regulationName);
@@ -154,36 +154,28 @@ namespace MigrantProjectMVC.Controllers
             var targetName = targetDTO.targetName;
             var instruction = targetDTO.instructionText;
             var regulationsDTOs = targetDTO.regulations;
-
-            foreach (var item in regulationsDTOs)
-            {
-                var countries = item.countries;
-                var documents = item.documents;
-                var term = Int32.Parse(item.term);
-                var name = item.name;
-            }
-
-            //Выше я написал как распарсить данные, ниже тыкнул return что бы ничего не сохранять пока что
-            return CreateTarget().Result;
-            var command = new RegisterTargetCommand(targetName);
+            
+            var command = new RegisterTargetCommand(targetName, instruction, regulationsDTOs);
 
             var result = await commandProcessor.Process(command);
 
             return await ShowHome(result);
         }
+        
         [HttpPost]
         public async Task<IActionResult> RegisterRegulation([FromBody] RegulationDTO regulationDTO)
         {
-
-            //ToDo накалякай тут метод создания regulation
 
             var regulationName = regulationDTO.name;
             var targetName = regulationDTO.targetName;
             var documents = regulationDTO.documents;
             var countries = regulationDTO.countries;
             var term = Int32.Parse(regulationDTO.term);
-
-            return null;
+            
+            var command = new RegisterRegulationCommand(targetName, regulationName, term, countries, documents);
+            var result = await commandProcessor.Process(command);
+            
+            return await ShowHome(result);
         }
         
 

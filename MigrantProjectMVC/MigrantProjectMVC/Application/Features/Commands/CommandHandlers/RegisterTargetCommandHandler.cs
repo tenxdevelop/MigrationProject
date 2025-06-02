@@ -13,9 +13,9 @@ namespace MigrantProjectMVC.CommandHandlers
             _targetService = targetService;
         }
         
-        public async Task<bool> Handle(RegisterTargetCommand requist)
+        public async Task<bool> Handle(RegisterTargetCommand request)
         {
-            var result = await _targetService.RegisterTarget(requist.TargetName);
+            var result = await _targetService.RegisterTarget(request.TargetName, request.Instruction, request.Regulations);
             
             return result;
         }

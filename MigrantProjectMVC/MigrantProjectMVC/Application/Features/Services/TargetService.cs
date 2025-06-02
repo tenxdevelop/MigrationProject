@@ -18,14 +18,43 @@ namespace MigrantProjectMVC.Application.Features.Services
             _documentRepository = documentRepository;
         }
 
-        public async Task<bool> RegisterTarget(string targetName)
+        public async Task<bool> RegisterTarget(string targetName, string instruction, List<RegulationDTO> regulationDtos)
         {
             var isHaveTarget = await _targetRepository.IsHaveTarget(targetName);
 
             if (isHaveTarget)
                 return false;
 
-            var result = await _targetRepository.RegisterTarget(targetName);
+            var regulations = new List<RegulationModel>();
+
+            foreach (var regulationDto in regulationDtos)
+            {
+                var documents = new List<Document>();
+                foreach (var documentName in regulationDto.documents)
+                {
+                    var document = await _documentRepository.GetDocument(documentName);
+                    documents.Add(document);
+                }
+                
+                var countries = new List<CountryModel>();
+                foreach (var countryName in regulationDto.countries)
+                {
+                    var country = await _countryRepository.GetCountryByName(countryName);
+                    countries.Add(country);
+                }
+
+                var regulation = new RegulationModel()
+                {
+                    Name = regulationDto.name,
+                    Countries = countries,
+                    UseDocuments = documents,
+                    Term = int.Parse(regulationDto.term)
+                };
+                
+                regulations.Add(regulation);
+            }
+            
+            var result = await _targetRepository.RegisterTarget(targetName, instruction, regulations);
             return result;
         }
 

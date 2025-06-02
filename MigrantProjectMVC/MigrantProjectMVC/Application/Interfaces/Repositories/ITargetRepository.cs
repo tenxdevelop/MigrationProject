@@ -11,8 +11,7 @@ namespace MigrantProjectMVC.Interfaces
         Task<bool> Save();
         
         Task<bool> IsHaveTarget(string targetName);
-        
-        Task<bool> RegisterTarget(string targetName);
+        Task<bool> RegisterTarget(string targetName, string instruction, List<RegulationModel> regulations);
         Task<bool> DeleteTarget(string targetName);
         
     }

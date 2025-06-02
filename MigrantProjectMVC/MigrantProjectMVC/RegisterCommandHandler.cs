@@ -20,6 +20,7 @@ namespace MigrantProjectMVC
                 commandProcessor.RegisterCommandHadnler(new DeleteRegulationCommandHandler(factory.GetService<ITargetService>()));
                 commandProcessor.RegisterCommandHadnler(new DeleteTargetCommandHandler(factory.GetService<ITargetService>()));
                 commandProcessor.RegisterCommandHadnler(new RegisterTargetCommandHandler(factory.GetService<ITargetService>()));
+                commandProcessor.RegisterCommandHadnler(new RegisterRegulationCommandHandler(factory.GetService<ITargetService>()));
                 
                 return commandProcessor;
 

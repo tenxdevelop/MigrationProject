@@ -9,7 +9,18 @@ namespace MigrantProjectMVC.Models
         
         public List<RegulationModel> Regulations { get; set; }
 
-
+        public TargetModel()
+        {
+            
+        }
+        
+        public TargetModel(string name, string instruction, List<RegulationModel> regulations)
+        {
+            Name = name;
+            Date = DateTime.Now;
+            Condition = new ConditionModel(instruction);
+            Regulations = regulations;
+        }
         public ConditionModel GetCondition()
         {
             return Condition;

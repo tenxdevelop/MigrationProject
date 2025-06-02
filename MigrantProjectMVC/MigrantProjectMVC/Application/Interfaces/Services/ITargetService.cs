@@ -1,8 +1,10 @@
+using MigrantProjectMVC.Models;
+
 namespace MigrantProjectMVC.Interfaces.Services
 {
     public interface ITargetService
     {
-        Task<bool> RegisterTarget(string targetName);
+        Task<bool> RegisterTarget(string targetName, string instruction, List<RegulationDTO> regulations);
 
         Task<bool> DeleteTarget(string targetName);
 

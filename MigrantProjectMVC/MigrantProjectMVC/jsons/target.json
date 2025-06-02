@@ -91,6 +91,26 @@
             "Name": "ResettlementDocument"
           }
         ]
+      },
+      {
+        "Term": 75,
+        "Name": "custom regulation",
+        "Countries": [
+          {
+            "Name": "\u041A\u0430\u0437\u0430\u0445\u0441\u0442\u0430\u043D"
+          },
+          {
+            "Name": "\u0410\u0440\u043C\u0435\u043D\u0438\u044F"
+          },
+          {
+            "Name": "\u0411\u0435\u043B\u043E\u0440\u0443\u0441\u044C"
+          }
+        ],
+        "UseDocuments": [
+          {
+            "Name": "HighlyQualifiedDocument"
+          }
+        ]
       }
     ]
   }
