@@ -15,6 +15,10 @@
     <a onclick="toCreateRegulationPage()" href="../Target/CreateRegulation">Добавить правило</a>
     <button onclick="CreateTarget()">Сохранить</button>
     <button>Отмена</button>
+    <div style="visibility: hidden" id="regulationsList">
+        <ul id="regulationUl">
+        </ul>
+    </div>
 
 </body>
 
@@ -22,6 +26,6 @@
 <script>
        document.addEventListener("DOMContentLoaded", function () {
             CheckTargetInStorage()
-       }
-    }
+            CheckRegulations()
+       })
 </script>

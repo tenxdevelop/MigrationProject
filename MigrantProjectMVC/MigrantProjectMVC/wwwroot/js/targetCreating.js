@@ -62,3 +62,26 @@ function CheckTargetInStorage() {
         instructionInput.value = target.instruction
     }
 }
+function CheckRegulations() {
+    var targetString = sessionStorage.getItem("target");
+    var target = JSON.parse(targetString)
+    if (targetString === undefined || targetString === null) {
+        return
+    }
+    if (target.regulations.length != 0) {
+        if (target.regulations && typeof target.regulations === 'object') {
+
+            Object.values(target.regulations).forEach(regulation => {
+                var regulationsDiv = document.getElementById('regulationsList')
+                regulationsDiv.style.visibility = 'visible'
+                regulationUl = document.getElementById('regulationUl')
+                if (regulation?.name) {
+                    var newLi = document.createElement('li')
+                    newLi.textContent = regulation.name
+                    regulationUl.appendChild(newLi)
+
+                }
+            });
+        }
+    }
+}
